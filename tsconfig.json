@@ -5,7 +5,7 @@
     "incremental": true,
     "inlineSources": true,
     "newLine": "lf",
-    "outDir": "dist",
+    "outDir": "html/dist",
     "preserveConstEnums": true,
     "sourceMap": true,
     "stripInternal": true
