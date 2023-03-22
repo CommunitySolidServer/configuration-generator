@@ -5,7 +5,9 @@
   "author": "Joachim Van Herwegen <joachim.vanherwegen@ugent.be>",
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
+    "build": "npm run ejs && npm run webpack",
+    "ejs": "ts-node src/build.ts",
+    "webpack": "webpack",
     "prepare": "npm run build"
   },
   "husky": {
@@ -13,9 +15,18 @@
       "pre-commit": "npm run build"
     }
   },
+  "dependencies": {
+    "@types/ejs": "^3.1.2",
+    "ejs": "^3.1.9"
+  },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.1",
+    "@types/node": "^18.15.5",
     "husky": "^4.3.8",
-    "typescript": "^5.0.2"
+    "ts-loader": "^9.4.2",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.2",
+    "webpack": "^5.76.2",
+    "webpack-cli": "^5.0.1"
   }
 }

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Community Solid Server configuration tool</title>
+</head>
+<body>
+  <header>
+    <h1>Community Solid Server configuration generator</h1>
+  </header>
+  <main>
+    <p>
+      This tool can be used to generate configurations for the
+      <a href="https://github.com/CommunitySolidServer/CommunitySolidServer">Community Solid Server</a>.
+      More information about the configurations can be found in the relevant
+      <a href="https://github.com/CommunitySolidServer/tutorials/">tutorials</a>.
+      To customize your configuration even further after it is generated, have a look at the tutorial about
+      <a href="https://github.com/CommunitySolidServer/tutorials/blob/main/custom-configurations.md">customizing configurations</a>
+      specifically.
+    </p>
+    <p>
+      Select the options you want from your server. The corresponding configuration can be found at the bottom.
+      This configuration can then be used to start the server using the <code>-c my-config.json</code> CLI parameter.
+    </p>
+    <form id="form">
+      <% for (const [ index, choice ] of Object.entries(choices)) {%>
+        <h3><%- choice.title %></h3>
+        <p><%- choice.description %></p>
+        <fieldset>
+          <% for (const { key, label } of choice.options) { %>
+            <label>
+              <input type="radio" name="<%= index %>" value="<%- key %>" <% if (choice.default === key) { %> checked<% } %>>
+              <%- label %>
+            </label>
+          <% } %>
+        </fieldset>
+      <% } %>
+    </form>
+    <h2>Generated configuration</h2>
+    <pre id="text"></pre>
+  </main>
+  <script src="./bundle.js"></script>
+</body>
+</html>
