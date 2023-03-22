@@ -4,7 +4,7 @@
 export declare const INTERNAL: {
     readonly name: "internal";
     readonly title: "Internal storage";
-    readonly description: "How the data should be stored on the server.\n  In-memory will cause the data to be lost when the server restarts.\n  SPARQL options requires the <code>--sparqlEndpoint</code> CLI parameter to be set.";
+    readonly description: "How internal data should be stored, such as account data.\n  Data stored in memory will be lost on server restart.";
     readonly options: readonly [{
         readonly value: "memory";
         readonly label: "In-memory";
