@@ -18,7 +18,6 @@ export const DEFAULT_IMPORTS: readonly Import[] = [
   generateImport('app', 'variables', 'default'),
   generateImport('http', 'handler', 'default'),
   generateImport('http', 'static', 'default'),
-  generateImport('identity', 'access', 'public'),
   generateImport('identity', 'handler', 'default'),
   generateImport('identity', 'pod', 'static'),
   generateImport('ldp', 'authentication', 'dpop-bearer'),
@@ -27,7 +26,6 @@ export const DEFAULT_IMPORTS: readonly Import[] = [
   generateImport('ldp', 'metadata-writer', 'default'),
   generateImport('ldp', 'modes', 'default'),
   generateImport('storage', 'middleware', 'default'),
-  generateImport('util', 'index', 'default'),
   generateImport('util', 'logging', 'winston'),
   generateImport('util', 'representation-conversion', 'default'),
   generateImport('util', 'variables', 'default'),
@@ -66,6 +64,7 @@ export function generateImports(choices: Choices): Import[] {
   imports.push(generateImport('app', 'setup', choices.setup === TRUE ? 'required' : 'disabled'));
   imports.push(generateImport('http', 'middleware', choices.webSockets === TRUE ? 'websockets' : 'no-websockets'));
   imports.push(getServerFactoryImport(choices.webSockets === TRUE, choices.https === TRUE));
+  imports.push(generateImport('identity', 'access', choices.restrictAccountApi === TRUE ? 'restricted' : 'public'));
   imports.push(generateImport('identity', 'email', choices.email === TRUE ? 'example' : 'default'));
   imports.push(generateImport('identity', 'ownership', choices.ownership === TRUE ? 'token' : 'unsafe-no-check'));
   imports.push(generateImport('identity', 'registration', choices.registration === TRUE ? 'enabled' : 'disabled'));
@@ -75,6 +74,7 @@ export function generateImports(choices: Choices): Import[] {
   imports.push(generateImport('storage', 'backend', choices.backend));
   imports.push(generateImport('storage', 'key-value', choices.internal));
   imports.push(generateImport('util', 'identifiers', choices.subdomain === TRUE ? 'subdomain' : 'suffix'));
+  imports.push(generateImport('util', 'index', choices.index === TRUE ? 'example' : 'default'));
   imports.push(generateImport('util', 'resource-locker', choices.locking === FALSE ? 'debug-void' : choices.locking));
 
   return imports;

@@ -39,6 +39,18 @@ export function generateBody(choices: Choices): unknown[] {
     body.push(generateOverride('urn:solid-server:default:EmailSender', 'BaseEmailSender', comment, params));
   }
 
+  if (choices.index === TRUE) {
+    const comment = 'An example of how the UI converter can be configured.';
+    const params = {
+      contentType: 'text/html',
+      filePath: './node_modules/mashlib/dist/databrowser.html',
+      options_container: true,
+      options_document: false,
+      options_minQuality: 1
+    }
+    body.push(generateOverride('urn:solid-server:default:DefaultUiConverter', 'ConstantConverter', comment, params));
+  }
+
   if (choices.backend === 'regex') {
     const comment = 'Overrides the default rule to make sure internal data is stored on the file system.';
     const params = {

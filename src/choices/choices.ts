@@ -3,11 +3,13 @@ import { AUTHORIZATION } from './specifics/Authorization';
 import { BACKEND } from './specifics/Backend';
 import { EMAIL } from './specifics/Email';
 import { HTTPS } from './specifics/Https';
+import { INDEX } from './specifics/Index';
 import { INITIALIZE_ROOT } from './specifics/InitializeRoot';
 import { INTERNAL } from './specifics/Internal';
 import { LOCKING } from './specifics/Locking';
 import { OWNERSHIP } from './specifics/Ownership';
 import { REGISTRATION } from './specifics/Registration';
+import { RESTRICT_ACCOUNT_API } from './specifics/RestrictAccountApi';
 import { SETUP } from './specifics/Setup';
 import { SUBDOMAIN } from './specifics/Subdomain';
 import { WEBSOCKETS } from './specifics/WebSockets';
@@ -23,8 +25,11 @@ export const CHOICES = [
   AUTHORIZATION,
   SUBDOMAIN,
   INITIALIZE_ROOT,
+  // TODO: have simpler version where the 4 options below are hidden by default
   SETUP,
   OWNERSHIP,
+  RESTRICT_ACCOUNT_API,
+  INDEX,
 ] as const;
 
 // TODO: check if easier is possible
