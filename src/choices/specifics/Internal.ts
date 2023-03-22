@@ -6,9 +6,8 @@ import { Choice } from '../Choice';
 export const INTERNAL = {
   name: 'internal',
   title: 'Internal storage',
-  description: `How the data should be stored on the server.
-  In-memory will cause the data to be lost when the server restarts.
-  SPARQL options requires the <code>--sparqlEndpoint</code> CLI parameter to be set.`,
+  description: `How internal data should be stored, such as account data.
+  Data stored in memory will be lost on server restart.`,
   options: [
     { value: 'memory', label: 'In-memory' },
     { value: 'resource-store', label: 'Same as data storage (see below)' },
