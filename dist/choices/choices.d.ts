@@ -158,6 +158,30 @@ export declare const CHOICES: readonly [{
         readonly label: "Disabled";
     }];
     readonly default: "true";
+}, {
+    readonly name: "restrictAccountApi";
+    readonly title: "Restrict account API";
+    readonly description: "Use the chosen authorization method for the account-related APIs such as registration.\n  This can be used to only allow authorized requests of specific WebIDs to register accounts.\n  If enabled, the necessary authorization resources will be created\n  in the <code>/.well-known/</code> and <code>/idp/</code> containers providing full access to everyone,\n  so make sure to update these with the correct values.";
+    readonly options: readonly [{
+        readonly value: "true";
+        readonly label: "Enabled";
+    }, {
+        readonly value: "false";
+        readonly label: "Disabled";
+    }];
+    readonly default: "false";
+}, {
+    readonly name: "index";
+    readonly title: "UI converter";
+    readonly description: "Convert all requests to a static page in case HTML is requested.\n  This is needed when you want to add a UI such as <a href=\"https://github.com/SolidOS/mashlib\">Mashlib</a> or\n  <a href=\"https://gitlab.com/vincenttunru/penny\">Penny</a>.\n  You will have to update the configuration file with the correct values.";
+    readonly options: readonly [{
+        readonly value: "true";
+        readonly label: "Enabled";
+    }, {
+        readonly value: "false";
+        readonly label: "Disabled";
+    }];
+    readonly default: "false";
 }];
 type ArrayElement<TArray> = TArray extends readonly (infer TEntry)[] ? TEntry : never;
 type NamedChoice<TChoices, TName> = ArrayElement<TChoices> & {
