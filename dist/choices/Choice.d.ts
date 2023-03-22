@@ -1,8 +1,9 @@
-export interface Choice<T extends string | number | symbol> {
+export interface Choice<T extends string> {
+    readonly name: string;
     readonly title: string;
     readonly description: string;
     readonly options: readonly {
-        key: T;
+        value: T;
         label: string;
     }[];
     readonly default: T;
@@ -11,9 +12,9 @@ export declare const TRUE = "true";
 export declare const FALSE = "false";
 export type BooleanOption = typeof TRUE | typeof FALSE;
 export declare const ENABLED_DISABLED: readonly [{
-    readonly key: "true";
+    readonly value: "true";
     readonly label: "Enabled";
 }, {
-    readonly key: "false";
+    readonly value: "false";
     readonly label: "Disabled";
 }];

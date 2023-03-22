@@ -25,35 +25,97 @@
     </p>
     <form id="form">
       
-        <h3>Initialize root</h3>
-        <p>Marks the root of the server as a storage and writes the necessary authorization resources so it can be accessed.
-  This allows everyone to edit the data on the server so make sure to update those to have the correct values.</p>
+        <h3>Internal storage</h3>
+        <p>How the data should be stored on the server.
+  In-memory will cause the data to be lost when the server restarts.
+  SPARQL options requires the <code>--sparqlEndpoint</code> CLI parameter to be set.</p>
         <fieldset>
           
             <label>
-              <input type="radio" name="initializeRoot" value="true" >
-              Enabled
+              <input type="radio" name="internal" value="memory" >
+              In-memory
             </label>
           
             <label>
-              <input type="radio" name="initializeRoot" value="false"  checked>
+              <input type="radio" name="internal" value="resource-store"  checked>
+              Same as data storage (see below)
+            </label>
+          
+        </fieldset>
+      
+        <h3>Data storage</h3>
+        <p>How the data should be stored on the server.
+  In-memory will cause the data to be lost when the server restarts.
+  SPARQL options requires the <code>--sparqlEndpoint</code> CLI parameter to be set.</p>
+        <fieldset>
+          
+            <label>
+              <input type="radio" name="backend" value="memory" >
+              In-memory
+            </label>
+          
+            <label>
+              <input type="radio" name="backend" value="file"  checked>
+              File system
+            </label>
+          
+            <label>
+              <input type="radio" name="backend" value="sparql" >
+              SPARQL endpoint (requires in-memory internal storage)
+            </label>
+          
+            <label>
+              <input type="radio" name="backend" value="pod-quota-file" >
+              File system (with a pod quota)
+            </label>
+          
+            <label>
+              <input type="radio" name="backend" value="regex" >
+              SPARQL endpoint (using file system for internal data)
+            </label>
+          
+        </fieldset>
+      
+        <h3>Locking</h3>
+        <p>Which system to use to create locks.
+  Locks are used to prevent simultaneous write operations on the same resource.
+  Disabling this can cause data corruption.
+  In-memory locking is insufficient if multiple workers threads are used.</p>
+        <fieldset>
+          
+            <label>
+              <input type="radio" name="locking" value="memory" >
+              In-memory
+            </label>
+          
+            <label>
+              <input type="radio" name="locking" value="file"  checked>
+              File system
+            </label>
+          
+            <label>
+              <input type="radio" name="locking" value="redis" >
+              Redis
+            </label>
+          
+            <label>
+              <input type="radio" name="locking" value="false" >
               Disabled
             </label>
           
         </fieldset>
       
-        <h3>Setup</h3>
-        <p>Requires a setup procedure to occur after starting the server. 
-  This can be used to create a pod immediately on the server.</p>
+        <h3>Registration</h3>
+        <p>Allow users to register new accounts and pods on the server.</p>
         <fieldset>
           
             <label>
-              <input type="radio" name="setup" value="true" >
+              <input type="radio" name="registration" value="true"  checked>
               Enabled
             </label>
           
             <label>
-              <input type="radio" name="setup" value="false"  checked>
+              <input type="radio" name="registration" value="false" >
               Disabled
             </label>
           
@@ -93,25 +155,6 @@
           
         </fieldset>
       
-        <h3>Restrict account API</h3>
-        <p>Use the chosen authorization method for the account-related APIs such as registration.
-  This will create the necessary authorization resources
-  in the <code>/.well-known/</code> and <code>/idp/</code> containers providing full access to everyone,
-  so make sure to update these with the correct values.</p>
-        <fieldset>
-          
-            <label>
-              <input type="radio" name="restrictAccountApi" value="true" >
-              Enabled
-            </label>
-          
-            <label>
-              <input type="radio" name="restrictAccountApi" value="false"  checked>
-              Disabled
-            </label>
-          
-        </fieldset>
-      
         <h3>E-mail server</h3>
         <p>Configure an e-mail server to be used when users forgot their password.
   This will add a new entry to the configuration JSON that needs to be updated with the credentials of your e-mail server.</p>
@@ -124,39 +167,6 @@
           
             <label>
               <input type="radio" name="email" value="false"  checked>
-              Disabled
-            </label>
-          
-        </fieldset>
-      
-        <h3>Ownership verification</h3>
-        <p>Verifies that someone is the owner of an external WebID if they try to register an account with it.
-  Disabling this means this server should not be trusted for authentication.</p>
-        <fieldset>
-          
-            <label>
-              <input type="radio" name="ownership" value="true"  checked>
-              Enabled
-            </label>
-          
-            <label>
-              <input type="radio" name="ownership" value="false" >
-              Disabled
-            </label>
-          
-        </fieldset>
-      
-        <h3>Registration</h3>
-        <p>Allow users to register new accounts and pods on the server.</p>
-        <fieldset>
-          
-            <label>
-              <input type="radio" name="registration" value="true"  checked>
-              Enabled
-            </label>
-          
-            <label>
-              <input type="radio" name="registration" value="false" >
               Disabled
             </label>
           
@@ -179,57 +189,6 @@
           
         </fieldset>
       
-        <h3>E-mail server</h3>
-        <p>How the data should be stored on the server.
-  In-memory will cause the data to be lost when the server restarts.
-  SPARQL options requires the <code>--sparqlEndpoint</code> CLI parameter to be set.</p>
-        <fieldset>
-          
-            <label>
-              <input type="radio" name="backend" value="memory" >
-              In-memory
-            </label>
-          
-            <label>
-              <input type="radio" name="backend" value="file"  checked>
-              File system
-            </label>
-          
-            <label>
-              <input type="radio" name="backend" value="sparql" >
-              SPARQL endpoint (requires in-memory internal storage)
-            </label>
-          
-            <label>
-              <input type="radio" name="backend" value="pod-quota-file" >
-              File system (with a pod quota)
-            </label>
-          
-            <label>
-              <input type="radio" name="backend" value="regex" >
-              SPARQL endpoint (using file system for internal data)
-            </label>
-          
-        </fieldset>
-      
-        <h3>E-mail server</h3>
-        <p>How the data should be stored on the server.
-  In-memory will cause the data to be lost when the server restarts.
-  SPARQL options requires the <code>--sparqlEndpoint</code> CLI parameter to be set.</p>
-        <fieldset>
-          
-            <label>
-              <input type="radio" name="internal" value="memory" >
-              In-memory
-            </label>
-          
-            <label>
-              <input type="radio" name="internal" value="resource-store"  checked>
-              Same as data storage (see below)
-            </label>
-          
-        </fieldset>
-      
         <h3>Pod URLs</h3>
         <p>How URLs for new pods should be created, appending the name to the base URL as a suffix, or using it as a subdomain.</p>
         <fieldset>
@@ -242,6 +201,76 @@
             <label>
               <input type="radio" name="subdomain" value="true" >
               Subdomain (<code>https://test.example.com/</code>)
+            </label>
+          
+        </fieldset>
+      
+        <h3>Initialize root</h3>
+        <p>Marks the root of the server as a storage and writes the necessary authorization resources so it can be accessed.
+  This allows everyone to edit the data on the server so make sure to update those to have the correct values.</p>
+        <fieldset>
+          
+            <label>
+              <input type="radio" name="initializeRoot" value="true" >
+              Enabled
+            </label>
+          
+            <label>
+              <input type="radio" name="initializeRoot" value="false"  checked>
+              Disabled
+            </label>
+          
+        </fieldset>
+      
+        <h3>Setup</h3>
+        <p>Requires a setup procedure to occur after starting the server. 
+  This can be used to create a pod immediately on the server.</p>
+        <fieldset>
+          
+            <label>
+              <input type="radio" name="setup" value="true" >
+              Enabled
+            </label>
+          
+            <label>
+              <input type="radio" name="setup" value="false"  checked>
+              Disabled
+            </label>
+          
+        </fieldset>
+      
+        <h3>Ownership verification</h3>
+        <p>Verifies that someone is the owner of an external WebID if they try to register an account with it.
+  Disabling this means this server should not be trusted for authentication.</p>
+        <fieldset>
+          
+            <label>
+              <input type="radio" name="ownership" value="true"  checked>
+              Enabled
+            </label>
+          
+            <label>
+              <input type="radio" name="ownership" value="false" >
+              Disabled
+            </label>
+          
+        </fieldset>
+      
+        <h3>Restrict account API</h3>
+        <p>Use the chosen authorization method for the account-related APIs such as registration.
+  This will create the necessary authorization resources
+  in the <code>/.well-known/</code> and <code>/idp/</code> containers providing full access to everyone,
+  so make sure to update these with the correct values.</p>
+        <fieldset>
+          
+            <label>
+              <input type="radio" name="restrictAccountApi" value="true" >
+              Enabled
+            </label>
+          
+            <label>
+              <input type="radio" name="restrictAccountApi" value="false"  checked>
+              Disabled
             </label>
           
         </fieldset>
@@ -260,35 +289,6 @@
           
             <label>
               <input type="radio" name="index" value="false"  checked>
-              Disabled
-            </label>
-          
-        </fieldset>
-      
-        <h3>Locking</h3>
-        <p>Which system to use to create locks.
-  Locks are used to prevent simultaneous write operations on the same resource.
-  Disabling this can cause data corruption.
-  In-memory locking is insufficient if multiple workers threads are used.</p>
-        <fieldset>
-          
-            <label>
-              <input type="radio" name="locking" value="memory" >
-              In-memory
-            </label>
-          
-            <label>
-              <input type="radio" name="locking" value="file"  checked>
-              File system
-            </label>
-          
-            <label>
-              <input type="radio" name="locking" value="redis" >
-              Redis
-            </label>
-          
-            <label>
-              <input type="radio" name="locking" value="false" >
               Disabled
             </label>
           
