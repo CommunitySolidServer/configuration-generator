@@ -1,7 +1,7 @@
 import { renderFile } from 'ejs';
 import { mkdir, writeFile } from 'fs/promises';
 import { join } from 'path';
-import { CHOICES } from './util/config';
+import { CHOICES } from './choices/choices';
 
 async function generateHtml(): Promise<void> {
   const html = await renderFile(join(__dirname, '../templates/index.html.ejs'), { choices: CHOICES });

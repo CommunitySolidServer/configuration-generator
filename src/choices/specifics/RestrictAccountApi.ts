@@ -7,7 +7,8 @@ export const RESTRICT_ACCOUNT_API = {
   name: 'restrictAccountApi',
   title: 'Restrict account API',
   description: `Use the chosen authorization method for the account-related APIs such as registration.
-  This will create the necessary authorization resources
+  This can be used to only allow authorized requests of specific WebIDs to register accounts.
+  If enabled, the necessary authorization resources will be created
   in the <code>/.well-known/</code> and <code>/idp/</code> containers providing full access to everyone,
   so make sure to update these with the correct values.`,
   options: ENABLED_DISABLED,

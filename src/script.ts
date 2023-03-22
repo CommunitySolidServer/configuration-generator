@@ -1,15 +1,18 @@
 import { generateConfig } from './util/config';
 
-
 const form = document.getElementById('form') as HTMLFormElement;
 
 // Generates the configuration and sets it as the inner text of `text`
 function updateConfig() {
   const formData = new FormData(form);
   const choices = Object.fromEntries(formData);
-  const config = generateConfig(choices);
   const text = document.getElementById('text')!;
-  text.innerText = JSON.stringify(config, null, 2);
+  try {
+    const config = generateConfig(choices);
+    text.innerText = JSON.stringify(config, null, 2);
+  } catch (error) {
+    text.innerText = `Error: ${(error as Error).message}`;
+  }
 }
 
 updateConfig();
