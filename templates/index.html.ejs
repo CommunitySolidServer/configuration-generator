@@ -24,13 +24,13 @@
       This configuration can then be used to start the server using the <code>-c my-config.json</code> CLI parameter.
     </p>
     <form id="form">
-      <% for (const [ index, choice ] of Object.entries(choices)) {%>
+      <% for (const choice of choices) {%>
         <h3><%- choice.title %></h3>
         <p><%- choice.description %></p>
         <fieldset>
-          <% for (const { key, label } of choice.options) { %>
+          <% for (const { value, label } of choice.options) { %>
             <label>
-              <input type="radio" name="<%= index %>" value="<%- key %>" <% if (choice.default === key) { %> checked<% } %>>
+              <input type="radio" name="<%= choice.name %>" value="<%- value %>" <% if (choice.default === value) { %> checked<% } %>>
               <%- label %>
             </label>
           <% } %>

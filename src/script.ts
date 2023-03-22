@@ -1,4 +1,4 @@
-import { Choices, generateConfig } from './util/config';
+import { generateConfig } from './util/config';
 
 
 const form = document.getElementById('form') as HTMLFormElement;
@@ -6,7 +6,7 @@ const form = document.getElementById('form') as HTMLFormElement;
 // Generates the configuration and sets it as the inner text of `text`
 function updateConfig() {
   const formData = new FormData(form);
-  const choices = Object.fromEntries(formData) as Choices;
+  const choices = Object.fromEntries(formData);
   const config = generateConfig(choices);
   const text = document.getElementById('text')!;
   text.innerText = JSON.stringify(config, null, 2);

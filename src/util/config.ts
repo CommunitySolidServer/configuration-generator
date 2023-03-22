@@ -15,35 +15,31 @@ import { SUBDOMAIN } from '../choices/specifics/Subdomain';
 import { WEBSOCKETS } from '../choices/specifics/WebSockets';
 import { generateImport, Import, Option } from './util';
 
-// TODO: way to integrate this with recipes and/or make this project easily extensible by recipes repo?
-//       ^ just any repo in general, such as hello world
-//       ^ service that takes stuff as input and then wraps around that?
-
-
 export const CONTEXT = 'https://linkedsoftwaredependencies.org/bundles/npm/@solid/community-server/^5.0.0/components/context.jsonld';
 
-// TODO: this needs to be an array so we can determine the order here
-// TODO: also look into not using the term `key` twice
-export const CHOICES = {
-  initializeRoot: INITIALIZE_ROOT,
-  setup: SETUP,
-  webSockets: WEBSOCKETS,
-  https: HTTPS,
-  restrictAccountApi: RESTRICT_ACCOUNT_API,
-  email: EMAIL,
-  ownership: OWNERSHIP,
-  registration: REGISTRATION,
-  authorization: AUTHORIZATION,
-  // TODO: quota override for configuration
-  backend: BACKEND,
-  internal: INTERNAL,
-  subdomain: SUBDOMAIN,
-  index: INDEX,
-  // TODO: redis override for configuration
-  locking: LOCKING,
-} as const;
+export const CHOICES = [
+  INTERNAL,
+  BACKEND,
+  LOCKING,
+  REGISTRATION,
+  WEBSOCKETS,
+  HTTPS,
+  EMAIL,
+  AUTHORIZATION,
+  SUBDOMAIN,
+  INITIALIZE_ROOT,
+  SETUP,
+  OWNERSHIP,
+  RESTRICT_ACCOUNT_API,
+  INDEX,
+] as const;
 
-export type Choices = { [K in keyof typeof CHOICES]: Option<(typeof CHOICES)[K]> }
+// TODO: check if easier is possible, also put in util
+// Creates type where the keys are the possible Choice names, and the corresponding value is an option of that Choice.
+type ArrayElement<TArray> = TArray extends readonly (infer TEntry)[] ? TEntry : never;
+type NamedChoice<TChoices, TName> = ArrayElement<TChoices> & { name: TName };
+type ChoiceMap = { [K in ArrayElement<typeof CHOICES>['name']]: NamedChoice<typeof CHOICES, K> };
+export type Choices = { [K in keyof ChoiceMap]: Option<ChoiceMap[K]> };
 
 export interface Config {
   '@context': typeof CONTEXT,
@@ -103,7 +99,7 @@ function generateImports(choices: Choices): Import[] {
   imports.push(generateImport('http', 'middleware', choices.webSockets === TRUE ? 'websockets' : 'no-websockets'));
   imports.push(getServerFactoryImport(choices.webSockets === TRUE, choices.https === TRUE));
   imports.push(generateImport('identity', 'access', choices.restrictAccountApi === TRUE ? 'restricted' : 'public'));
-  imports.push(generateImport('identity', 'email', choices.email === TRUE ? 'example' : 'disabled'));
+  imports.push(generateImport('identity', 'email', choices.email === TRUE ? 'example' : 'default'));
   imports.push(generateImport('identity', 'ownership', choices.ownership === TRUE ? 'token' : 'unsafe-no-check'));
   imports.push(generateImport('identity', 'registration', choices.registration === TRUE ? 'enabled' : 'disabled'));
   // In v5 there are 2 relevant imports for WAC
@@ -178,11 +174,43 @@ function generateBody(choices: Choices): unknown[] {
     body.push(generateOverride('urn:solid-server:default:RouterRule', 'RegexRouterRule', comment, params));
   }
 
+  if (choices.backend === 'pod-quota-file') {
+    const commentStrategy = 'Sets the maximum pod size to the given values.';
+    const paramsStrategy = {
+      limit_amount: '7000',
+      limit_unit: 'bytes',
+    }
+    body.push(generateOverride('urn:solid-server:default:QuotaStrategy', 'PodQuotaStrategy', commentStrategy, paramsStrategy));
+
+    const commentReporter = 'Ignores internal data when calculating size.';
+    const paramsReporter = {
+      ignoreFolders: [ "^/\\.internal$" ],
+    }
+    body.push(generateOverride('urn:solid-server:default:SizeReporter', 'FileSizeReporter', commentReporter, paramsReporter));
+  }
+
   return body;
 }
 
-// TODO: use actual value for false instead of empty string to prevent accidental choices if nothing is chosen
-export function generateConfig(choices: Choices): Config {
+/**
+ * Completes a partial Choices object by using the defaults of all the unchosen options.
+ */
+function applyDefaults(partialChoices: Partial<Choices>): Choices {
+  const choices = {} as Record<keyof Choices, string>;
+
+  for (const choice of CHOICES) {
+    choices[choice.name] = partialChoices[choice.name] ?? choice.default;
+  }
+
+  return choices as Choices;
+}
+
+/**
+ * Generate a configuration based on the provided choices.
+ */
+export function generateConfig(partialChoices: Partial<Choices>): Config {
+  const choices = applyDefaults(partialChoices);
+
   const imports = generateImports(choices).sort();
   const body = generateBody(choices);
 

@@ -1,6 +1,6 @@
+import { renderFile } from 'ejs';
 import { mkdir, writeFile } from 'fs/promises';
 import { join } from 'path';
-import { renderFile } from 'ejs';
 import { CHOICES } from './util/config';
 
 async function generateHtml(): Promise<void> {

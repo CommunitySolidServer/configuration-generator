@@ -1,8 +1,8 @@
-// TODO: perhaps we don't need the key in this object, this can be the actual key of the larger object this is part of
-export interface Choice<T extends string | number | symbol> {
+export interface Choice<T extends string> {
+  readonly name: string;
   readonly title: string;
   readonly description: string;
-  readonly options: readonly { key: T, label: string }[];
+  readonly options: readonly { value: T, label: string }[];
   readonly default: T;
 }
 
@@ -10,4 +10,7 @@ export interface Choice<T extends string | number | symbol> {
 export const TRUE = 'true';
 export const FALSE = 'false';
 export type BooleanOption = typeof TRUE | typeof FALSE;
-export const ENABLED_DISABLED = [{ key: TRUE, label: 'Enabled' }, { key: FALSE, label: 'Disabled' }] as const;
+export const ENABLED_DISABLED = [
+  { value: TRUE, label: 'Enabled' },
+  { value: FALSE, label: 'Disabled' }
+] as const satisfies Choice<BooleanOption>['options'];

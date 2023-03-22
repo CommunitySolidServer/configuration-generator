@@ -3,7 +3,8 @@ import { BooleanOption, Choice, ENABLED_DISABLED, FALSE } from '../Choice';
 /**
  * Also apply authorization rules to IDP API (GIVES FULL ACCESS WHICH NEEDS TO BE UPDATED).
  */
-export const RESTRICT_ACCOUNT_API: Choice<BooleanOption> = {
+export const RESTRICT_ACCOUNT_API = {
+  name: 'restrictAccountApi',
   title: 'Restrict account API',
   description: `Use the chosen authorization method for the account-related APIs such as registration.
   This will create the necessary authorization resources
@@ -11,4 +12,4 @@ export const RESTRICT_ACCOUNT_API: Choice<BooleanOption> = {
   so make sure to update these with the correct values.`,
   options: ENABLED_DISABLED,
   default: FALSE,
-}
+} as const satisfies Choice<BooleanOption>;
