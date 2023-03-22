@@ -4,7 +4,6 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Community Solid Server configuration tool</title>
-  <script src="./dist/script.js"></script>
 </head>
 <body>
   <header>
@@ -25,176 +24,280 @@
       This configuration can then be used to start the server using the <code>-c my-config.json</code> CLI parameter.
     </p>
     <form id="form">
-      <h3>Internal storage</h3>
-      <p>
-        How internal data should be stored, such as account data.
-        Data stored in memory will be lost on server restart.
-      </p>
-      <fieldset>
-        <label><input type="radio" name="internal" value="memory">In-memory</label>
-        <label><input type="radio" name="internal" value="resource-store" checked>Same as data storage (see below)</label>
-      </fieldset>
-
-      <h3>Data storage</h3>
-      <p>
-        How the data should be stored on the server.
-        In-memory will cause the data to be lost when the server restarts.
-        SPARQL options requires the <code>--sparqlEndpoint</code> CLI parameter to be set.
-      </p>
-      <fieldset>
-        <label><input type="radio" name="backend" value="memory" >In-memory</label>
-        <label><input type="radio" name="backend" value="file" checked>File system</label>
-        <label><input type="radio" name="backend" value="sparql">SPARQL endpoint (requires in-memory internal storage)</label>
-        <label><input type="radio" name="backend" value="pod-quota-file">File system (with a pod quota)</label>
-        <label><input type="radio" name="backend" value="regex">SPARQL endpoint (using file system for internal data)</label>
-      </fieldset>
-
-      <h3>Locking</h3>
-      <p>
-        Which system to use to create locks.
-        Disabling this can cause data corruption.
-        In-memory locking is insufficient if multiple workers threads are used.
-      </p>
-      <fieldset>
-        <label><input type="radio" name="locking" value="memory">In-memory</label>
-        <label><input type="radio" name="locking" value="file" checked>File system</label>
-        <label><input type="radio" name="locking" value="redis">Redis</label>
-        <label><input type="radio" name="locking" value="">Disabled</label>
-      </fieldset>
-
-      <h3>Registration</h3>
-      <p>
-        Allow users to register new accounts and pods on the server.
-      </p>
-      <fieldset>
-        <label><input type="radio" name="registration" value="on" checked>Enabled</label>
-        <label><input type="radio" name="registration" value="">Disabled</label>
-      </fieldset>
-
-      <h3>Websockets</h3>
-      <p>
-        Adds support for the deprecated Solid WebSockets API 0.1.
-        This allows users to be notified when resources change, without requiring authentication.
-      </p>
-      <fieldset>
-        <label><input type="radio" name="webSockets" value="on">Enabled</label>
-        <label><input type="radio" name="webSockets" value="" checked>Disabled</label>
-      </fieldset>
-
-      <h3>HTTPS</h3>
-      <p>
-        Determines if the server should be started for HTTP or HTTPS.
-        If HTTPS is chosen, CLI parameters <code>--httpsKey</code> and <code>--httpsCert</code> need to be provided.
-      </p>
-      <fieldset>
-        <label><input type="radio" name="https" value="" checked>HTTP</label>
-        <label><input type="radio" name="https" value="on">HTTPS</label>
-      </fieldset>
-
-      <h3>E-mail server</h3>
-      <p>
-        Configure an e-mail server to be used when users forgot their password.
-        This will add a new entry to the configuration JSON that needs to be updated with the credentials of your e-mail server.
-      </p>
-      <fieldset>
-        <label><input type="radio" name="email" value="on">Enabled</label>
-        <label><input type="radio" name="email" value="" checked>Disabled</label>
-      </fieldset>
-
-      <h3>Authorization</h3>
-      <p>
-        The authorization system to restrict who can access resources.
-        Disabling this allows everyone to access and modify all resources on the server.
-      </p>
-      <fieldset>
-        <label><input type="radio" name="authorization" value="wac" checked>Web Access Control</label>
-        <label><input type="radio" name="authorization" value="">Disabled</label>
-      </fieldset>
-
-      <h3>Pod identifiers</h3>
-      <p>
-        How URLs for new pods should be created, appending the name to the base URL as a suffix,
-        or using it as a subdomain.
-      </p>
-      <fieldset>
-        <label><input type="radio" name="subdomain" value="" checked>Suffix (<code>http://example.com/test/</code>)</label>
-        <label><input type="radio" name="subdomain" value="on">Subdomain (<code>http://test.example.com/</code>)</label>
-      </fieldset>
-
-      <h3>Initialize root</h3>
-      <p>
-        Marks the root of the server as a storage and writes the necessary authorization resources so it can be accessed.
-        This allows everyone to edit the data on the server so make sure to update those to have the correct values.
-      </p>
-      <fieldset>
-        <label><input type="radio" name="initializeRoot" value="on">Enabled</label>
-        <label><input type="radio" name="initializeRoot" value="" checked>Disabled</label>
-      </fieldset>
-
-      <h3>Setup</h3>
-      <p>
-        Requires a setup procedure to occur after starting the server.
-        This can be used to create a pod immediately on the server.
-      </p>
-      <fieldset>
-        <label><input type="radio" name="setup" value="on">Enabled</label>
-        <label><input type="radio" name="setup" value="" checked>Disabled</label>
-      </fieldset>
-
-      <h3>Ownership verification</h3>
-      <p>
-        Verifies that someone is the owner of an external WebID if they try to register an account with it.
-        Disabling this means this server should not be trusted for authentication.
-      </p>
-      <fieldset>
-        <label><input type="radio" name="ownership" value="on" checked>Enabled</label>
-        <label><input type="radio" name="ownership" value="">Disabled</label>
-      </fieldset>
-
-      <h3>Restrict account API</h3>
-      <p>
-        Use the chosen authorization method for the account-related APIs such as registration.
-        This will create the necessary authorization resources
-        in the <code>/.well-known/</code> and <code>/idp/</code> containers providing full access to everyone,
-        so make sure to update these with the correct values.
-      </p>
-      <fieldset>
-        <label><input type="radio" name="restrictIdpApi" value="on">Enabled</label>
-        <label><input type="radio" name="restrictIdpApi" value="" checked>Disabled</label>
-      </fieldset>
-
-      <h3>UI converter</h3>
-      <p>
-        Convert all requests to a static page in case HTML is requested.
-        This is needed when you want to add a UI such as <a href="https://github.com/SolidOS/mashlib">Mashlib</a> or
-        <a href="https://gitlab.com/vincenttunru/penny">Penny</a>.
-        You will have to update the configuration file with the correct values.
-      </p>
-      <fieldset>
-        <label><input type="radio" name="index" value="on">Enabled</label>
-        <label><input type="radio" name="index" value="" checked>Disabled</label>
-      </fieldset>
+      
+        <h3>Initialize root</h3>
+        <p>Marks the root of the server as a storage and writes the necessary authorization resources so it can be accessed.
+  This allows everyone to edit the data on the server so make sure to update those to have the correct values.</p>
+        <fieldset>
+          
+            <label>
+              <input type="radio" name="initializeRoot" value="true" >
+              Enabled
+            </label>
+          
+            <label>
+              <input type="radio" name="initializeRoot" value="false"  checked>
+              Disabled
+            </label>
+          
+        </fieldset>
+      
+        <h3>Setup</h3>
+        <p>Requires a setup procedure to occur after starting the server. 
+  This can be used to create a pod immediately on the server.</p>
+        <fieldset>
+          
+            <label>
+              <input type="radio" name="setup" value="true" >
+              Enabled
+            </label>
+          
+            <label>
+              <input type="radio" name="setup" value="false"  checked>
+              Disabled
+            </label>
+          
+        </fieldset>
+      
+        <h3>WebSockets</h3>
+        <p>Adds support for the deprecated Solid WebSockets API 0.1.
+  This allows users to be notified when resources change, without requiring authentication.</p>
+        <fieldset>
+          
+            <label>
+              <input type="radio" name="webSockets" value="true" >
+              Enabled
+            </label>
+          
+            <label>
+              <input type="radio" name="webSockets" value="false"  checked>
+              Disabled
+            </label>
+          
+        </fieldset>
+      
+        <h3>HTTPS</h3>
+        <p>Determines if the server should be started for HTTP or HTTPS.
+  If HTTPS is chosen, CLI parameters <code>--httpsKey</code> and <code>--httpsCert</code> need to be provided.</p>
+        <fieldset>
+          
+            <label>
+              <input type="radio" name="https" value="true" >
+              Enabled
+            </label>
+          
+            <label>
+              <input type="radio" name="https" value="false"  checked>
+              Disabled
+            </label>
+          
+        </fieldset>
+      
+        <h3>Restrict account API</h3>
+        <p>Use the chosen authorization method for the account-related APIs such as registration.
+  This will create the necessary authorization resources
+  in the <code>/.well-known/</code> and <code>/idp/</code> containers providing full access to everyone,
+  so make sure to update these with the correct values.</p>
+        <fieldset>
+          
+            <label>
+              <input type="radio" name="restrictAccountApi" value="true" >
+              Enabled
+            </label>
+          
+            <label>
+              <input type="radio" name="restrictAccountApi" value="false"  checked>
+              Disabled
+            </label>
+          
+        </fieldset>
+      
+        <h3>E-mail server</h3>
+        <p>Configure an e-mail server to be used when users forgot their password.
+  This will add a new entry to the configuration JSON that needs to be updated with the credentials of your e-mail server.</p>
+        <fieldset>
+          
+            <label>
+              <input type="radio" name="email" value="true" >
+              Enabled
+            </label>
+          
+            <label>
+              <input type="radio" name="email" value="false"  checked>
+              Disabled
+            </label>
+          
+        </fieldset>
+      
+        <h3>Ownership verification</h3>
+        <p>Verifies that someone is the owner of an external WebID if they try to register an account with it.
+  Disabling this means this server should not be trusted for authentication.</p>
+        <fieldset>
+          
+            <label>
+              <input type="radio" name="ownership" value="true"  checked>
+              Enabled
+            </label>
+          
+            <label>
+              <input type="radio" name="ownership" value="false" >
+              Disabled
+            </label>
+          
+        </fieldset>
+      
+        <h3>Registration</h3>
+        <p>Allow users to register new accounts and pods on the server.</p>
+        <fieldset>
+          
+            <label>
+              <input type="radio" name="registration" value="true"  checked>
+              Enabled
+            </label>
+          
+            <label>
+              <input type="radio" name="registration" value="false" >
+              Disabled
+            </label>
+          
+        </fieldset>
+      
+        <h3>Authorization</h3>
+        <p>The authorization system to restrict who can access resources.
+  Disabling this allows everyone to access and modify all resources on the server.</p>
+        <fieldset>
+          
+            <label>
+              <input type="radio" name="authorization" value="wac" >
+              Web Access Control
+            </label>
+          
+            <label>
+              <input type="radio" name="authorization" value="false"  checked>
+              Disabled
+            </label>
+          
+        </fieldset>
+      
+        <h3>E-mail server</h3>
+        <p>How the data should be stored on the server.
+  In-memory will cause the data to be lost when the server restarts.
+  SPARQL options requires the <code>--sparqlEndpoint</code> CLI parameter to be set.</p>
+        <fieldset>
+          
+            <label>
+              <input type="radio" name="backend" value="memory" >
+              In-memory
+            </label>
+          
+            <label>
+              <input type="radio" name="backend" value="file"  checked>
+              File system
+            </label>
+          
+            <label>
+              <input type="radio" name="backend" value="sparql" >
+              SPARQL endpoint (requires in-memory internal storage)
+            </label>
+          
+            <label>
+              <input type="radio" name="backend" value="pod-quota-file" >
+              File system (with a pod quota)
+            </label>
+          
+            <label>
+              <input type="radio" name="backend" value="regex" >
+              SPARQL endpoint (using file system for internal data)
+            </label>
+          
+        </fieldset>
+      
+        <h3>E-mail server</h3>
+        <p>How the data should be stored on the server.
+  In-memory will cause the data to be lost when the server restarts.
+  SPARQL options requires the <code>--sparqlEndpoint</code> CLI parameter to be set.</p>
+        <fieldset>
+          
+            <label>
+              <input type="radio" name="internal" value="memory" >
+              In-memory
+            </label>
+          
+            <label>
+              <input type="radio" name="internal" value="resource-store"  checked>
+              Same as data storage (see below)
+            </label>
+          
+        </fieldset>
+      
+        <h3>Pod URLs</h3>
+        <p>How URLs for new pods should be created, appending the name to the base URL as a suffix, or using it as a subdomain.</p>
+        <fieldset>
+          
+            <label>
+              <input type="radio" name="subdomain" value="false"  checked>
+              Suffix (<code>https://example.com/test/</code>)
+            </label>
+          
+            <label>
+              <input type="radio" name="subdomain" value="true" >
+              Subdomain (<code>https://test.example.com/</code>)
+            </label>
+          
+        </fieldset>
+      
+        <h3>UI converter</h3>
+        <p>Convert all requests to a static page in case HTML is requested.
+  This is needed when you want to add a UI such as <a href="https://github.com/SolidOS/mashlib">Mashlib</a> or
+  <a href="https://gitlab.com/vincenttunru/penny">Penny</a>.
+  You will have to update the configuration file with the correct values.</p>
+        <fieldset>
+          
+            <label>
+              <input type="radio" name="index" value="true" >
+              Enabled
+            </label>
+          
+            <label>
+              <input type="radio" name="index" value="false"  checked>
+              Disabled
+            </label>
+          
+        </fieldset>
+      
+        <h3>Locking</h3>
+        <p>Which system to use to create locks.
+  Locks are used to prevent simultaneous write operations on the same resource.
+  Disabling this can cause data corruption.
+  In-memory locking is insufficient if multiple workers threads are used.</p>
+        <fieldset>
+          
+            <label>
+              <input type="radio" name="locking" value="memory" >
+              In-memory
+            </label>
+          
+            <label>
+              <input type="radio" name="locking" value="file"  checked>
+              File system
+            </label>
+          
+            <label>
+              <input type="radio" name="locking" value="redis" >
+              Redis
+            </label>
+          
+            <label>
+              <input type="radio" name="locking" value="false" >
+              Disabled
+            </label>
+          
+        </fieldset>
+      
     </form>
     <h2>Generated configuration</h2>
     <pre id="text"></pre>
   </main>
+  <script src="./bundle.js"></script>
 </body>
-<script>
-  const form = document.getElementById('form');
-
-  function updateConfig() {
-    const formData = new FormData(form);
-    const choices = Object.fromEntries(formData);
-    const config = generateConfig(choices);
-    const text = document.getElementById('text');
-    text.innerText = JSON.stringify(config, null, 2);
-  }
-
-  updateConfig();
-
-  const inputs = form.getElementsByTagName('input');
-  for(const input of inputs) {
-    input.addEventListener('click', updateConfig);
-  }
-</script>
 </html>
