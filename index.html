@@ -13,11 +13,13 @@
     <p>
       This tool can be used to generate configurations for the
       <a href="https://github.com/CommunitySolidServer/CommunitySolidServer">Community Solid Server</a>.
-      More information about the configurations can be found in the relevant
+      More information about the configurations can be found in the
+      <a href="https://github.com/CommunitySolidServer/CommunitySolidServer/tree/main/config">CSS <code>config</code> folder</a>
+      and in the relevant
       <a href="https://github.com/CommunitySolidServer/tutorials/">tutorials</a>.
-      To customize your configuration even further after it is generated, have a look at the tutorial about
+      There is a tutorial specifically about
       <a href="https://github.com/CommunitySolidServer/tutorials/blob/main/custom-configurations.md">customizing configurations</a>
-      specifically.
+      if you want to customize your configuration even more afterwards.
     </p>
     <p>
       Select the options you want from your server. The corresponding configuration can be found at the bottom.
@@ -251,45 +253,6 @@
           
             <label>
               <input type="radio" name="ownership" value="false" >
-              Disabled
-            </label>
-          
-        </fieldset>
-      
-        <h3>Restrict account API</h3>
-        <p>Use the chosen authorization method for the account-related APIs such as registration.
-  This can be used to only allow authorized requests of specific WebIDs to register accounts.
-  If enabled, the necessary authorization resources will be created
-  in the <code>/.well-known/</code> and <code>/idp/</code> containers providing full access to everyone,
-  so make sure to update these with the correct values.</p>
-        <fieldset>
-          
-            <label>
-              <input type="radio" name="restrictAccountApi" value="true" >
-              Enabled
-            </label>
-          
-            <label>
-              <input type="radio" name="restrictAccountApi" value="false"  checked>
-              Disabled
-            </label>
-          
-        </fieldset>
-      
-        <h3>UI converter</h3>
-        <p>Convert all requests to a static page in case HTML is requested.
-  This is needed when you want to add a UI such as <a href="https://github.com/SolidOS/mashlib">Mashlib</a> or
-  <a href="https://gitlab.com/vincenttunru/penny">Penny</a>.
-  You will have to update the configuration file with the correct values.</p>
-        <fieldset>
-          
-            <label>
-              <input type="radio" name="index" value="true" >
-              Enabled
-            </label>
-          
-            <label>
-              <input type="radio" name="index" value="false"  checked>
               Disabled
             </label>
           
