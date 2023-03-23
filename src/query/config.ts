@@ -8,7 +8,7 @@ export interface ModifiedConfig {
 }
 
 const schema = object({
-  '@context': array(string().required()).optional(),
+  '@context': array(string().required()).ensure().optional(),
   import: array(string().required()).optional(),
   '@graph': array(object().required()).optional(),
 });

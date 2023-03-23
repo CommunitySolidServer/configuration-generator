@@ -12,10 +12,9 @@ that it can be used to generate configurations that work with your new component
 All of these options can be combined.
 
 The site takes 3 query parameters as input to further modify the options and results users get to see:
-
-    * `config` can be used to add additional data to the output, in case your component needs additional configuration.
-    * `options` limits the options available to a user, in case some would conflict with your component.
-    * `removeImports` removes the chosen imports from the output, in case your component replaces some of the imports.
+  * `config` can be used to add additional data to the output, in case your component needs additional configuration.
+  * `options` limits the options available to a user, in case some would conflict with your component.
+  * `removeImports` removes the chosen imports from the output, in case your component replaces some of the imports.
 
 ### Adding data to the output
 
