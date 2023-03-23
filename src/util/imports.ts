@@ -1,6 +1,7 @@
 import { FALSE, TRUE } from '../choices/Choice';
 import { Choices } from '../choices/choices';
 
+// Also allow empty strings to indicate an import was left out
 export type Import = `css:config/${string}/${string}/${string}.json`;
 
 /**

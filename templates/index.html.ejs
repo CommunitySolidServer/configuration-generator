@@ -27,16 +27,18 @@
     </p>
     <form id="form">
       <% for (const choice of choices) {%>
-        <h3><%- choice.title %></h3>
-        <p><%- choice.description %></p>
-        <fieldset>
-          <% for (const { value, label } of choice.options) { %>
-            <label>
-              <input type="radio" name="<%= choice.name %>" value="<%- value %>" <% if (choice.default === value) { %> checked<% } %>>
-              <%- label %>
-            </label>
-          <% } %>
-        </fieldset>
+        <div id="<%= choice.name %>">
+          <h3><%- choice.title %></h3>
+          <p><%- choice.description %></p>
+          <fieldset>
+            <% for (const { value, label } of choice.options) { %>
+              <label id="<%= `${choice.name}:${value}` %>">
+                <input type="radio" name="<%= choice.name %>" value="<%- value %>" <% if (choice.default === value) { %> checked<% } %>>
+                <%- label %>
+              </label>
+            <% } %>
+          </fieldset>
+        </div>
       <% } %>
     </form>
     <h2>Generated configuration</h2>
