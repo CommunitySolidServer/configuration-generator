@@ -27,4 +27,4 @@ jobs:
         with:
           branch: gh-pages
           folder: html
-          clean: true
+          clean: false
