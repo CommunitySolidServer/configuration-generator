@@ -34,7 +34,7 @@ to the result.
 ### Limiting the options available to users
 
 The `options` parameter expects a JSON key/value object with the keys being the choices for which you want to limit the options,
-and the values being arrays of strings containing the options that are still valid.
+and the values being a string or an arrays of strings containing the options that are still valid.
 
 To know what strings to use for the available choices and strings, you can have a look at the HTML source of the generator, 
 or the objects in <https://github.com/CommunitySolidServer/configuration-generator/tree/main/src/choices/specifics>.
@@ -49,7 +49,9 @@ but you should also make sure to remove the corresponding imports as mentioned b
 
 ### Removing imports
 
-The `removeImports` parameter expects an array of strings. Any import that starts with any of the strings in this array will be removed.
+The `removeImports` parameter expects a string or an array of strings. 
+Any import that contains that string or any of the strings in the array will be removed.
+This is applied after adding the imports from the `config` parameter.
 
 For example, the following page will remove all storage related imports from the output configuration:
 <https://communitysolidserver.github.io/configuration-generator/?removeImports=%5B%22css%3Aconfig%2Fstorage%2F%22%5D>

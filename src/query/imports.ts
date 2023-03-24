@@ -1,6 +1,6 @@
 import { array, string } from 'yup';
 
-const schema = array(string().required()).required();
+const schema = array(string().required()).ensure().required();
 
 export function parseRemoveImportsParameter(input?: string | null): string[] {
   if (!input) {
@@ -10,5 +10,5 @@ export function parseRemoveImportsParameter(input?: string | null): string[] {
 }
 
 export function filterImports<T extends string>(imports: T[], removeList: string[]): T[] {
-  return imports.filter((imp): boolean => !removeList.some((remove): boolean => imp.startsWith(remove)));
+  return imports.filter((imp): boolean => !removeList.some((remove): boolean => imp.includes(remove)));
 }
