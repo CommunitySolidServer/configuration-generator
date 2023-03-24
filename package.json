@@ -5,7 +5,7 @@
   "author": "Joachim Van Herwegen <joachim.vanherwegen@ugent.be>",
   "license": "MIT",
   "scripts": {
-    "build": "npm run ejs && npm run webpack",
+    "build": "npm run webpack && npm run ejs",
     "ejs": "ts-node src/build.ts",
     "webpack": "webpack",
     "prepare": "npm run build"
