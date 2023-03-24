@@ -18,11 +18,17 @@ The site takes 3 query parameters as input to further modify the options and res
 
 ### Adding data to the output
 
-The value for the `config` parameter can either be JSON, or a link to a JSON resource.
-The JSON can have 3 optional fields: `@context`, `import` and `@graph`.
-Each of those will be appended to the corresponding fields of the generated configuration.
+The `config` parameter can be used to append data to the generated configuration.
+A JSON body containing 3 (optional) fields is expected: `@context`, `import` and `@graph`.
+These will be merged with the output configuration.
 Duplicate context values will be filtered out,
 and imports that correspond to one of the standard CSS imports will be removed.
+
+The actual value of the parameter can be one of the following:
+  * A JSON serialization of the expected body.
+  * A URL pointing to such a JSON serialization.
+  * A JSON serialization of an array of URL strings, each of those pointing to such serializations.
+    These will be merged together.
 
 This [example](https://communitysolidserver.github.io/configuration-generator/?config=%7B%0A%20%20%22%40context%22%3A%20%20%22https%3A%2F%2Flinkedsoftwaredependencies.org%2Fbundles%2Fnpm%2Fhello-world-module%2F%5E5.0.0%2Fcomponents%2Fcontext.jsonld%22%2C%0A%20%20%22import%22%3A%20%5B%20%20%22hello-world%3Aconfig%2Fhello-world.json%22%20%5D%0A%7D%0A)
 adds a new context and import to the result.

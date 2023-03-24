@@ -30,7 +30,9 @@ function updateConfig() {
     const config = generateConfig(choices);
 
     try {
-      applyExternalConfig(config, externalConfig);
+      if (externalConfig) {
+        applyExternalConfig(config, externalConfig);
+      }
     } catch (error) {
       console.error(error);
     }

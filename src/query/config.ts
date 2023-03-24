@@ -7,40 +7,79 @@ export interface ModifiedConfig {
   '@graph': unknown[];
 }
 
-const schema = object({
+const configSchema = object({
   '@context': array(string().required()).ensure().optional(),
   import: array(string().required()).optional(),
   '@graph': array(object().required()).optional(),
 });
 
+const urlSchema = array(string().required()).required();
+
 // Matches the default CSS imports
 const IMPORT_REGEX = /^css:config(?:\/[^/]+){3}\.json$/;
 
-export async function parseConfigParameter(input?: string | null): Promise<Partial<ModifiedConfig> | undefined> {
-  if (!input) {
-    return;
-  }
-
-  let url: string;
+function isUrl(input: string): boolean {
   try {
-    url = (new URL(input)).href;
-    const res = await fetch(url);
-    if (res.status === 200) {
-      input = await res.text();
-    }
+    new URL(input);
+    return true;
   } catch {
-    // Not a valid URL, try to interpret as JSON
+    return false;
+  }
+}
+
+async function fetchConfig(url: string): Promise<Partial<ModifiedConfig>> {
+  const res = await fetch(url);
+  if (res.status === 200) {
+    return configSchema.validate(await res.json());
+  }
+  console.error(`Unable to fetch config from ${url}: ${await res.text()}`);
+  return {}
+}
+
+// Merge all external configs together into one
+function mergeConfigs(configs: Partial<ModifiedConfig>[]): ModifiedConfig {
+  const base: ModifiedConfig = {
+    '@context': [],
+    import: [],
+    '@graph': [],
+  };
+
+  for (const config of configs) {
+    applyExternalConfig(base, config);
+  }
+  return base;
+}
+
+// 4 options: no input / URL / JSON array of URL strings / JSON body
+export async function parseConfigParameter(input?: string | null): Promise<Partial<ModifiedConfig>> {
+  if (!input) {
+    return {};
   }
 
-  return schema.validate(JSON.parse(input));
+  if (isUrl(input)) {
+    return fetchConfig(input);
+  }
+
+  const json = await JSON.parse(input);
+
+  // Input could potentially be a single JSON string, which we can also interpret as a URL
+  if (typeof json === 'string' && isUrl(json)) {
+    return fetchConfig(json);
+  }
+
+  // Assume an array of URLs if JSON is an array
+  if (Array.isArray(json)) {
+    const urls = await urlSchema.validate(json);
+    const configs = await Promise.all(urls.map(fetchConfig));
+    return mergeConfigs(configs);
+  }
+
+  // Assume the input is an inline config body
+  return configSchema.validate(json);
 }
 
 // Modifies `config` in place
-export function applyExternalConfig(config: ModifiedConfig, external?: Partial<ModifiedConfig>): void {
-  if (!external) {
-    return;
-  }
-
+export function applyExternalConfig(config: ModifiedConfig, external: Partial<ModifiedConfig>): void {
   if (external['@context']) {
     const externalContexts = Array.isArray(external['@context']) ? external['@context'] : [ external['@context'] ];
     const contexts = Array.isArray(config['@context']) ? config['@context'] : [ config['@context'] ];
