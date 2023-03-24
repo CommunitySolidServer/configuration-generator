@@ -5,16 +5,14 @@ import { array, lazy, object, Schema, string } from 'yup';
 // This way configurations for external components can disable features that would be incompatible.
 
 // Object with dynamic keys that have string array as value
-const schema = lazy((obj) => object(Object.fromEntries(Object.keys(obj).map((key): [ string, Schema ] => [ key, array(string().required()).required() ]))));
+const schema = lazy((obj) => object(Object.fromEntries(Object.keys(obj).map((key): [ string, Schema ] =>
+  [ key, array(string().required()).ensure().required() ]
+))));
 
 function validateOptions(name: string, options: string[]): { root: HTMLElement, labels: HTMLLabelElement[] } {
   const root = document.getElementById(name);
   if (!root) {
     throw new Error(`"${name}" is not a known choice.`);
-  }
-  // Need to know at least 1 option that would not cause conflicts.
-  if (options.length === 0) {
-    throw new Error(`Options for "${name}" are empty. Not applying changes.`);
   }
 
   const labels = Array.from(root.getElementsByTagName('label'));
@@ -40,11 +38,10 @@ function handleOptions(optionMap: Record<string, string[]>) {
       continue;
     }
 
-    // Remove unchosen labels
-    for (const label of labels) {
-      if (!options.some((option): boolean => `${name}:${option}` === label.id)) {
-        label.remove();
-      }
+    // Remove everything if there are no options
+    if (options.length === 0) {
+      root.remove();
+      return;
     }
 
     // If there is only 1 option left we remove the choice for the user
@@ -54,6 +51,14 @@ function handleOptions(optionMap: Record<string, string[]>) {
       hidden.setAttribute('name', name);
       hidden.setAttribute('value', options[0]);
       root.replaceWith(hidden);
+      return;
+    }
+
+    // Remove unchosen labels
+    for (const label of labels) {
+      if (!options.some((option): boolean => `${name}:${option}` === label.id)) {
+        label.remove();
+      }
     }
   }
 }

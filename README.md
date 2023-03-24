@@ -44,6 +44,9 @@ For example, the following page only allows the backend to be the in-memory or f
 
 If only 1 option is provided for a given choice, it will be removed from the page and instead embedded as a hidden input.
 
+If no options are provided, the entire block is removed,
+but you should also make sure to remove the corresponding imports as mentioned below to prevent unexpected behaviour.
+
 ### Removing imports
 
 The `removeImports` parameter expects an array of strings. Any import that starts with any of the strings in this array will be removed.
