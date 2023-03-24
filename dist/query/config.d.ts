@@ -3,5 +3,5 @@ export interface ModifiedConfig {
     import: string[];
     '@graph': unknown[];
 }
-export declare function parseConfigParameter(input?: string | null): Promise<Partial<ModifiedConfig> | undefined>;
-export declare function applyExternalConfig(config: ModifiedConfig, external?: Partial<ModifiedConfig>): void;
+export declare function parseConfigParameter(input?: string | null): Promise<Partial<ModifiedConfig>>;
+export declare function applyExternalConfig(config: ModifiedConfig, external: Partial<ModifiedConfig>): void;
