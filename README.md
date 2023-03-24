@@ -16,6 +16,13 @@ The site takes 3 query parameters as input to further modify the options and res
   * `options` limits the options available to a user, in case some would conflict with your component.
   * `removeImports` removes the chosen imports from the output, in case your component replaces some of the imports.
 
+For example, [this page](https://communitysolidserver.github.io/configuration-generator/?options={%22index%22:[]}&removeImports=[%22css:config/util/index%22]&config=[%20%22https://raw.githubusercontent.com/CommunitySolidServer/Recipes/main/mashlib/config-mashlib.json%22,%20%22https://raw.githubusercontent.com/CommunitySolidServer/hello-world-component/main/hello-world-file.json%22])
+allows you to generate configurations that also include the necessary components
+to support the [mashlib configurations](https://github.com/CommunitySolidServer/Recipes/tree/main/mashlib)
+of the CSS Recipes repository and the component of the 
+[Hello World tutorial repository](https://github.com/CommunitySolidServer/hello-world-component).
+You would still need to install the necessary dependencies to use such a configuration though.
+
 ### Adding data to the output
 
 The `config` parameter can be used to append data to the generated configuration.
