@@ -3,6 +3,9 @@ import { filterImports, parseRemoveImportsParameter } from './query/imports';
 import { handleOptionsParameter } from './query/options';
 import { generateConfig } from './util/config';
 
+// Import our bootstrap CSS and JS
+import '/styling/main.js';
+
 const searchParams = new URLSearchParams(location.search);
 const removeList = parseRemoveImportsParameter(searchParams.get('removeImports'));
 
