@@ -1,4 +1,18 @@
 const path = require('path');
+const exec = require('child_process').exec;
+
+class AfterExportPlugin {
+  apply(compiler) {
+    // Specify the event hook to attach to
+    compiler.hooks.afterEmit.tapAsync('AfterExportPlugin', _ => {
+      console.log('>>>> Compiling EJS templates <<<<<<');
+      exec('npm run ejs', (err, stdout, stderr) => {
+        if (stdout) process.stdout.write(stdout);
+        if (stderr) process.stderr.write(stderr);
+      });
+    });
+  }
+}
 
 module.exports = {
   entry: './src/script.ts',
@@ -41,5 +55,9 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'webpack'),
-  }
+  },
+  plugins: [
+    // Build EJS templates after webpack has finished outputting files to webpack folder
+    new AfterExportPlugin(),
+  ]
 };
