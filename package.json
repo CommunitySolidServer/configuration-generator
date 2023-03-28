@@ -5,10 +5,11 @@
   "author": "Joachim Van Herwegen <joachim.vanherwegen@ugent.be>",
   "license": "MIT",
   "scripts": {
-    "build": "npm run webpack && npm run ejs",
+    "build": "npm run webpack",
     "ejs": "ts-node src/build.ts",
     "webpack": "webpack",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "dev": "nodemon --watch src --watch templates --watch styling -e js,ts,ejs,scss --exec \"npm run build\""
   },
   "husky": {
     "hooks": {
@@ -30,6 +31,7 @@
     "babel-loader": "^9.1.2",
     "css-loader": "^6.7.3",
     "husky": "^4.3.8",
+    "nodemon": "^2.0.22",
     "postcss-loader": "^7.1.0",
     "sass": "^1.60.0",
     "sass-loader": "^13.2.1",
