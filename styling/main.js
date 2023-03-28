@@ -1,5 +1,5 @@
 // Import our custom CSS
-import './styles.scss'
+import './styles.scss';
 
-// Import all of Bootstrap's JS
-import * as bootstrap from 'bootstrap'
+// Import required modules of Bootstrap's JS
+import { Alert, Collapse, Toast } from 'bootstrap';
