@@ -5,6 +5,8 @@ import { generateConfig } from './util/config';
 
 // Import our bootstrap CSS and JS
 import '/styling/main.js';
+import { copy } from 'clipboard';
+import { Toast } from 'bootstrap';
 
 const searchParams = new URLSearchParams(location.search);
 const removeList = parseRemoveImportsParameter(searchParams.get('removeImports'));
@@ -29,6 +31,7 @@ function updateConfig() {
   const formData = new FormData(form);
   const choices = Object.fromEntries(formData);
   const text = document.getElementById('text')!;
+  const errorAlert = document.getElementById('error-alert');
   try {
     const config = generateConfig(choices);
 
@@ -46,8 +49,33 @@ function updateConfig() {
     config.import = filterImports(config.import, removeList);
 
     text.innerText = JSON.stringify(config, null, 2);
-  } catch (error) {
-    text.innerText = `Error: ${(error as Error).message}`;
+
+    // Hide error alert
+    if (errorAlert) { errorAlert.style.display = 'none' }
+  } catch (err) {
+    let error = `Error: ${(err as Error).message}`;
+    text.innerText = error;
+    // Show error alert
+    if (errorAlert) {
+      errorAlert.style.display = 'block';
+      const txt = document.getElementById('error-text');
+      if (txt) { txt.innerText = error }
+    }
+  }
+}
+
+/**
+ * Copies the configuration to the clipboard
+ */
+function copyConfig(): void {
+  const text = document.getElementById('text');
+  if (text) {
+    copy(text.innerText);
+    const toastLiveExample = document.getElementById('liveToast')
+    if (toastLiveExample) {
+      const toast = new Toast(toastLiveExample)
+      toast.show()
+    }
   }
 }
 
@@ -55,6 +83,12 @@ updateConfig();
 
 // Update the configuration every time someone changes an input
 const inputs = form.getElementsByTagName('input');
-for(const input of inputs) {
+for (const input of inputs) {
   input.addEventListener('click', updateConfig);
+}
+
+// Add listener to copy button
+const copyButtons = document.getElementsByClassName('copy-btns') as HTMLCollectionOf<HTMLButtonElement>;
+for (const btn of copyButtons) {
+  btn.addEventListener('click', copyConfig);
 }
