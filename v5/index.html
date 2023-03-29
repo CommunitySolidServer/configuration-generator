@@ -12,7 +12,9 @@
 
     <!-- Configuration toggle button on smaller devices -->
     <button class="btn btn-primary d-lg-none config-btn" type="button" data-bs-toggle="offcanvas"
-      data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive" title="Toggle generated config"><i class="bi bi-braces"></i></button>
+            data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive" title="Toggle generated config">
+      <i class="bi bi-braces"></i>
+    </button>
 
     <!-- Toast on successful copy -->
     <div class="toast-container position-fixed top-0 end-0 p-3">
@@ -36,15 +38,16 @@
           This tool can be used to generate configurations for the
           <a href="https://github.com/CommunitySolidServer/CommunitySolidServer">Community Solid Server</a>.
           More information about the configurations can be found in the
-          <a href="https://github.com/CommunitySolidServer/CommunitySolidServer/tree/main/config">CSS
-            <code>config</code>
-            folder</a>
+          <a href="https://github.com/CommunitySolidServer/CommunitySolidServer/tree/main/config">
+            CSS <code>config</code> folder
+          </a>
           and in the relevant
           <a href="https://github.com/CommunitySolidServer/tutorials/">tutorials</a>.
           There is a tutorial specifically about
-          <a href="https://github.com/CommunitySolidServer/tutorials/blob/main/custom-configurations.md">customizing
-            configurations</a>
-          if you want to customize your configuration even more afterwards.
+          <a href="https://github.com/CommunitySolidServer/tutorials/blob/main/custom-configurations.md">
+            customizing configurations
+          </a>
+          if you want to customize your configuration even more afterward.
         </p>
         <p class="intro">
           Select the options you want from your server. The corresponding configuration can be found at the bottom.
@@ -68,7 +71,7 @@
     <div class="row">
 
       <!-- Configuration options -->
-      <div class="col-lg-8 settings">
+      <div class="col-lg-7 settings">
         <form id="form">
           <div class="accordion accordion-flush" id="accordionChoices">
             
@@ -76,37 +79,38 @@
               <div class="accordion-item" id="internal">
                 <!-- Item header-->
                 <h2 class="accordion-header" id="internal-header">
-                  <button class="accordion-button " type="button"
-                    data-bs-toggle="collapse" data-bs-target="#internal-collapse"
-                    aria-controls="#internal-collapse" aria-labelledby="#internal-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#internal-collapse"
+                          aria-controls="#internal-collapse" aria-labelledby="#internal-header">
                     Internal storage
                   </button>
                 </h2>
 
                 <!-- Item collapsable content-->
-                <div id="internal-collapse"
-                  class="accordion-collapse collapse show"
-                  data-bs-parent="#accordionChoices">
+                <div id="internal-collapse" class="accordion-collapse collapse" data-bs-parent="#accordionChoices">
                   <div class="accordion-body choice">
                     <p class="description">How internal data should be stored, such as account data.
   Data stored in memory will be lost on server restart.</p>
                     <fieldset class="radios">
                       
 
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="internal" value="memory"
-                            id="internal:memory" >
-                          <label class="form-check-label" for="internal:memory">
+                        <!-- Item collapsable content -->
+                        <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                        <div class="form-check option" id="internal:memory">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="internal" value="memory"
+                                    >
                             In-memory
                           </label>
                         </div>
 
                         
 
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="internal" value="resource-store"
-                            id="internal:resource-store" checked>
-                          <label class="form-check-label" for="internal:resource-store">
+                        <!-- Item collapsable content -->
+                        <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                        <div class="form-check option" id="internal:resource-store">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="internal" value="resource-store"
+                                    checked>
                             Same as data storage (see below)
                           </label>
                         </div>
@@ -122,17 +126,14 @@
               <div class="accordion-item" id="backend">
                 <!-- Item header-->
                 <h2 class="accordion-header" id="backend-header">
-                  <button class="accordion-button collapsed" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#backend-collapse"
-                    aria-controls="#backend-collapse" aria-labelledby="#backend-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#backend-collapse"
+                          aria-controls="#backend-collapse" aria-labelledby="#backend-header">
                     Data storage
                   </button>
                 </h2>
 
                 <!-- Item collapsable content-->
-                <div id="backend-collapse"
-                  class="accordion-collapse collapse"
-                  data-bs-parent="#accordionChoices">
+                <div id="backend-collapse" class="accordion-collapse collapse" data-bs-parent="#accordionChoices">
                   <div class="accordion-body choice">
                     <p class="description">How the data should be stored on the server.
   In-memory will cause the data to be lost when the server restarts.
@@ -140,50 +141,60 @@
                     <fieldset class="radios">
                       
 
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="backend" value="memory"
-                            id="backend:memory" >
-                          <label class="form-check-label" for="backend:memory">
+                        <!-- Item collapsable content -->
+                        <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                        <div class="form-check option" id="backend:memory">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="backend" value="memory"
+                                    >
                             In-memory
                           </label>
                         </div>
 
                         
 
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="backend" value="file"
-                            id="backend:file" checked>
-                          <label class="form-check-label" for="backend:file">
+                        <!-- Item collapsable content -->
+                        <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                        <div class="form-check option" id="backend:file">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="backend" value="file"
+                                    checked>
                             File system
                           </label>
                         </div>
 
                         
 
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="backend" value="sparql"
-                            id="backend:sparql" >
-                          <label class="form-check-label" for="backend:sparql">
+                        <!-- Item collapsable content -->
+                        <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                        <div class="form-check option" id="backend:sparql">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="backend" value="sparql"
+                                    >
                             SPARQL endpoint (requires in-memory internal storage)
                           </label>
                         </div>
 
                         
 
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="backend" value="pod-quota-file"
-                            id="backend:pod-quota-file" >
-                          <label class="form-check-label" for="backend:pod-quota-file">
+                        <!-- Item collapsable content -->
+                        <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                        <div class="form-check option" id="backend:pod-quota-file">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="backend" value="pod-quota-file"
+                                    >
                             File system (with a pod quota)
                           </label>
                         </div>
 
                         
 
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="backend" value="regex"
-                            id="backend:regex" >
-                          <label class="form-check-label" for="backend:regex">
+                        <!-- Item collapsable content -->
+                        <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                        <div class="form-check option" id="backend:regex">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="backend" value="regex"
+                                    >
                             SPARQL endpoint (using file system for internal data)
                           </label>
                         </div>
@@ -199,17 +210,14 @@
               <div class="accordion-item" id="locking">
                 <!-- Item header-->
                 <h2 class="accordion-header" id="locking-header">
-                  <button class="accordion-button collapsed" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#locking-collapse"
-                    aria-controls="#locking-collapse" aria-labelledby="#locking-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#locking-collapse"
+                          aria-controls="#locking-collapse" aria-labelledby="#locking-header">
                     Locking
                   </button>
                 </h2>
 
                 <!-- Item collapsable content-->
-                <div id="locking-collapse"
-                  class="accordion-collapse collapse"
-                  data-bs-parent="#accordionChoices">
+                <div id="locking-collapse" class="accordion-collapse collapse" data-bs-parent="#accordionChoices">
                   <div class="accordion-body choice">
                     <p class="description">Which system to use to create locks.
   Locks are used to prevent simultaneous write operations on the same resource.
@@ -218,40 +226,48 @@
                     <fieldset class="radios">
                       
 
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="locking" value="memory"
-                            id="locking:memory" >
-                          <label class="form-check-label" for="locking:memory">
+                        <!-- Item collapsable content -->
+                        <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                        <div class="form-check option" id="locking:memory">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="locking" value="memory"
+                                    >
                             In-memory
                           </label>
                         </div>
 
                         
 
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="locking" value="file"
-                            id="locking:file" checked>
-                          <label class="form-check-label" for="locking:file">
+                        <!-- Item collapsable content -->
+                        <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                        <div class="form-check option" id="locking:file">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="locking" value="file"
+                                    checked>
                             File system
                           </label>
                         </div>
 
                         
 
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="locking" value="redis"
-                            id="locking:redis" >
-                          <label class="form-check-label" for="locking:redis">
+                        <!-- Item collapsable content -->
+                        <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                        <div class="form-check option" id="locking:redis">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="locking" value="redis"
+                                    >
                             Redis
                           </label>
                         </div>
 
                         
 
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="locking" value="false"
-                            id="locking:false" >
-                          <label class="form-check-label" for="locking:false">
+                        <!-- Item collapsable content -->
+                        <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                        <div class="form-check option" id="locking:false">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="locking" value="false"
+                                    >
                             Disabled
                           </label>
                         </div>
@@ -267,36 +283,37 @@
               <div class="accordion-item" id="registration">
                 <!-- Item header-->
                 <h2 class="accordion-header" id="registration-header">
-                  <button class="accordion-button collapsed" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#registration-collapse"
-                    aria-controls="#registration-collapse" aria-labelledby="#registration-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#registration-collapse"
+                          aria-controls="#registration-collapse" aria-labelledby="#registration-header">
                     Registration
                   </button>
                 </h2>
 
                 <!-- Item collapsable content-->
-                <div id="registration-collapse"
-                  class="accordion-collapse collapse"
-                  data-bs-parent="#accordionChoices">
+                <div id="registration-collapse" class="accordion-collapse collapse" data-bs-parent="#accordionChoices">
                   <div class="accordion-body choice">
                     <p class="description">Allow users to register new accounts and pods on the server.</p>
                     <fieldset class="radios">
                       
 
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="registration" value="true"
-                            id="registration:true" checked>
-                          <label class="form-check-label" for="registration:true">
+                        <!-- Item collapsable content -->
+                        <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                        <div class="form-check option" id="registration:true">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="registration" value="true"
+                                    checked>
                             Enabled
                           </label>
                         </div>
 
                         
 
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="registration" value="false"
-                            id="registration:false" >
-                          <label class="form-check-label" for="registration:false">
+                        <!-- Item collapsable content -->
+                        <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                        <div class="form-check option" id="registration:false">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="registration" value="false"
+                                    >
                             Disabled
                           </label>
                         </div>
@@ -312,37 +329,38 @@
               <div class="accordion-item" id="webSockets">
                 <!-- Item header-->
                 <h2 class="accordion-header" id="webSockets-header">
-                  <button class="accordion-button collapsed" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#webSockets-collapse"
-                    aria-controls="#webSockets-collapse" aria-labelledby="#webSockets-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#webSockets-collapse"
+                          aria-controls="#webSockets-collapse" aria-labelledby="#webSockets-header">
                     WebSockets
                   </button>
                 </h2>
 
                 <!-- Item collapsable content-->
-                <div id="webSockets-collapse"
-                  class="accordion-collapse collapse"
-                  data-bs-parent="#accordionChoices">
+                <div id="webSockets-collapse" class="accordion-collapse collapse" data-bs-parent="#accordionChoices">
                   <div class="accordion-body choice">
                     <p class="description">Adds support for the deprecated Solid WebSockets API 0.1.
   This allows users to be notified when resources change, without requiring authentication.</p>
                     <fieldset class="radios">
                       
 
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="webSockets" value="true"
-                            id="webSockets:true" >
-                          <label class="form-check-label" for="webSockets:true">
+                        <!-- Item collapsable content -->
+                        <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                        <div class="form-check option" id="webSockets:true">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="webSockets" value="true"
+                                    >
                             Enabled
                           </label>
                         </div>
 
                         
 
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="webSockets" value="false"
-                            id="webSockets:false" checked>
-                          <label class="form-check-label" for="webSockets:false">
+                        <!-- Item collapsable content -->
+                        <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                        <div class="form-check option" id="webSockets:false">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="webSockets" value="false"
+                                    checked>
                             Disabled
                           </label>
                         </div>
@@ -358,37 +376,38 @@
               <div class="accordion-item" id="https">
                 <!-- Item header-->
                 <h2 class="accordion-header" id="https-header">
-                  <button class="accordion-button collapsed" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#https-collapse"
-                    aria-controls="#https-collapse" aria-labelledby="#https-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#https-collapse"
+                          aria-controls="#https-collapse" aria-labelledby="#https-header">
                     HTTPS
                   </button>
                 </h2>
 
                 <!-- Item collapsable content-->
-                <div id="https-collapse"
-                  class="accordion-collapse collapse"
-                  data-bs-parent="#accordionChoices">
+                <div id="https-collapse" class="accordion-collapse collapse" data-bs-parent="#accordionChoices">
                   <div class="accordion-body choice">
                     <p class="description">Determines if the server should be started for HTTP or HTTPS.
   If HTTPS is chosen, CLI parameters <code>--httpsKey</code> and <code>--httpsCert</code> need to be provided.</p>
                     <fieldset class="radios">
                       
 
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="https" value="true"
-                            id="https:true" >
-                          <label class="form-check-label" for="https:true">
+                        <!-- Item collapsable content -->
+                        <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                        <div class="form-check option" id="https:true">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="https" value="true"
+                                    >
                             Enabled
                           </label>
                         </div>
 
                         
 
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="https" value="false"
-                            id="https:false" checked>
-                          <label class="form-check-label" for="https:false">
+                        <!-- Item collapsable content -->
+                        <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                        <div class="form-check option" id="https:false">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="https" value="false"
+                                    checked>
                             Disabled
                           </label>
                         </div>
@@ -404,37 +423,38 @@
               <div class="accordion-item" id="email">
                 <!-- Item header-->
                 <h2 class="accordion-header" id="email-header">
-                  <button class="accordion-button collapsed" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#email-collapse"
-                    aria-controls="#email-collapse" aria-labelledby="#email-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#email-collapse"
+                          aria-controls="#email-collapse" aria-labelledby="#email-header">
                     E-mail server
                   </button>
                 </h2>
 
                 <!-- Item collapsable content-->
-                <div id="email-collapse"
-                  class="accordion-collapse collapse"
-                  data-bs-parent="#accordionChoices">
+                <div id="email-collapse" class="accordion-collapse collapse" data-bs-parent="#accordionChoices">
                   <div class="accordion-body choice">
                     <p class="description">Configure an e-mail server to be used when users forgot their password.
   This will add a new entry to the configuration JSON that needs to be updated with the credentials of your e-mail server.</p>
                     <fieldset class="radios">
                       
 
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="email" value="true"
-                            id="email:true" >
-                          <label class="form-check-label" for="email:true">
+                        <!-- Item collapsable content -->
+                        <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                        <div class="form-check option" id="email:true">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="email" value="true"
+                                    >
                             Enabled
                           </label>
                         </div>
 
                         
 
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="email" value="false"
-                            id="email:false" checked>
-                          <label class="form-check-label" for="email:false">
+                        <!-- Item collapsable content -->
+                        <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                        <div class="form-check option" id="email:false">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="email" value="false"
+                                    checked>
                             Disabled
                           </label>
                         </div>
@@ -450,37 +470,38 @@
               <div class="accordion-item" id="authorization">
                 <!-- Item header-->
                 <h2 class="accordion-header" id="authorization-header">
-                  <button class="accordion-button collapsed" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#authorization-collapse"
-                    aria-controls="#authorization-collapse" aria-labelledby="#authorization-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#authorization-collapse"
+                          aria-controls="#authorization-collapse" aria-labelledby="#authorization-header">
                     Authorization
                   </button>
                 </h2>
 
                 <!-- Item collapsable content-->
-                <div id="authorization-collapse"
-                  class="accordion-collapse collapse"
-                  data-bs-parent="#accordionChoices">
+                <div id="authorization-collapse" class="accordion-collapse collapse" data-bs-parent="#accordionChoices">
                   <div class="accordion-body choice">
                     <p class="description">The authorization system to restrict who can access resources.
   Disabling this allows everyone to access and modify all resources on the server.</p>
                     <fieldset class="radios">
                       
 
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="authorization" value="wac"
-                            id="authorization:wac" >
-                          <label class="form-check-label" for="authorization:wac">
+                        <!-- Item collapsable content -->
+                        <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                        <div class="form-check option" id="authorization:wac">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="authorization" value="wac"
+                                    >
                             Web Access Control
                           </label>
                         </div>
 
                         
 
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="authorization" value="false"
-                            id="authorization:false" checked>
-                          <label class="form-check-label" for="authorization:false">
+                        <!-- Item collapsable content -->
+                        <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                        <div class="form-check option" id="authorization:false">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="authorization" value="false"
+                                    checked>
                             Disabled
                           </label>
                         </div>
@@ -496,36 +517,37 @@
               <div class="accordion-item" id="subdomain">
                 <!-- Item header-->
                 <h2 class="accordion-header" id="subdomain-header">
-                  <button class="accordion-button collapsed" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#subdomain-collapse"
-                    aria-controls="#subdomain-collapse" aria-labelledby="#subdomain-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#subdomain-collapse"
+                          aria-controls="#subdomain-collapse" aria-labelledby="#subdomain-header">
                     Pod URLs
                   </button>
                 </h2>
 
                 <!-- Item collapsable content-->
-                <div id="subdomain-collapse"
-                  class="accordion-collapse collapse"
-                  data-bs-parent="#accordionChoices">
+                <div id="subdomain-collapse" class="accordion-collapse collapse" data-bs-parent="#accordionChoices">
                   <div class="accordion-body choice">
                     <p class="description">How URLs for new pods should be created, appending the name to the base URL as a suffix, or using it as a subdomain.</p>
                     <fieldset class="radios">
                       
 
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="subdomain" value="false"
-                            id="subdomain:false" checked>
-                          <label class="form-check-label" for="subdomain:false">
+                        <!-- Item collapsable content -->
+                        <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                        <div class="form-check option" id="subdomain:false">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="subdomain" value="false"
+                                    checked>
                             Suffix (<code>https://example.com/test/</code>)
                           </label>
                         </div>
 
                         
 
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="subdomain" value="true"
-                            id="subdomain:true" >
-                          <label class="form-check-label" for="subdomain:true">
+                        <!-- Item collapsable content -->
+                        <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                        <div class="form-check option" id="subdomain:true">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="subdomain" value="true"
+                                    >
                             Subdomain (<code>https://test.example.com/</code>)
                           </label>
                         </div>
@@ -541,37 +563,38 @@
               <div class="accordion-item" id="initializeRoot">
                 <!-- Item header-->
                 <h2 class="accordion-header" id="initializeRoot-header">
-                  <button class="accordion-button collapsed" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#initializeRoot-collapse"
-                    aria-controls="#initializeRoot-collapse" aria-labelledby="#initializeRoot-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#initializeRoot-collapse"
+                          aria-controls="#initializeRoot-collapse" aria-labelledby="#initializeRoot-header">
                     Initialize root
                   </button>
                 </h2>
 
                 <!-- Item collapsable content-->
-                <div id="initializeRoot-collapse"
-                  class="accordion-collapse collapse"
-                  data-bs-parent="#accordionChoices">
+                <div id="initializeRoot-collapse" class="accordion-collapse collapse" data-bs-parent="#accordionChoices">
                   <div class="accordion-body choice">
                     <p class="description">Marks the root of the server as a storage and writes the necessary authorization resources so it can be accessed.
   This allows everyone to edit the data on the server so make sure to update those to have the correct values.</p>
                     <fieldset class="radios">
                       
 
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="initializeRoot" value="true"
-                            id="initializeRoot:true" >
-                          <label class="form-check-label" for="initializeRoot:true">
+                        <!-- Item collapsable content -->
+                        <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                        <div class="form-check option" id="initializeRoot:true">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="initializeRoot" value="true"
+                                    >
                             Enabled
                           </label>
                         </div>
 
                         
 
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="initializeRoot" value="false"
-                            id="initializeRoot:false" checked>
-                          <label class="form-check-label" for="initializeRoot:false">
+                        <!-- Item collapsable content -->
+                        <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                        <div class="form-check option" id="initializeRoot:false">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="initializeRoot" value="false"
+                                    checked>
                             Disabled
                           </label>
                         </div>
@@ -587,37 +610,38 @@
               <div class="accordion-item" id="setup">
                 <!-- Item header-->
                 <h2 class="accordion-header" id="setup-header">
-                  <button class="accordion-button collapsed" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#setup-collapse"
-                    aria-controls="#setup-collapse" aria-labelledby="#setup-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#setup-collapse"
+                          aria-controls="#setup-collapse" aria-labelledby="#setup-header">
                     Setup
                   </button>
                 </h2>
 
                 <!-- Item collapsable content-->
-                <div id="setup-collapse"
-                  class="accordion-collapse collapse"
-                  data-bs-parent="#accordionChoices">
+                <div id="setup-collapse" class="accordion-collapse collapse" data-bs-parent="#accordionChoices">
                   <div class="accordion-body choice">
                     <p class="description">Requires a setup procedure to occur after starting the server. 
   This can be used to create a pod immediately on the server.</p>
                     <fieldset class="radios">
                       
 
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="setup" value="true"
-                            id="setup:true" >
-                          <label class="form-check-label" for="setup:true">
+                        <!-- Item collapsable content -->
+                        <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                        <div class="form-check option" id="setup:true">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="setup" value="true"
+                                    >
                             Enabled
                           </label>
                         </div>
 
                         
 
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="setup" value="false"
-                            id="setup:false" checked>
-                          <label class="form-check-label" for="setup:false">
+                        <!-- Item collapsable content -->
+                        <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                        <div class="form-check option" id="setup:false">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="setup" value="false"
+                                    checked>
                             Disabled
                           </label>
                         </div>
@@ -633,37 +657,38 @@
               <div class="accordion-item" id="ownership">
                 <!-- Item header-->
                 <h2 class="accordion-header" id="ownership-header">
-                  <button class="accordion-button collapsed" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#ownership-collapse"
-                    aria-controls="#ownership-collapse" aria-labelledby="#ownership-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ownership-collapse"
+                          aria-controls="#ownership-collapse" aria-labelledby="#ownership-header">
                     Ownership verification
                   </button>
                 </h2>
 
                 <!-- Item collapsable content-->
-                <div id="ownership-collapse"
-                  class="accordion-collapse collapse"
-                  data-bs-parent="#accordionChoices">
+                <div id="ownership-collapse" class="accordion-collapse collapse" data-bs-parent="#accordionChoices">
                   <div class="accordion-body choice">
                     <p class="description">Verifies that someone is the owner of an external WebID if they try to register an account with it.
   Disabling this means this server should not be trusted for authentication.</p>
                     <fieldset class="radios">
                       
 
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="ownership" value="true"
-                            id="ownership:true" checked>
-                          <label class="form-check-label" for="ownership:true">
+                        <!-- Item collapsable content -->
+                        <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                        <div class="form-check option" id="ownership:true">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="ownership" value="true"
+                                    checked>
                             Enabled
                           </label>
                         </div>
 
                         
 
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="ownership" value="false"
-                            id="ownership:false" >
-                          <label class="form-check-label" for="ownership:false">
+                        <!-- Item collapsable content -->
+                        <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                        <div class="form-check option" id="ownership:false">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="ownership" value="false"
+                                    >
                             Disabled
                           </label>
                         </div>
@@ -679,17 +704,14 @@
               <div class="accordion-item" id="restrictAccountApi">
                 <!-- Item header-->
                 <h2 class="accordion-header" id="restrictAccountApi-header">
-                  <button class="accordion-button collapsed" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#restrictAccountApi-collapse"
-                    aria-controls="#restrictAccountApi-collapse" aria-labelledby="#restrictAccountApi-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#restrictAccountApi-collapse"
+                          aria-controls="#restrictAccountApi-collapse" aria-labelledby="#restrictAccountApi-header">
                     Restrict account API
                   </button>
                 </h2>
 
                 <!-- Item collapsable content-->
-                <div id="restrictAccountApi-collapse"
-                  class="accordion-collapse collapse"
-                  data-bs-parent="#accordionChoices">
+                <div id="restrictAccountApi-collapse" class="accordion-collapse collapse" data-bs-parent="#accordionChoices">
                   <div class="accordion-body choice">
                     <p class="description">Use the chosen authorization method for the account-related APIs such as registration.
   This can be used to only allow authorized requests of specific WebIDs to register accounts.
@@ -699,20 +721,24 @@
                     <fieldset class="radios">
                       
 
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="restrictAccountApi" value="true"
-                            id="restrictAccountApi:true" >
-                          <label class="form-check-label" for="restrictAccountApi:true">
+                        <!-- Item collapsable content -->
+                        <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                        <div class="form-check option" id="restrictAccountApi:true">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="restrictAccountApi" value="true"
+                                    >
                             Enabled
                           </label>
                         </div>
 
                         
 
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="restrictAccountApi" value="false"
-                            id="restrictAccountApi:false" checked>
-                          <label class="form-check-label" for="restrictAccountApi:false">
+                        <!-- Item collapsable content -->
+                        <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                        <div class="form-check option" id="restrictAccountApi:false">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="restrictAccountApi" value="false"
+                                    checked>
                             Disabled
                           </label>
                         </div>
@@ -728,17 +754,14 @@
               <div class="accordion-item" id="index">
                 <!-- Item header-->
                 <h2 class="accordion-header" id="index-header">
-                  <button class="accordion-button collapsed" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#index-collapse"
-                    aria-controls="#index-collapse" aria-labelledby="#index-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#index-collapse"
+                          aria-controls="#index-collapse" aria-labelledby="#index-header">
                     UI converter
                   </button>
                 </h2>
 
                 <!-- Item collapsable content-->
-                <div id="index-collapse"
-                  class="accordion-collapse collapse"
-                  data-bs-parent="#accordionChoices">
+                <div id="index-collapse" class="accordion-collapse collapse" data-bs-parent="#accordionChoices">
                   <div class="accordion-body choice">
                     <p class="description">Convert all requests to a static page in case HTML is requested.
   This is needed when you want to add a UI such as <a href="https://github.com/SolidOS/mashlib">Mashlib</a> or
@@ -747,20 +770,24 @@
                     <fieldset class="radios">
                       
 
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="index" value="true"
-                            id="index:true" >
-                          <label class="form-check-label" for="index:true">
+                        <!-- Item collapsable content -->
+                        <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                        <div class="form-check option" id="index:true">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="index" value="true"
+                                    >
                             Enabled
                           </label>
                         </div>
 
                         
 
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="index" value="false"
-                            id="index:false" checked>
-                          <label class="form-check-label" for="index:false">
+                        <!-- Item collapsable content -->
+                        <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                        <div class="form-check option" id="index:false">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="index" value="false"
+                                    checked>
                             Disabled
                           </label>
                         </div>
@@ -776,28 +803,17 @@
         </form>
       </div>
 
-      <!-- Generated config: on large screens -->
-      <div class="col-lg-4">
+      <!-- Generated configuration -->
+      <div class="col-lg-5">
         <div class="offcanvas-lg offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-          id="offcanvasResponsive" aria-labelledby="offcanvasResponsiveLabel">
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasResponsiveLabel">
-              Generated config
-              <button type="button" class="btn btn-primary btn-sm copy-btns" data-bs-toggle="tooltip"
-                data-bs-placement="top" title="Copy to clipboard">
-                <i class="bi bi-clipboard"></i>
-              </button>
-            </h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive"
-              aria-label="Close"></button>
-          </div>
+          id="offcanvasResponsive" aria-label="Generated config">
           <div class="offcanvas-body flex-column">
-            <h5 class="d-none d-lg-block" id="offcanvasResponsiveLabel">
+            <h5 class="offcanvas-title">
               Generated config
-              <button type="button" class="btn btn-primary btn-sm copy-btns" data-bs-toggle="tooltip"
-                data-bs-placement="top" title="Copy to clipboard">
+              <button type="button" class="btn btn-primary btn-sm copy-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy to clipboard">
                 <i class="bi bi-clipboard"></i>
               </button>
+              <button type="button" class="btn-close d-lg-none float-end" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
             </h5>
             <pre id="text" class="config mb-0 pb-2"></pre>
           </div>
