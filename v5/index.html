@@ -1,333 +1,811 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Community Solid Server configuration tool</title>
 </head>
+
 <body>
-  <header>
-    <h1>Community Solid Server configuration generator</h1>
-  </header>
-  <main>
-    <p>
-      This tool can be used to generate configurations for the
-      <a href="https://github.com/CommunitySolidServer/CommunitySolidServer">Community Solid Server</a>.
-      More information about the configurations can be found in the
-      <a href="https://github.com/CommunitySolidServer/CommunitySolidServer/tree/main/config">CSS <code>config</code> folder</a>
-      and in the relevant
-      <a href="https://github.com/CommunitySolidServer/tutorials/">tutorials</a>.
-      There is a tutorial specifically about
-      <a href="https://github.com/CommunitySolidServer/tutorials/blob/main/custom-configurations.md">customizing configurations</a>
-      if you want to customize your configuration even more afterwards.
-    </p>
-    <p>
-      Select the options you want from your server. The corresponding configuration can be found at the bottom.
-      This configuration can then be used to start the server using the <code>-c my-config.json</code> CLI parameter.
-    </p>
-    <form id="form">
-      
-        <div id="internal">
-          <h3>Internal storage</h3>
-          <p>How internal data should be stored, such as account data.
-  Data stored in memory will be lost on server restart.</p>
-          <fieldset>
-            
-              <label id="internal:memory">
-                <input type="radio" name="internal" value="memory" >
-                In-memory
-              </label>
-            
-              <label id="internal:resource-store">
-                <input type="radio" name="internal" value="resource-store"  checked>
-                Same as data storage (see below)
-              </label>
-            
-          </fieldset>
+  <div class="container-lg">
+
+    <!-- Configuration toggle button on smaller devices -->
+    <button class="btn btn-primary d-lg-none config-btn" type="button" data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive" title="Toggle generated config"><i class="bi bi-braces"></i></button>
+
+    <!-- Toast on successful copy -->
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+      <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header text-success">
+          <i class="bi bi-clipboard-check me-1"></i>
+          <strong class="me-auto">Success</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
-      
-        <div id="backend">
-          <h3>Data storage</h3>
-          <p>How the data should be stored on the server.
+        <div class="toast-body">
+          Configuration copied!
+        </div>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <div class="row">
+      <div class="col">
+        <h1>Community Solid Server <small class="text-muted">configuration generator</small></h1>
+        <p class="intro">
+          This tool can be used to generate configurations for the
+          <a href="https://github.com/CommunitySolidServer/CommunitySolidServer">Community Solid Server</a>.
+          More information about the configurations can be found in the
+          <a href="https://github.com/CommunitySolidServer/CommunitySolidServer/tree/main/config">CSS
+            <code>config</code>
+            folder</a>
+          and in the relevant
+          <a href="https://github.com/CommunitySolidServer/tutorials/">tutorials</a>.
+          There is a tutorial specifically about
+          <a href="https://github.com/CommunitySolidServer/tutorials/blob/main/custom-configurations.md">customizing
+            configurations</a>
+          if you want to customize your configuration even more afterwards.
+        </p>
+        <p class="intro">
+          Select the options you want from your server. The corresponding configuration can be found at the bottom.
+          This configuration can then be used to start the server using the <code>-c my-config.json</code> CLI
+          parameter.
+        </p>
+      </div>
+    </div>
+
+    <!-- Error alert -->
+    <div class="row" id="error-alert">
+      <div class="col">
+        <div class="alert alert-danger d-flex align-items-center" role="alert">
+          <i class="bi bi-exclamation-triangle-fill me-2"></i>
+          <div id="error-text"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="row">
+
+      <!-- Configuration options -->
+      <div class="col-lg-8 settings">
+        <form id="form">
+          <div class="accordion accordion-flush" id="accordionChoices">
+            
+
+              <div class="accordion-item" id="internal">
+                <!-- Item header-->
+                <h2 class="accordion-header" id="internal-header">
+                  <button class="accordion-button " type="button"
+                    data-bs-toggle="collapse" data-bs-target="#internal-collapse"
+                    aria-controls="#internal-collapse" aria-labelledby="#internal-header">
+                    Internal storage
+                  </button>
+                </h2>
+
+                <!-- Item collapsable content-->
+                <div id="internal-collapse"
+                  class="accordion-collapse collapse show"
+                  data-bs-parent="#accordionChoices">
+                  <div class="accordion-body choice">
+                    <p class="description">How internal data should be stored, such as account data.
+  Data stored in memory will be lost on server restart.</p>
+                    <fieldset class="radios">
+                      
+
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="internal" value="memory"
+                            id="internal:memory" >
+                          <label class="form-check-label" for="internal:memory">
+                            In-memory
+                          </label>
+                        </div>
+
+                        
+
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="internal" value="resource-store"
+                            id="internal:resource-store" checked>
+                          <label class="form-check-label" for="internal:resource-store">
+                            Same as data storage (see below)
+                          </label>
+                        </div>
+
+                        
+                    </fieldset>
+                  </div>
+                </div>
+              </div>
+
+              
+
+              <div class="accordion-item" id="backend">
+                <!-- Item header-->
+                <h2 class="accordion-header" id="backend-header">
+                  <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#backend-collapse"
+                    aria-controls="#backend-collapse" aria-labelledby="#backend-header">
+                    Data storage
+                  </button>
+                </h2>
+
+                <!-- Item collapsable content-->
+                <div id="backend-collapse"
+                  class="accordion-collapse collapse"
+                  data-bs-parent="#accordionChoices">
+                  <div class="accordion-body choice">
+                    <p class="description">How the data should be stored on the server.
   In-memory will cause the data to be lost when the server restarts.
   SPARQL options requires the <code>--sparqlEndpoint</code> CLI parameter to be set.</p>
-          <fieldset>
-            
-              <label id="backend:memory">
-                <input type="radio" name="backend" value="memory" >
-                In-memory
-              </label>
-            
-              <label id="backend:file">
-                <input type="radio" name="backend" value="file"  checked>
-                File system
-              </label>
-            
-              <label id="backend:sparql">
-                <input type="radio" name="backend" value="sparql" >
-                SPARQL endpoint (requires in-memory internal storage)
-              </label>
-            
-              <label id="backend:pod-quota-file">
-                <input type="radio" name="backend" value="pod-quota-file" >
-                File system (with a pod quota)
-              </label>
-            
-              <label id="backend:regex">
-                <input type="radio" name="backend" value="regex" >
-                SPARQL endpoint (using file system for internal data)
-              </label>
-            
-          </fieldset>
-        </div>
-      
-        <div id="locking">
-          <h3>Locking</h3>
-          <p>Which system to use to create locks.
+                    <fieldset class="radios">
+                      
+
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="backend" value="memory"
+                            id="backend:memory" >
+                          <label class="form-check-label" for="backend:memory">
+                            In-memory
+                          </label>
+                        </div>
+
+                        
+
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="backend" value="file"
+                            id="backend:file" checked>
+                          <label class="form-check-label" for="backend:file">
+                            File system
+                          </label>
+                        </div>
+
+                        
+
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="backend" value="sparql"
+                            id="backend:sparql" >
+                          <label class="form-check-label" for="backend:sparql">
+                            SPARQL endpoint (requires in-memory internal storage)
+                          </label>
+                        </div>
+
+                        
+
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="backend" value="pod-quota-file"
+                            id="backend:pod-quota-file" >
+                          <label class="form-check-label" for="backend:pod-quota-file">
+                            File system (with a pod quota)
+                          </label>
+                        </div>
+
+                        
+
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="backend" value="regex"
+                            id="backend:regex" >
+                          <label class="form-check-label" for="backend:regex">
+                            SPARQL endpoint (using file system for internal data)
+                          </label>
+                        </div>
+
+                        
+                    </fieldset>
+                  </div>
+                </div>
+              </div>
+
+              
+
+              <div class="accordion-item" id="locking">
+                <!-- Item header-->
+                <h2 class="accordion-header" id="locking-header">
+                  <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#locking-collapse"
+                    aria-controls="#locking-collapse" aria-labelledby="#locking-header">
+                    Locking
+                  </button>
+                </h2>
+
+                <!-- Item collapsable content-->
+                <div id="locking-collapse"
+                  class="accordion-collapse collapse"
+                  data-bs-parent="#accordionChoices">
+                  <div class="accordion-body choice">
+                    <p class="description">Which system to use to create locks.
   Locks are used to prevent simultaneous write operations on the same resource.
   Disabling this can cause data corruption.
   In-memory locking is insufficient if multiple workers threads are used.</p>
-          <fieldset>
-            
-              <label id="locking:memory">
-                <input type="radio" name="locking" value="memory" >
-                In-memory
-              </label>
-            
-              <label id="locking:file">
-                <input type="radio" name="locking" value="file"  checked>
-                File system
-              </label>
-            
-              <label id="locking:redis">
-                <input type="radio" name="locking" value="redis" >
-                Redis
-              </label>
-            
-              <label id="locking:false">
-                <input type="radio" name="locking" value="false" >
-                Disabled
-              </label>
-            
-          </fieldset>
-        </div>
-      
-        <div id="registration">
-          <h3>Registration</h3>
-          <p>Allow users to register new accounts and pods on the server.</p>
-          <fieldset>
-            
-              <label id="registration:true">
-                <input type="radio" name="registration" value="true"  checked>
-                Enabled
-              </label>
-            
-              <label id="registration:false">
-                <input type="radio" name="registration" value="false" >
-                Disabled
-              </label>
-            
-          </fieldset>
-        </div>
-      
-        <div id="webSockets">
-          <h3>WebSockets</h3>
-          <p>Adds support for the deprecated Solid WebSockets API 0.1.
+                    <fieldset class="radios">
+                      
+
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="locking" value="memory"
+                            id="locking:memory" >
+                          <label class="form-check-label" for="locking:memory">
+                            In-memory
+                          </label>
+                        </div>
+
+                        
+
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="locking" value="file"
+                            id="locking:file" checked>
+                          <label class="form-check-label" for="locking:file">
+                            File system
+                          </label>
+                        </div>
+
+                        
+
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="locking" value="redis"
+                            id="locking:redis" >
+                          <label class="form-check-label" for="locking:redis">
+                            Redis
+                          </label>
+                        </div>
+
+                        
+
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="locking" value="false"
+                            id="locking:false" >
+                          <label class="form-check-label" for="locking:false">
+                            Disabled
+                          </label>
+                        </div>
+
+                        
+                    </fieldset>
+                  </div>
+                </div>
+              </div>
+
+              
+
+              <div class="accordion-item" id="registration">
+                <!-- Item header-->
+                <h2 class="accordion-header" id="registration-header">
+                  <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#registration-collapse"
+                    aria-controls="#registration-collapse" aria-labelledby="#registration-header">
+                    Registration
+                  </button>
+                </h2>
+
+                <!-- Item collapsable content-->
+                <div id="registration-collapse"
+                  class="accordion-collapse collapse"
+                  data-bs-parent="#accordionChoices">
+                  <div class="accordion-body choice">
+                    <p class="description">Allow users to register new accounts and pods on the server.</p>
+                    <fieldset class="radios">
+                      
+
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="registration" value="true"
+                            id="registration:true" checked>
+                          <label class="form-check-label" for="registration:true">
+                            Enabled
+                          </label>
+                        </div>
+
+                        
+
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="registration" value="false"
+                            id="registration:false" >
+                          <label class="form-check-label" for="registration:false">
+                            Disabled
+                          </label>
+                        </div>
+
+                        
+                    </fieldset>
+                  </div>
+                </div>
+              </div>
+
+              
+
+              <div class="accordion-item" id="webSockets">
+                <!-- Item header-->
+                <h2 class="accordion-header" id="webSockets-header">
+                  <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#webSockets-collapse"
+                    aria-controls="#webSockets-collapse" aria-labelledby="#webSockets-header">
+                    WebSockets
+                  </button>
+                </h2>
+
+                <!-- Item collapsable content-->
+                <div id="webSockets-collapse"
+                  class="accordion-collapse collapse"
+                  data-bs-parent="#accordionChoices">
+                  <div class="accordion-body choice">
+                    <p class="description">Adds support for the deprecated Solid WebSockets API 0.1.
   This allows users to be notified when resources change, without requiring authentication.</p>
-          <fieldset>
-            
-              <label id="webSockets:true">
-                <input type="radio" name="webSockets" value="true" >
-                Enabled
-              </label>
-            
-              <label id="webSockets:false">
-                <input type="radio" name="webSockets" value="false"  checked>
-                Disabled
-              </label>
-            
-          </fieldset>
-        </div>
-      
-        <div id="https">
-          <h3>HTTPS</h3>
-          <p>Determines if the server should be started for HTTP or HTTPS.
+                    <fieldset class="radios">
+                      
+
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="webSockets" value="true"
+                            id="webSockets:true" >
+                          <label class="form-check-label" for="webSockets:true">
+                            Enabled
+                          </label>
+                        </div>
+
+                        
+
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="webSockets" value="false"
+                            id="webSockets:false" checked>
+                          <label class="form-check-label" for="webSockets:false">
+                            Disabled
+                          </label>
+                        </div>
+
+                        
+                    </fieldset>
+                  </div>
+                </div>
+              </div>
+
+              
+
+              <div class="accordion-item" id="https">
+                <!-- Item header-->
+                <h2 class="accordion-header" id="https-header">
+                  <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#https-collapse"
+                    aria-controls="#https-collapse" aria-labelledby="#https-header">
+                    HTTPS
+                  </button>
+                </h2>
+
+                <!-- Item collapsable content-->
+                <div id="https-collapse"
+                  class="accordion-collapse collapse"
+                  data-bs-parent="#accordionChoices">
+                  <div class="accordion-body choice">
+                    <p class="description">Determines if the server should be started for HTTP or HTTPS.
   If HTTPS is chosen, CLI parameters <code>--httpsKey</code> and <code>--httpsCert</code> need to be provided.</p>
-          <fieldset>
-            
-              <label id="https:true">
-                <input type="radio" name="https" value="true" >
-                Enabled
-              </label>
-            
-              <label id="https:false">
-                <input type="radio" name="https" value="false"  checked>
-                Disabled
-              </label>
-            
-          </fieldset>
-        </div>
-      
-        <div id="email">
-          <h3>E-mail server</h3>
-          <p>Configure an e-mail server to be used when users forgot their password.
+                    <fieldset class="radios">
+                      
+
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="https" value="true"
+                            id="https:true" >
+                          <label class="form-check-label" for="https:true">
+                            Enabled
+                          </label>
+                        </div>
+
+                        
+
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="https" value="false"
+                            id="https:false" checked>
+                          <label class="form-check-label" for="https:false">
+                            Disabled
+                          </label>
+                        </div>
+
+                        
+                    </fieldset>
+                  </div>
+                </div>
+              </div>
+
+              
+
+              <div class="accordion-item" id="email">
+                <!-- Item header-->
+                <h2 class="accordion-header" id="email-header">
+                  <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#email-collapse"
+                    aria-controls="#email-collapse" aria-labelledby="#email-header">
+                    E-mail server
+                  </button>
+                </h2>
+
+                <!-- Item collapsable content-->
+                <div id="email-collapse"
+                  class="accordion-collapse collapse"
+                  data-bs-parent="#accordionChoices">
+                  <div class="accordion-body choice">
+                    <p class="description">Configure an e-mail server to be used when users forgot their password.
   This will add a new entry to the configuration JSON that needs to be updated with the credentials of your e-mail server.</p>
-          <fieldset>
-            
-              <label id="email:true">
-                <input type="radio" name="email" value="true" >
-                Enabled
-              </label>
-            
-              <label id="email:false">
-                <input type="radio" name="email" value="false"  checked>
-                Disabled
-              </label>
-            
-          </fieldset>
-        </div>
-      
-        <div id="authorization">
-          <h3>Authorization</h3>
-          <p>The authorization system to restrict who can access resources.
+                    <fieldset class="radios">
+                      
+
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="email" value="true"
+                            id="email:true" >
+                          <label class="form-check-label" for="email:true">
+                            Enabled
+                          </label>
+                        </div>
+
+                        
+
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="email" value="false"
+                            id="email:false" checked>
+                          <label class="form-check-label" for="email:false">
+                            Disabled
+                          </label>
+                        </div>
+
+                        
+                    </fieldset>
+                  </div>
+                </div>
+              </div>
+
+              
+
+              <div class="accordion-item" id="authorization">
+                <!-- Item header-->
+                <h2 class="accordion-header" id="authorization-header">
+                  <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#authorization-collapse"
+                    aria-controls="#authorization-collapse" aria-labelledby="#authorization-header">
+                    Authorization
+                  </button>
+                </h2>
+
+                <!-- Item collapsable content-->
+                <div id="authorization-collapse"
+                  class="accordion-collapse collapse"
+                  data-bs-parent="#accordionChoices">
+                  <div class="accordion-body choice">
+                    <p class="description">The authorization system to restrict who can access resources.
   Disabling this allows everyone to access and modify all resources on the server.</p>
-          <fieldset>
-            
-              <label id="authorization:wac">
-                <input type="radio" name="authorization" value="wac" >
-                Web Access Control
-              </label>
-            
-              <label id="authorization:false">
-                <input type="radio" name="authorization" value="false"  checked>
-                Disabled
-              </label>
-            
-          </fieldset>
-        </div>
-      
-        <div id="subdomain">
-          <h3>Pod URLs</h3>
-          <p>How URLs for new pods should be created, appending the name to the base URL as a suffix, or using it as a subdomain.</p>
-          <fieldset>
-            
-              <label id="subdomain:false">
-                <input type="radio" name="subdomain" value="false"  checked>
-                Suffix (<code>https://example.com/test/</code>)
-              </label>
-            
-              <label id="subdomain:true">
-                <input type="radio" name="subdomain" value="true" >
-                Subdomain (<code>https://test.example.com/</code>)
-              </label>
-            
-          </fieldset>
-        </div>
-      
-        <div id="initializeRoot">
-          <h3>Initialize root</h3>
-          <p>Marks the root of the server as a storage and writes the necessary authorization resources so it can be accessed.
+                    <fieldset class="radios">
+                      
+
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="authorization" value="wac"
+                            id="authorization:wac" >
+                          <label class="form-check-label" for="authorization:wac">
+                            Web Access Control
+                          </label>
+                        </div>
+
+                        
+
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="authorization" value="false"
+                            id="authorization:false" checked>
+                          <label class="form-check-label" for="authorization:false">
+                            Disabled
+                          </label>
+                        </div>
+
+                        
+                    </fieldset>
+                  </div>
+                </div>
+              </div>
+
+              
+
+              <div class="accordion-item" id="subdomain">
+                <!-- Item header-->
+                <h2 class="accordion-header" id="subdomain-header">
+                  <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#subdomain-collapse"
+                    aria-controls="#subdomain-collapse" aria-labelledby="#subdomain-header">
+                    Pod URLs
+                  </button>
+                </h2>
+
+                <!-- Item collapsable content-->
+                <div id="subdomain-collapse"
+                  class="accordion-collapse collapse"
+                  data-bs-parent="#accordionChoices">
+                  <div class="accordion-body choice">
+                    <p class="description">How URLs for new pods should be created, appending the name to the base URL as a suffix, or using it as a subdomain.</p>
+                    <fieldset class="radios">
+                      
+
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="subdomain" value="false"
+                            id="subdomain:false" checked>
+                          <label class="form-check-label" for="subdomain:false">
+                            Suffix (<code>https://example.com/test/</code>)
+                          </label>
+                        </div>
+
+                        
+
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="subdomain" value="true"
+                            id="subdomain:true" >
+                          <label class="form-check-label" for="subdomain:true">
+                            Subdomain (<code>https://test.example.com/</code>)
+                          </label>
+                        </div>
+
+                        
+                    </fieldset>
+                  </div>
+                </div>
+              </div>
+
+              
+
+              <div class="accordion-item" id="initializeRoot">
+                <!-- Item header-->
+                <h2 class="accordion-header" id="initializeRoot-header">
+                  <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#initializeRoot-collapse"
+                    aria-controls="#initializeRoot-collapse" aria-labelledby="#initializeRoot-header">
+                    Initialize root
+                  </button>
+                </h2>
+
+                <!-- Item collapsable content-->
+                <div id="initializeRoot-collapse"
+                  class="accordion-collapse collapse"
+                  data-bs-parent="#accordionChoices">
+                  <div class="accordion-body choice">
+                    <p class="description">Marks the root of the server as a storage and writes the necessary authorization resources so it can be accessed.
   This allows everyone to edit the data on the server so make sure to update those to have the correct values.</p>
-          <fieldset>
-            
-              <label id="initializeRoot:true">
-                <input type="radio" name="initializeRoot" value="true" >
-                Enabled
-              </label>
-            
-              <label id="initializeRoot:false">
-                <input type="radio" name="initializeRoot" value="false"  checked>
-                Disabled
-              </label>
-            
-          </fieldset>
-        </div>
-      
-        <div id="setup">
-          <h3>Setup</h3>
-          <p>Requires a setup procedure to occur after starting the server. 
+                    <fieldset class="radios">
+                      
+
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="initializeRoot" value="true"
+                            id="initializeRoot:true" >
+                          <label class="form-check-label" for="initializeRoot:true">
+                            Enabled
+                          </label>
+                        </div>
+
+                        
+
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="initializeRoot" value="false"
+                            id="initializeRoot:false" checked>
+                          <label class="form-check-label" for="initializeRoot:false">
+                            Disabled
+                          </label>
+                        </div>
+
+                        
+                    </fieldset>
+                  </div>
+                </div>
+              </div>
+
+              
+
+              <div class="accordion-item" id="setup">
+                <!-- Item header-->
+                <h2 class="accordion-header" id="setup-header">
+                  <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#setup-collapse"
+                    aria-controls="#setup-collapse" aria-labelledby="#setup-header">
+                    Setup
+                  </button>
+                </h2>
+
+                <!-- Item collapsable content-->
+                <div id="setup-collapse"
+                  class="accordion-collapse collapse"
+                  data-bs-parent="#accordionChoices">
+                  <div class="accordion-body choice">
+                    <p class="description">Requires a setup procedure to occur after starting the server. 
   This can be used to create a pod immediately on the server.</p>
-          <fieldset>
-            
-              <label id="setup:true">
-                <input type="radio" name="setup" value="true" >
-                Enabled
-              </label>
-            
-              <label id="setup:false">
-                <input type="radio" name="setup" value="false"  checked>
-                Disabled
-              </label>
-            
-          </fieldset>
-        </div>
-      
-        <div id="ownership">
-          <h3>Ownership verification</h3>
-          <p>Verifies that someone is the owner of an external WebID if they try to register an account with it.
+                    <fieldset class="radios">
+                      
+
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="setup" value="true"
+                            id="setup:true" >
+                          <label class="form-check-label" for="setup:true">
+                            Enabled
+                          </label>
+                        </div>
+
+                        
+
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="setup" value="false"
+                            id="setup:false" checked>
+                          <label class="form-check-label" for="setup:false">
+                            Disabled
+                          </label>
+                        </div>
+
+                        
+                    </fieldset>
+                  </div>
+                </div>
+              </div>
+
+              
+
+              <div class="accordion-item" id="ownership">
+                <!-- Item header-->
+                <h2 class="accordion-header" id="ownership-header">
+                  <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#ownership-collapse"
+                    aria-controls="#ownership-collapse" aria-labelledby="#ownership-header">
+                    Ownership verification
+                  </button>
+                </h2>
+
+                <!-- Item collapsable content-->
+                <div id="ownership-collapse"
+                  class="accordion-collapse collapse"
+                  data-bs-parent="#accordionChoices">
+                  <div class="accordion-body choice">
+                    <p class="description">Verifies that someone is the owner of an external WebID if they try to register an account with it.
   Disabling this means this server should not be trusted for authentication.</p>
-          <fieldset>
-            
-              <label id="ownership:true">
-                <input type="radio" name="ownership" value="true"  checked>
-                Enabled
-              </label>
-            
-              <label id="ownership:false">
-                <input type="radio" name="ownership" value="false" >
-                Disabled
-              </label>
-            
-          </fieldset>
-        </div>
-      
-        <div id="restrictAccountApi">
-          <h3>Restrict account API</h3>
-          <p>Use the chosen authorization method for the account-related APIs such as registration.
+                    <fieldset class="radios">
+                      
+
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="ownership" value="true"
+                            id="ownership:true" checked>
+                          <label class="form-check-label" for="ownership:true">
+                            Enabled
+                          </label>
+                        </div>
+
+                        
+
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="ownership" value="false"
+                            id="ownership:false" >
+                          <label class="form-check-label" for="ownership:false">
+                            Disabled
+                          </label>
+                        </div>
+
+                        
+                    </fieldset>
+                  </div>
+                </div>
+              </div>
+
+              
+
+              <div class="accordion-item" id="restrictAccountApi">
+                <!-- Item header-->
+                <h2 class="accordion-header" id="restrictAccountApi-header">
+                  <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#restrictAccountApi-collapse"
+                    aria-controls="#restrictAccountApi-collapse" aria-labelledby="#restrictAccountApi-header">
+                    Restrict account API
+                  </button>
+                </h2>
+
+                <!-- Item collapsable content-->
+                <div id="restrictAccountApi-collapse"
+                  class="accordion-collapse collapse"
+                  data-bs-parent="#accordionChoices">
+                  <div class="accordion-body choice">
+                    <p class="description">Use the chosen authorization method for the account-related APIs such as registration.
   This can be used to only allow authorized requests of specific WebIDs to register accounts.
   If enabled, the necessary authorization resources will be created
   in the <code>/.well-known/</code> and <code>/idp/</code> containers providing full access to everyone,
   so make sure to update these with the correct values.</p>
-          <fieldset>
-            
-              <label id="restrictAccountApi:true">
-                <input type="radio" name="restrictAccountApi" value="true" >
-                Enabled
-              </label>
-            
-              <label id="restrictAccountApi:false">
-                <input type="radio" name="restrictAccountApi" value="false"  checked>
-                Disabled
-              </label>
-            
-          </fieldset>
-        </div>
-      
-        <div id="index">
-          <h3>UI converter</h3>
-          <p>Convert all requests to a static page in case HTML is requested.
+                    <fieldset class="radios">
+                      
+
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="restrictAccountApi" value="true"
+                            id="restrictAccountApi:true" >
+                          <label class="form-check-label" for="restrictAccountApi:true">
+                            Enabled
+                          </label>
+                        </div>
+
+                        
+
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="restrictAccountApi" value="false"
+                            id="restrictAccountApi:false" checked>
+                          <label class="form-check-label" for="restrictAccountApi:false">
+                            Disabled
+                          </label>
+                        </div>
+
+                        
+                    </fieldset>
+                  </div>
+                </div>
+              </div>
+
+              
+
+              <div class="accordion-item" id="index">
+                <!-- Item header-->
+                <h2 class="accordion-header" id="index-header">
+                  <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#index-collapse"
+                    aria-controls="#index-collapse" aria-labelledby="#index-header">
+                    UI converter
+                  </button>
+                </h2>
+
+                <!-- Item collapsable content-->
+                <div id="index-collapse"
+                  class="accordion-collapse collapse"
+                  data-bs-parent="#accordionChoices">
+                  <div class="accordion-body choice">
+                    <p class="description">Convert all requests to a static page in case HTML is requested.
   This is needed when you want to add a UI such as <a href="https://github.com/SolidOS/mashlib">Mashlib</a> or
   <a href="https://gitlab.com/vincenttunru/penny">Penny</a>.
   You will have to update the configuration file with the correct values.</p>
-          <fieldset>
-            
-              <label id="index:true">
-                <input type="radio" name="index" value="true" >
-                Enabled
-              </label>
-            
-              <label id="index:false">
-                <input type="radio" name="index" value="false"  checked>
-                Disabled
-              </label>
-            
-          </fieldset>
+                    <fieldset class="radios">
+                      
+
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="index" value="true"
+                            id="index:true" >
+                          <label class="form-check-label" for="index:true">
+                            Enabled
+                          </label>
+                        </div>
+
+                        
+
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="index" value="false"
+                            id="index:false" checked>
+                          <label class="form-check-label" for="index:false">
+                            Disabled
+                          </label>
+                        </div>
+
+                        
+                    </fieldset>
+                  </div>
+                </div>
+              </div>
+
+              
+          </div>
+        </form>
+      </div>
+
+      <!-- Generated config: on large screens -->
+      <div class="col-lg-4">
+        <div class="offcanvas-lg offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+          id="offcanvasResponsive" aria-labelledby="offcanvasResponsiveLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasResponsiveLabel">
+              Generated config
+              <button type="button" class="btn btn-primary btn-sm copy-btns" data-bs-toggle="tooltip"
+                data-bs-placement="top" title="Copy to clipboard">
+                <i class="bi bi-clipboard"></i>
+              </button>
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive"
+              aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body flex-column">
+            <h5 class="d-none d-lg-block" id="offcanvasResponsiveLabel">
+              Generated config
+              <button type="button" class="btn btn-primary btn-sm copy-btns" data-bs-toggle="tooltip"
+                data-bs-placement="top" title="Copy to clipboard">
+                <i class="bi bi-clipboard"></i>
+              </button>
+            </h5>
+            <pre id="text" class="config mb-0 pb-2"></pre>
+          </div>
         </div>
-      
-    </form>
-    <h2>Generated configuration</h2>
-    <pre id="text"></pre>
-  </main>
+      </div>
+    </div>
+  </div>
   <script src="./bundle.js"></script>
 </body>
+
 </html>
