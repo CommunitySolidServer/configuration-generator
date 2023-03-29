@@ -2,6 +2,10 @@
 @import "~bootstrap/scss/bootstrap";
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 
+// Prevent scrollbar from shifting the page when it appears
+html {
+    margin-left: calc(100vw - 100%);
+}
 
 body {
     font-size: 15px;

@@ -9,30 +9,30 @@ const schema = lazy((obj) => object(Object.fromEntries(Object.keys(obj).map((key
   [ key, array(string().required()).ensure().required() ]
 ))));
 
-function validateOptions(name: string, options: string[]): { root: HTMLElement, labels: HTMLLabelElement[] } {
+function validateOptions(name: string, options: string[]): { root: HTMLElement, children: Element[] } {
   const root = document.getElementById(name);
   if (!root) {
     throw new Error(`"${name}" is not a known choice.`);
   }
 
-  const labels = Array.from(root.getElementsByTagName('label'));
+  const children = Array.from(root.getElementsByClassName('option'));
 
   // Make sure all chosen options exist
   for (const option of options) {
-    if (!labels.some((label): boolean => label.id === `${name}:${option}`)) {
+    if (!children.some((label): boolean => label.id === `${name}:${option}`)) {
       throw new Error(`Unknown option "${option}" for choice "${name}". Not applying changes.`);
     }
   }
 
-  return { root, labels };
+  return { root, children };
 }
 
 function handleOptions(optionMap: Record<string, string[]>) {
   for (const [ name, options ] of Object.entries(optionMap)) {
     let root: HTMLElement;
-    let labels: HTMLLabelElement[];
+    let children: Element[];
     try {
-      ({ root, labels } = validateOptions(name, options));
+      ({ root, children } = validateOptions(name, options));
     } catch (error) {
       console.error(error);
       continue;
@@ -55,9 +55,9 @@ function handleOptions(optionMap: Record<string, string[]>) {
     }
 
     // Remove unchosen labels
-    for (const label of labels) {
-      if (!options.some((option): boolean => `${name}:${option}` === label.id)) {
-        label.remove();
+    for (const element of children) {
+      if (!options.some((option): boolean => `${name}:${option}` === element.id)) {
+        element.remove();
       }
     }
   }

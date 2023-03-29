@@ -88,7 +88,7 @@ for (const input of inputs) {
 }
 
 // Add listener to copy button
-const copyButtons = document.getElementsByClassName('copy-btns') as HTMLCollectionOf<HTMLButtonElement>;
+const copyButtons = document.getElementsByClassName('copy-btn') as HTMLCollectionOf<HTMLButtonElement>;
 for (const btn of copyButtons) {
   btn.addEventListener('click', copyConfig);
 }

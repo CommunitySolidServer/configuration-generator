@@ -12,7 +12,9 @@
 
     <!-- Configuration toggle button on smaller devices -->
     <button class="btn btn-primary d-lg-none config-btn" type="button" data-bs-toggle="offcanvas"
-      data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive" title="Toggle generated config"><i class="bi bi-braces"></i></button>
+            data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive" title="Toggle generated config">
+      <i class="bi bi-braces"></i>
+    </button>
 
     <!-- Toast on successful copy -->
     <div class="toast-container position-fixed top-0 end-0 p-3">
@@ -36,15 +38,16 @@
           This tool can be used to generate configurations for the
           <a href="https://github.com/CommunitySolidServer/CommunitySolidServer">Community Solid Server</a>.
           More information about the configurations can be found in the
-          <a href="https://github.com/CommunitySolidServer/CommunitySolidServer/tree/main/config">CSS
-            <code>config</code>
-            folder</a>
+          <a href="https://github.com/CommunitySolidServer/CommunitySolidServer/tree/main/config">
+            CSS <code>config</code> folder
+          </a>
           and in the relevant
           <a href="https://github.com/CommunitySolidServer/tutorials/">tutorials</a>.
           There is a tutorial specifically about
-          <a href="https://github.com/CommunitySolidServer/tutorials/blob/main/custom-configurations.md">customizing
-            configurations</a>
-          if you want to customize your configuration even more afterwards.
+          <a href="https://github.com/CommunitySolidServer/tutorials/blob/main/custom-configurations.md">
+            customizing configurations
+          </a>
+          if you want to customize your configuration even more afterward.
         </p>
         <p class="intro">
           Select the options you want from your server. The corresponding configuration can be found at the bottom.
@@ -68,34 +71,33 @@
     <div class="row">
 
       <!-- Configuration options -->
-      <div class="col-lg-8 settings">
+      <div class="col-lg-7 settings">
         <form id="form">
           <div class="accordion accordion-flush" id="accordionChoices">
-            <% choices.forEach((choice, idx)=> {%>
+            <% for (const choice of choices) { %>
 
               <div class="accordion-item" id="<%= choice.name %>">
                 <!-- Item header-->
                 <h2 class="accordion-header" id="<%= choice.name %>-header">
-                  <button class="accordion-button <%=  idx === 0 ? '' : 'collapsed'%>" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#<%= choice.name %>-collapse"
-                    aria-controls="#<%= choice.name %>-collapse" aria-labelledby="#<%= choice.name %>-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#<%= choice.name %>-collapse"
+                          aria-controls="#<%= choice.name %>-collapse" aria-labelledby="#<%= choice.name %>-header">
                     <%- choice.title %>
                   </button>
                 </h2>
 
                 <!-- Item collapsable content-->
-                <div id="<%= choice.name %>-collapse"
-                  class="accordion-collapse <%=  idx === 0 ? 'collapse show' : 'collapse' %>"
-                  data-bs-parent="#accordionChoices">
+                <div id="<%= choice.name %>-collapse" class="accordion-collapse collapse" data-bs-parent="#accordionChoices">
                   <div class="accordion-body choice">
                     <p class="description"><%- choice.description %></p>
                     <fieldset class="radios">
                       <% for (const { value, label } of choice.options) { %>
 
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="<%= choice.name %>" value="<%- value %>"
-                            id="<%= `${choice.name}:${value}` %>" <%=choice.default===value ? 'checked' : '' %>>
-                          <label class="form-check-label" for="<%= `${choice.name}:${value}` %>">
+                        <!-- Item collapsable content -->
+                        <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                        <div class="form-check option" id="<%= `${choice.name}:${value}` %>">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="<%= choice.name %>" value="<%- value %>"
+                                    <%= choice.default===value ? 'checked' : '' %>>
                             <%- label %>
                           </label>
                         </div>
@@ -106,33 +108,22 @@
                 </div>
               </div>
 
-              <% }); %>
+              <% } %>
           </div>
         </form>
       </div>
 
-      <!-- Generated config: on large screens -->
-      <div class="col-lg-4">
+      <!-- Generated configuration -->
+      <div class="col-lg-5">
         <div class="offcanvas-lg offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-          id="offcanvasResponsive" aria-labelledby="offcanvasResponsiveLabel">
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasResponsiveLabel">
-              Generated config
-              <button type="button" class="btn btn-primary btn-sm copy-btns" data-bs-toggle="tooltip"
-                data-bs-placement="top" title="Copy to clipboard">
-                <i class="bi bi-clipboard"></i>
-              </button>
-            </h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive"
-              aria-label="Close"></button>
-          </div>
+          id="offcanvasResponsive" aria-label="Generated config">
           <div class="offcanvas-body flex-column">
-            <h5 class="d-none d-lg-block" id="offcanvasResponsiveLabel">
+            <h5 class="offcanvas-title">
               Generated config
-              <button type="button" class="btn btn-primary btn-sm copy-btns" data-bs-toggle="tooltip"
-                data-bs-placement="top" title="Copy to clipboard">
+              <button type="button" class="btn btn-primary btn-sm copy-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy to clipboard">
                 <i class="bi bi-clipboard"></i>
               </button>
+              <button type="button" class="btn-close d-lg-none float-end" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
             </h5>
             <pre id="text" class="config mb-0 pb-2"></pre>
           </div>
