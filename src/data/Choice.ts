@@ -1,4 +1,4 @@
-export interface Choice<T extends string> {
+export interface Choice<T extends string = string> {
   readonly name: string;
   readonly title: string;
   readonly description: string;

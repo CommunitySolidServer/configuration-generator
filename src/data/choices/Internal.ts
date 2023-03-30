@@ -10,7 +10,7 @@ export const INTERNAL = {
   Data stored in memory will be lost on server restart.`,
   options: [
     { value: 'memory', label: 'In-memory' },
-    { value: 'resource-store', label: 'Same as data storage (see below)' },
+    { value: 'resource-store', label: 'Same as data storage (see next)' },
   ],
   default: 'resource-store',
 } as const satisfies Choice<'memory' | 'resource-store'>;

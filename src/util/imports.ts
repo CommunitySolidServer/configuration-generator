@@ -1,5 +1,5 @@
-import { FALSE, TRUE } from '../choices/Choice';
-import { Choices } from '../choices/choices';
+import { FALSE, TRUE } from '../data/Choice';
+import { Choices } from '../data/data';
 
 // Also allow empty strings to indicate an import was left out
 export type Import = `css:config/${string}/${string}/${string}.json`;

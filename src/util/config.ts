@@ -1,4 +1,5 @@
-import { Choices, CHOICES } from '../choices/choices';
+import { Choice } from '../data/Choice';
+import { Choices, GROUPS } from '../data/data';
 import { generateBody } from './body';
 import { generateImports, Import } from './imports';
 
@@ -16,7 +17,7 @@ export interface Config {
 function applyDefaults(partialChoices: Partial<Choices>): Choices {
   const choices = {} as Record<keyof Choices, string>;
 
-  for (const choice of CHOICES) {
+  for (const choice of GROUPS.map((group): readonly Choice[] => group.choices).flat()) {
     choices[choice.name] = partialChoices[choice.name] ?? choice.default;
   }
 

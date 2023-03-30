@@ -1,5 +1,5 @@
-import { TRUE } from '../choices/Choice';
-import { Choices } from '../choices/choices';
+import { TRUE } from '../data/Choice';
+import { Choices } from '../data/data';
 
 interface Override {
   '@id'?: string,

@@ -1,7 +1,7 @@
 import { renderFile } from 'ejs';
 import { mkdir, readFile, rename, rm, writeFile } from 'fs/promises';
 import { join } from 'path';
-import { CHOICES } from './choices/choices';
+import { GROUPS } from './data/data';
 
 async function getMajorVersion(): Promise<string> {
   const packageJsonPath = join(__dirname, '../package.json');
@@ -30,7 +30,7 @@ async function generateHtml(): Promise<void> {
   await rename(webpackDir, versionDir);
 
   const index = await renderFile(join(templatesDir, 'index.html.ejs'), { version });
-  const page = await renderFile(join(templatesDir, 'version.html.ejs'), { choices: CHOICES });
+  const page = await renderFile(join(templatesDir, 'version.html.ejs'), { groups: GROUPS });
   await writeFile(join(htmlDir, 'index.html'), index, 'utf-8');
   await writeFile(join(versionDir, 'index.html'), page, 'utf-8');
 }
