@@ -6,7 +6,7 @@ import { Group } from '../Group';
 export const DATA = {
   id: 'data',
   name: 'Data management',
-  description: 'All options related to where data is stored',
+  description: 'All options related to where data is stored.',
   choices: [
     INTERNAL,
     BACKEND,

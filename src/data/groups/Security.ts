@@ -9,5 +9,5 @@ export const SECURITY = {
   choices: [
     HTTPS,
     AUTHORIZATION,
-  ]
+  ],
 } as const satisfies Group;

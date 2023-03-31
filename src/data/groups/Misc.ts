@@ -12,4 +12,4 @@ export const MISC = {
     INITIALIZE_ROOT,
     SETUP,
   ],
-} as const as Group;
+} as const satisfies Group;
