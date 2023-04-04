@@ -30,7 +30,7 @@ async function generateHtml(): Promise<void> {
   await rename(webpackDir, versionDir);
 
   const index = await renderFile(join(templatesDir, 'index.html.ejs'), { version });
-  const page = await renderFile(join(templatesDir, 'version.html.ejs'), { groups: GROUPS });
+  const page = await renderFile(join(templatesDir, 'version.html.ejs'), { version, groups: GROUPS });
   await writeFile(join(htmlDir, 'index.html'), index, 'utf-8');
   await writeFile(join(versionDir, 'index.html'), page, 'utf-8');
 }
