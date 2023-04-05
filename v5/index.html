@@ -47,7 +47,7 @@
           <a href="https://github.com/CommunitySolidServer/tutorials/blob/main/custom-configurations.md">
             customizing configurations
           </a>
-          if you want to customize your configuration even more afterward.
+          if you want to customize your configuration even more afterwards.
         </p>
         <p class="intro">
           Select the options you want from your server. The corresponding configuration can be found at the bottom.
@@ -156,7 +156,9 @@
                           <div class="accordion-body choice">
                             <p class="description">How the data should be stored on the server.
   In-memory will cause the data to be lost when the server restarts.
-  SPARQL options requires the <code>--sparqlEndpoint</code> CLI parameter to be set.</p>
+  File options can use the <code>--rootFilePath/-f</code> CLI parameter to choose the root data folder to use,
+  which defaults to the current folder.
+  SPARQL options require the <code>--sparqlEndpoint/-s</code> CLI parameter to be set.</p>
                             <fieldset class="radios">
                               
 
@@ -371,7 +373,9 @@
                         <div id="authorization-collapse" class="accordion-collapse collapse" data-bs-parent="#security-accordion">
                           <div class="accordion-body choice">
                             <p class="description">The authorization system to restrict who can access resources.
-  Disabling this allows everyone to access and modify all resources on the server.</p>
+  <p class="text-danger"><i class="bi bi-exclamation-triangle me-1"></i>
+    Disabling this allows everyone to access and modify all resources on the server.
+  </p></p>
                             <fieldset class="radios">
                               
 
@@ -379,7 +383,7 @@
                                 <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
                                 <div class="form-check option" id="authorization:wac">
                                   <label class="form-check-label">
-                                    <input class="form-check-input" type="radio" name="authorization" value="wac" >
+                                    <input class="form-check-input" type="radio" name="authorization" value="wac" checked>
                                     Web Access Control
                                   </label>
                                 </div>
@@ -390,7 +394,7 @@
                                 <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
                                 <div class="form-check option" id="authorization:false">
                                   <label class="form-check-label">
-                                    <input class="form-check-input" type="radio" name="authorization" value="false" checked>
+                                    <input class="form-check-input" type="radio" name="authorization" value="false" >
                                     Disabled
                                   </label>
                                 </div>
@@ -536,7 +540,7 @@
                                 <div class="form-check option" id="subdomain:false">
                                   <label class="form-check-label">
                                     <input class="form-check-input" type="radio" name="subdomain" value="false" checked>
-                                    Suffix (<code>https://example.com/test/</code>)
+                                    Suffix (<code>https://example.com/foo/</code>)
                                   </label>
                                 </div>
 
@@ -547,7 +551,7 @@
                                 <div class="form-check option" id="subdomain:true">
                                   <label class="form-check-label">
                                     <input class="form-check-input" type="radio" name="subdomain" value="true" >
-                                    Subdomain (<code>https://test.example.com/</code>)
+                                    Subdomain (<code>https://foo.example.com/</code>)
                                   </label>
                                 </div>
 
@@ -595,7 +599,10 @@
                         <div id="webSockets-collapse" class="accordion-collapse collapse" data-bs-parent="#misc-accordion">
                           <div class="accordion-body choice">
                             <p class="description">Adds support for the deprecated Solid WebSockets API 0.1.
-  This allows users to be notified when resources change, without requiring authentication.</p>
+  This allows users to be notified when resources change, without requiring authentication.
+  <p class="text-danger"><i class="bi bi-exclamation-triangle me-1"></i>
+    Authorization is not required, meaning everyone can see when private resources are updated.
+  </p></p>
                             <fieldset class="radios">
                               
 
@@ -639,8 +646,12 @@
                         <!-- Choice collapsable body -->
                         <div id="initializeRoot-collapse" class="accordion-collapse collapse" data-bs-parent="#misc-accordion">
                           <div class="accordion-body choice">
-                            <p class="description">Marks the root of the server as a storage and writes the necessary authorization resources so it can be accessed.
-  This allows everyone to edit the data on the server so make sure to update those to have the correct values.</p>
+                            <p class="description">Makes the root of the server accessible for reading and writing data.
+  Enabling this will create the relevant authorization resources in the root that allow this.
+  <p class="text-danger"><i class="bi bi-exclamation-triangle me-1"></i>
+    These authorization resources provide full access to everyone so make sure to immediately update these.
+    They will also not disappear after stopping the server and need to be deleted manually afterwards if you use a file system as backend.
+  </p></p>
                             <fieldset class="radios">
                               
 
