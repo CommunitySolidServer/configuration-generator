@@ -12,7 +12,7 @@ export function updateConfig(removeList: string[], externalConfig?: Partial<Modi
   const formData = new FormData(form);
   const choices = Object.fromEntries(formData) as NodeJS.Dict<string>;
   const text = document.getElementById('text')!;
-  const errorAlert = document.getElementById('error-alert');
+  const errorAlert = document.getElementById('error-alert')!;
   try {
     const config = generateConfig(choices);
 
@@ -32,16 +32,13 @@ export function updateConfig(removeList: string[], externalConfig?: Partial<Modi
     text.innerText = JSON.stringify(config, null, 2);
 
     // Hide error alert
-    if (errorAlert) { errorAlert.style.display = 'none' }
+    errorAlert.hidden = true;
   } catch (err) {
-    let error = `Error: ${(err as Error).message}`;
-    text.innerText = error;
+    text.innerText = '{}';
     // Show error alert
-    if (errorAlert) {
-      errorAlert.style.display = 'block';
-      const txt = document.getElementById('error-text');
-      if (txt) { txt.innerText = error }
-    }
+    errorAlert.hidden = false;
+    const errorText = document.getElementById('error-text')!;
+    errorText.innerText = (err as Error).message;
   }
 }
 

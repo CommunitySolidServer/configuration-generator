@@ -58,7 +58,7 @@ export function generateImports(choices: Choices): Import[] {
     throw new Error('There would be no way to write data to this server.');
   }
   if (choices.registration === TRUE && choices.initializeRoot === TRUE && choices.subdomain === FALSE) {
-    throw new Error('Initializing the root and enabling registration would cause the server to have nested storages, which is not allowed.');
+    throw new Error('Initializing the root and enabling registration is only possible when subdomains are used, as nested storages are not allowed in Solid.');
   }
 
   imports.push(generateImport('app', 'init', choices.initializeRoot === TRUE ? 'initialize-root' : 'default'));

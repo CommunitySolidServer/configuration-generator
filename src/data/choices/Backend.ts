@@ -9,7 +9,9 @@ export const BACKEND = {
   title: 'Data storage',
   description: `How the data should be stored on the server.
   In-memory will cause the data to be lost when the server restarts.
-  SPARQL options requires the <code>--sparqlEndpoint</code> CLI parameter to be set.`,
+  File options can use the <code>--rootFilePath/-f</code> CLI parameter to choose the root data folder to use,
+  which defaults to the current folder.
+  SPARQL options require the <code>--sparqlEndpoint/-s</code> CLI parameter to be set.`,
   options: [
     { value: 'memory', label: 'In-memory' },
     { value: 'file', label: 'File system' },

@@ -7,7 +7,9 @@ export const AUTHORIZATION = {
   name: 'authorization',
   title: 'Authorization',
   description: `The authorization system to restrict who can access resources.
-  Disabling this allows everyone to access and modify all resources on the server.`,
+  <p class="text-danger"><i class="bi bi-exclamation-triangle me-1"></i>
+    Disabling this allows everyone to access and modify all resources on the server.
+  </p>`,
   options: [{ value: 'wac', label: 'Web Access Control' }, { value: FALSE, label: 'Disabled' }],
-  default: FALSE,
+  default: 'wac',
 } as const satisfies Choice<'wac' | typeof FALSE>;
