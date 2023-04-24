@@ -1,6 +1,6 @@
 {
   "name": "community-server-configuration-generator",
-  "version": "5.0.0",
+  "version": "6.0.0",
   "description": "Generates configurations for the Community Solid Server",
   "author": "Joachim Van Herwegen <joachim.vanherwegen@ugent.be>",
   "license": "MIT",

@@ -1,6 +1,6 @@
 import { INITIALIZE_ROOT } from '../choices/InitializeRoot';
+import { NOTIFICATIONS } from '../choices/Notifications';
 import { SETUP } from '../choices/Setup';
-import { WEBSOCKETS } from '../choices/WebSockets';
 import { Group } from '../Group';
 
 export const MISC = {
@@ -8,7 +8,7 @@ export const MISC = {
   name: 'Miscellaneous',
   description: 'Miscellaneous features not related to a specific category.',
   choices: [
-    WEBSOCKETS,
+    NOTIFICATIONS,
     INITIALIZE_ROOT,
     SETUP,
   ],

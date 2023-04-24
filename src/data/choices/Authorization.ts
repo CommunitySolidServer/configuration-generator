@@ -10,6 +10,10 @@ export const AUTHORIZATION = {
   <p class="text-danger"><i class="bi bi-exclamation-triangle me-1"></i>
     Disabling this allows everyone to access and modify all resources on the server.
   </p>`,
-  options: [{ value: 'wac', label: 'Web Access Control' }, { value: FALSE, label: 'Disabled' }],
+  options: [
+    { value: 'wac', label: 'Web Access Control' },
+    { value: 'acp', label: 'Access Control Policy' },
+    { value: FALSE, label: 'Disabled' }
+  ],
   default: 'wac',
-} as const satisfies Choice<'wac' | typeof FALSE>;
+} as const satisfies Choice<'wac' | 'acp' | typeof FALSE>;

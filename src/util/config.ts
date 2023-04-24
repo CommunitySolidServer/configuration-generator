@@ -2,7 +2,8 @@ import { Choices, GROUPS } from '../data/data';
 import { generateBody } from './body';
 import { generateImports, Import } from './imports';
 
-export const CONTEXT = 'https://linkedsoftwaredependencies.org/bundles/npm/@solid/community-server/^5.0.0/components/context.jsonld';
+// TODO: should somehow update this together with the version number used in build
+export const CONTEXT = 'https://linkedsoftwaredependencies.org/bundles/npm/@solid/community-server/^6.0.0/components/context.jsonld';
 
 export interface Config {
   '@context': typeof CONTEXT,

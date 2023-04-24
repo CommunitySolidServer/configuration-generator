@@ -18,6 +18,7 @@ export const DEFAULT_IMPORTS: readonly Import[] = [
   generateImport('app', 'main', 'default'),
   generateImport('app', 'variables', 'default'),
   generateImport('http', 'handler', 'default'),
+  generateImport('http', 'middleware', 'default'),
   generateImport('http', 'static', 'default'),
   generateImport('identity', 'handler', 'default'),
   generateImport('identity', 'pod', 'static'),
@@ -35,11 +36,17 @@ export const DEFAULT_IMPORTS: readonly Import[] = [
 /**
  * The server factory import depends on 2 choices.
  */
-function getServerFactoryImport(webSockets: boolean, https: boolean): Import {
-  if (webSockets) {
-    return generateImport('http', 'server-factory', https ? 'https-websockets' : 'websockets');
+function* getAuthorizationImports(authorization: Choices['authorization']): Iterable<Import> {
+  if (authorization === 'wac') {
+    yield generateImport('ldp', 'authorization', 'webacl');
+    yield generateImport('util', 'auxiliary', 'acl');
+  } else if (authorization === 'acp') {
+    yield generateImport('ldp', 'authorization', 'acp');
+    yield generateImport('util', 'auxiliary', 'acr');
+  } else if (authorization === FALSE) {
+    yield generateImport('ldp', 'authorization', 'allow-all');
+    yield generateImport('util', 'auxiliary', 'empty');
   }
-  return generateImport('http', 'server-factory', https ? 'https-no-websockets' : 'no-websockets');
 }
 
 /**
@@ -63,15 +70,14 @@ export function generateImports(choices: Choices): Import[] {
 
   imports.push(generateImport('app', 'init', choices.initializeRoot === TRUE ? 'initialize-root' : 'default'));
   imports.push(generateImport('app', 'setup', choices.setup === TRUE ? 'required' : 'disabled'));
-  imports.push(generateImport('http', 'middleware', choices.webSockets === TRUE ? 'websockets' : 'no-websockets'));
-  imports.push(getServerFactoryImport(choices.webSockets === TRUE, choices.https === TRUE));
+  imports.push(generateImport('http', 'notifications', choices.notifications));
+  imports.push(generateImport('http', 'server-factory', choices.https === TRUE ? 'https' : 'http'));
   imports.push(generateImport('identity', 'access', choices.restrictAccountApi === TRUE ? 'restricted' : 'public'));
   imports.push(generateImport('identity', 'email', choices.email === TRUE ? 'example' : 'default'));
   imports.push(generateImport('identity', 'ownership', choices.ownership === TRUE ? 'token' : 'unsafe-no-check'));
   imports.push(generateImport('identity', 'registration', choices.registration === TRUE ? 'enabled' : 'disabled'));
-  // In v5 there are 2 relevant imports for WAC
-  imports.push(generateImport('ldp', 'authorization', choices.authorization === 'wac' ? 'webacl' : 'allow-all'));
-  imports.push(generateImport('util', 'auxiliary', choices.authorization === 'wac' ? 'acl' : 'no-acl'));
+  // In v6 there are 2 relevant imports for ACP/WAC
+  imports.push(...getAuthorizationImports(choices.authorization));
   imports.push(generateImport('storage', 'backend', choices.backend));
   imports.push(generateImport('storage', 'key-value', choices.internal));
   imports.push(generateImport('util', 'identifiers', choices.subdomain === TRUE ? 'subdomain' : 'suffix'));
