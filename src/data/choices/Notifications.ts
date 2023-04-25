@@ -8,7 +8,7 @@ export const NOTIFICATIONS = {
   title: 'Notification method',
   description: `Which methods can be used to be notified of changes to resources.
   These are based on the latest Solid Notifications specification.
-  "Legacy WebSockets" is an implementation of the deprecated Solid WebSockets API 0.1
+  </p><p>"Legacy WebSockets" is an implementation of the deprecated Solid WebSockets API 0.1
   and allows users to receive notifications for resources they do not have access to.`,
   options: [
     { value: 'all', label: 'WebSockets & WebHooks' },

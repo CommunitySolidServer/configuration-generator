@@ -109,7 +109,7 @@
                         <!-- Choice collapsable body -->
                         <div id="<%= choice.name %>-collapse" class="accordion-collapse collapse" data-bs-parent="#<%= group.id %>-accordion">
                           <div class="accordion-body choice">
-                            <p class="description"><%- choice.description %></p>
+                            <div class="description"><p><%- choice.description %></p></div>
                             <fieldset class="radios">
                               <% for (const { value, label } of choice.options) { %>
 

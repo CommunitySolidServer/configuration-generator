@@ -6,7 +6,10 @@ import { Group } from '../Group';
 export const ADVANCED = {
   id: 'advanced',
   name: 'Advanced features',
-  description: `<p class="text-danger"><i class="bi bi-exclamation-triangle me-1"></i><b>Advanced features</b>. You should not change these options unless you are sure what they do.</p>`,
+  description: `
+    </p><p class="text-danger">
+      <i class="bi bi-exclamation-triangle me-1"></i><b>Advanced features</b>. You should not change these options unless you are sure what they do.
+`,
   choices: [
     OWNERSHIP,
     RESTRICT_ACCOUNT_API,
