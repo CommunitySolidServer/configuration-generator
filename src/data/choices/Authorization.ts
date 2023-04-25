@@ -9,7 +9,12 @@ export const AUTHORIZATION = {
   description: `The authorization system to restrict who can access resources.
   <p class="text-danger"><i class="bi bi-exclamation-triangle me-1"></i>
     Disabling this allows everyone to access and modify all resources on the server.
-  </p>`,
+  </p>
+  <p class="text-danger"><i class="bi bi-exclamation-triangle me-1"></i>
+    Do not switch between WAC and ACP on an existing server
+    if its data was previously was configured with the other system.
+  </p>
+`,
   options: [
     { value: 'wac', label: 'Web Access Control' },
     { value: 'acp', label: 'Access Control Policy' },
