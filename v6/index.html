@@ -109,8 +109,8 @@
                         <!-- Choice collapsable body -->
                         <div id="internal-collapse" class="accordion-collapse collapse" data-bs-parent="#data-accordion">
                           <div class="accordion-body choice">
-                            <p class="description">How internal data should be stored, such as account data.
-  Data stored in memory will be lost on server restart.</p>
+                            <div class="description"><p>How internal data should be stored, such as account data.
+  Data stored in memory will be lost on server restart.</p></div>
                             <fieldset class="radios">
                               
 
@@ -154,11 +154,11 @@
                         <!-- Choice collapsable body -->
                         <div id="backend-collapse" class="accordion-collapse collapse" data-bs-parent="#data-accordion">
                           <div class="accordion-body choice">
-                            <p class="description">How the data should be stored on the server.
+                            <div class="description"><p>How the data should be stored on the server.
   In-memory will cause the data to be lost when the server restarts.
   File options can use the <code>--rootFilePath/-f</code> CLI parameter to choose the root data folder to use,
   which defaults to the current folder.
-  SPARQL options require the <code>--sparqlEndpoint/-s</code> CLI parameter to be set.</p>
+  SPARQL options require the <code>--sparqlEndpoint/-s</code> CLI parameter to be set.</p></div>
                             <fieldset class="radios">
                               
 
@@ -235,10 +235,10 @@
                         <!-- Choice collapsable body -->
                         <div id="locking-collapse" class="accordion-collapse collapse" data-bs-parent="#data-accordion">
                           <div class="accordion-body choice">
-                            <p class="description">Which system to use to create locks.
+                            <div class="description"><p>Which system to use to create locks.
   Locks are used to prevent simultaneous write operations on the same resource.
   Disabling this can cause data corruption.
-  In-memory locking is insufficient if multiple workers threads are used.</p>
+  In-memory locking is insufficient if multiple workers threads are used.</p></div>
                             <fieldset class="radios">
                               
 
@@ -327,8 +327,8 @@
                         <!-- Choice collapsable body -->
                         <div id="https-collapse" class="accordion-collapse collapse" data-bs-parent="#security-accordion">
                           <div class="accordion-body choice">
-                            <p class="description">Determines if the server should be started for HTTP or HTTPS.
-  If HTTPS is chosen, CLI parameters <code>--httpsKey</code> and <code>--httpsCert</code> need to be provided.</p>
+                            <div class="description"><p>Determines if the server should be started for HTTP or HTTPS.
+  If HTTPS is chosen, CLI parameters <code>--httpsKey</code> and <code>--httpsCert</code> need to be provided.</p></div>
                             <fieldset class="radios">
                               
 
@@ -372,10 +372,13 @@
                         <!-- Choice collapsable body -->
                         <div id="authorization-collapse" class="accordion-collapse collapse" data-bs-parent="#security-accordion">
                           <div class="accordion-body choice">
-                            <p class="description">The authorization system to restrict who can access resources.
-  <p class="text-danger"><i class="bi bi-exclamation-triangle me-1"></i>
+                            <div class="description"><p>The authorization system to restrict who can access resources.
+  </p><p class="text-danger"><i class="bi bi-exclamation-triangle me-1"></i>
     Disabling this allows everyone to access and modify all resources on the server.
-  </p></p>
+  </p><p class="text-danger"><i class="bi bi-exclamation-triangle me-1"></i>
+    Do not switch between WAC and ACP on an existing server
+    if its data was previously was configured with the other system.
+</p></div>
                             <fieldset class="radios">
                               
 
@@ -453,7 +456,7 @@
                         <!-- Choice collapsable body -->
                         <div id="registration-collapse" class="accordion-collapse collapse" data-bs-parent="#pods-accordion">
                           <div class="accordion-body choice">
-                            <p class="description">Allow users to register new accounts and pods on the server.</p>
+                            <div class="description"><p>Allow users to register new accounts and pods on the server.</p></div>
                             <fieldset class="radios">
                               
 
@@ -497,8 +500,8 @@
                         <!-- Choice collapsable body -->
                         <div id="email-collapse" class="accordion-collapse collapse" data-bs-parent="#pods-accordion">
                           <div class="accordion-body choice">
-                            <p class="description">Configure an e-mail server to be used when users forgot their password.
-  This will add a new entry to the configuration JSON that needs to be updated with the credentials of your e-mail server.</p>
+                            <div class="description"><p>Configure an e-mail server to be used when users forgot their password.
+  This will add a new entry to the configuration JSON that needs to be updated with the credentials of your e-mail server.</p></div>
                             <fieldset class="radios">
                               
 
@@ -542,7 +545,7 @@
                         <!-- Choice collapsable body -->
                         <div id="subdomain-collapse" class="accordion-collapse collapse" data-bs-parent="#pods-accordion">
                           <div class="accordion-body choice">
-                            <p class="description">How URLs for new pods should be created, appending the name to the base URL as a suffix, or using it as a subdomain.</p>
+                            <div class="description"><p>How URLs for new pods should be created, appending the name to the base URL as a suffix, or using it as a subdomain.</p></div>
                             <fieldset class="radios">
                               
 
@@ -609,7 +612,10 @@
                         <!-- Choice collapsable body -->
                         <div id="notifications-collapse" class="accordion-collapse collapse" data-bs-parent="#misc-accordion">
                           <div class="accordion-body choice">
-                            <p class="description">TODO</p>
+                            <div class="description"><p>Which methods can be used to be notified of changes to resources.
+  These are based on the latest Solid Notifications specification.
+  </p><p>"Legacy WebSockets" is an implementation of the deprecated Solid WebSockets API 0.1
+  and allows users to receive notifications for resources they do not have access to.</p></div>
                             <fieldset class="radios">
                               
 
@@ -686,12 +692,12 @@
                         <!-- Choice collapsable body -->
                         <div id="initializeRoot-collapse" class="accordion-collapse collapse" data-bs-parent="#misc-accordion">
                           <div class="accordion-body choice">
-                            <p class="description">Makes the root of the server accessible for reading and writing data.
+                            <div class="description"><p>Makes the root of the server accessible for reading and writing data.
   Enabling this will create the relevant authorization resources in the root that allow this.
-  <p class="text-danger"><i class="bi bi-exclamation-triangle me-1"></i>
+  </p><p class="text-danger"><i class="bi bi-exclamation-triangle me-1"></i>
     These authorization resources provide full access to everyone so make sure to immediately update these.
     They will also not disappear after stopping the server and need to be deleted manually afterwards if you use a file system as backend.
-  </p></p>
+</p></div>
                             <fieldset class="radios">
                               
 
@@ -735,8 +741,8 @@
                         <!-- Choice collapsable body -->
                         <div id="setup-collapse" class="accordion-collapse collapse" data-bs-parent="#misc-accordion">
                           <div class="accordion-body choice">
-                            <p class="description">Requires a setup procedure to occur after starting the server. 
-  This can be used to create a pod immediately on the server.</p>
+                            <div class="description"><p>Requires a setup procedure to occur after starting the server. 
+  This can be used to create a pod immediately on the server.</p></div>
                             <fieldset class="radios">
                               
 
@@ -788,7 +794,10 @@
 
                     <!-- Accordion for the group elements -->
                     <div class="accordion accordion-flush" id="advanced-accordion">
-                    <p><p class="text-danger"><i class="bi bi-exclamation-triangle me-1"></i><b>Advanced features</b>. You should not change these options unless you are sure what they do.</p></p>
+                    <p>
+    </p><p class="text-danger">
+      <i class="bi bi-exclamation-triangle me-1"></i><b>Advanced features</b>. You should not change these options unless you are sure what they do.
+</p>
                     
 
                       <div class="accordion-item" id="ownership">
@@ -803,8 +812,8 @@
                         <!-- Choice collapsable body -->
                         <div id="ownership-collapse" class="accordion-collapse collapse" data-bs-parent="#advanced-accordion">
                           <div class="accordion-body choice">
-                            <p class="description">Verifies that someone is the owner of an external WebID if they try to register an account with it.
-  Disabling this means this server should not be trusted for authentication.</p>
+                            <div class="description"><p>Verifies that someone is the owner of an external WebID if they try to register an account with it.
+  Disabling this means this server should not be trusted for authentication.</p></div>
                             <fieldset class="radios">
                               
 
@@ -848,11 +857,11 @@
                         <!-- Choice collapsable body -->
                         <div id="restrictAccountApi-collapse" class="accordion-collapse collapse" data-bs-parent="#advanced-accordion">
                           <div class="accordion-body choice">
-                            <p class="description">Use the chosen authorization method for the account-related APIs such as registration.
+                            <div class="description"><p>Use the chosen authorization method for the account-related APIs such as registration.
   This can be used to only allow authorized requests of specific WebIDs to register accounts.
   If enabled, the necessary authorization resources will be created
   in the <code>/.well-known/</code> and <code>/idp/</code> containers providing full access to everyone,
-  so make sure to update these with the correct values.</p>
+  so make sure to update these with the correct values.</p></div>
                             <fieldset class="radios">
                               
 
@@ -896,10 +905,10 @@
                         <!-- Choice collapsable body -->
                         <div id="index-collapse" class="accordion-collapse collapse" data-bs-parent="#advanced-accordion">
                           <div class="accordion-body choice">
-                            <p class="description">Convert all requests to a static page in case HTML is requested.
+                            <div class="description"><p>Convert all requests to a static page in case HTML is requested.
   This is needed when you want to add a UI such as <a href="https://github.com/SolidOS/mashlib">Mashlib</a> or
   <a href="https://gitlab.com/vincenttunru/penny">Penny</a>.
-  You will have to update the configuration file with the correct values.</p>
+  You will have to update the configuration file with the correct values.</p></div>
                             <fieldset class="radios">
                               
 
