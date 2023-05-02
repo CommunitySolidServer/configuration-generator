@@ -55,7 +55,7 @@ export function generateImports(choices: Choices): Import[] {
     throw new Error('Combining the regex backend with in-memory internal storage does not make sense.');
   }
   if (choices.registration === FALSE && choices.setup === FALSE && choices.initializeRoot === FALSE) {
-    throw new Error('There would be no way to write data to this server.');
+    throw new Error('There would be no way to write data to this server. You need to enable one of registration, setup, or root initialization.');
   }
   if (choices.registration === TRUE && choices.initializeRoot === TRUE && choices.subdomain === FALSE) {
     throw new Error('Initializing the root and enabling registration is only possible when subdomains are used, as nested storages are not allowed in Solid.');
