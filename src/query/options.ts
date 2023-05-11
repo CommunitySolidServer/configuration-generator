@@ -9,18 +9,18 @@ const schema = lazy((obj) => object(Object.fromEntries(Object.keys(obj).map((key
   [ key, array(string().required()).ensure().required() ]
 ))));
 
-function validateOptions(name: string, options: string[]): { root: HTMLElement, children: Element[] } {
-  const root = document.getElementById(name);
+function validateOptions(id: string, options: string[]): { root: HTMLElement, children: Element[] } {
+  const root = document.getElementById(id);
   if (!root) {
-    throw new Error(`"${name}" is not a known choice.`);
+    throw new Error(`"${id}" is not a known choice.`);
   }
 
   const children = Array.from(root.getElementsByClassName('option'));
 
   // Make sure all chosen options exist
   for (const option of options) {
-    if (!children.some((label): boolean => label.id === `${name}:${option}`)) {
-      throw new Error(`Unknown option "${option}" for choice "${name}". Not applying changes.`);
+    if (!children.some((label): boolean => label.id === `${id}:${option}`)) {
+      throw new Error(`Unknown option "${option}" for choice "${id}". Not applying changes.`);
     }
   }
 

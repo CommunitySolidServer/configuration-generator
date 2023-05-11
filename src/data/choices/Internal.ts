@@ -4,8 +4,8 @@ import { Choice } from '../Choice';
  * How to store internal state data (backend breaks if SPARQL is chosen).
  */
 export const INTERNAL = {
-  name: 'internal',
-  title: 'Internal storage',
+  id: 'internal',
+  label: 'Internal storage',
   description: `How internal data should be stored, such as account data.
   Data stored in memory will be lost on server restart.`,
   options: [

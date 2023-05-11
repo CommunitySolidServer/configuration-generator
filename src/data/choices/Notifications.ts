@@ -4,8 +4,8 @@ import { Choice, FALSE } from '../Choice';
  * Notification method(s). None if undefined.
  */
 export const NOTIFICATIONS = {
-  name: 'notifications',
-  title: 'Notification method',
+  id: 'notifications',
+  label: 'Notification method',
   description: `Which methods can be used to be notified of changes to resources.
   These are based on the latest Solid Notifications specification.
   </p><p>"Legacy WebSockets" is an implementation of the deprecated Solid WebSockets API 0.1

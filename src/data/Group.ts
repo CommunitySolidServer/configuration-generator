@@ -1,8 +1,6 @@
-import { Choice } from './Choice';
-
-export interface Group {
+export interface Group<T> {
   id: string;
-  name: string;
+  label: string;
   description: string;
-  choices: readonly Choice[]
+  entries: readonly T[]
 }

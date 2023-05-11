@@ -5,8 +5,8 @@ import { Choice } from '../Choice';
  * `regex` writes internal data to the file system and data to SPARQL.
  */
 export const BACKEND = {
-  name: 'backend',
-  title: 'Data storage',
+  id: 'backend',
+  label: 'Data storage',
   description: `How the data should be stored on the server.
   In-memory will cause the data to be lost when the server restarts.
   File options can use the <code>--rootFilePath/-f</code> CLI parameter to choose the root data folder to use,

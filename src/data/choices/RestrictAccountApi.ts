@@ -4,8 +4,8 @@ import { BooleanOption, Choice, ENABLED_DISABLED, FALSE } from '../Choice';
  * Also apply authorization rules to IDP API (GIVES FULL ACCESS WHICH NEEDS TO BE UPDATED).
  */
 export const RESTRICT_ACCOUNT_API = {
-  name: 'restrictAccountApi',
-  title: 'Restrict account API',
+  id: 'restrictAccountApi',
+  label: 'Restrict account API',
   description: `Use the chosen authorization method for the account-related APIs such as registration.
   This can be used to only allow authorized requests of specific WebIDs to register accounts.
   If enabled, the necessary authorization resources will be created

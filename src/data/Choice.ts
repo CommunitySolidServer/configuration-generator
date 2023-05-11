@@ -1,6 +1,6 @@
 export interface Choice<T extends string = string> {
-  readonly name: string;
-  readonly title: string;
+  readonly id: string;
+  readonly label: string;
   readonly description: string;
   readonly options: readonly { value: T, label: string }[];
   readonly default: T;

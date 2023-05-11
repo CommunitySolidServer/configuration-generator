@@ -17,8 +17,8 @@ export interface Config {
 function applyDefaults(partialChoices: Partial<Choices>): Choices {
   const choices = {} as Record<keyof Choices, string>;
 
-  for (const choice of GROUPS.map((group) => group.choices).flat()) {
-    choices[choice.name] = partialChoices[choice.name] ?? choice.default;
+  for (const choice of GROUPS.map((group) => group.entries).flat()) {
+    choices[choice.id] = partialChoices[choice.id] ?? choice.default;
   }
 
   return choices as Choices;

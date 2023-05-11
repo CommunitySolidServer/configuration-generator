@@ -1,4 +1,5 @@
 import { Choice } from './Choice';
+import { Group } from './Group';
 import { ADVANCED } from './groups/Advanced';
 import { DATA } from './groups/Data';
 import { MISC } from './groups/Misc';
@@ -11,14 +12,14 @@ export const GROUPS = [
   PODS,
   MISC,
   ADVANCED,
-] as const;
+] as const satisfies readonly Group<Choice>[];
 
 // TODO: check if easier is possible
 // Creates type where the keys are the possible Choice names, and the corresponding value is an option of that Choice.
 type ArrayElement<TArray> = TArray extends readonly (infer TEntry)[] ? TEntry : never;
-type NamedChoice<TChoice, TName> = TChoice & { name: TName };
-export type ChoiceObject = ArrayElement<ArrayElement<typeof GROUPS>['choices']>;
+type NamedChoice<TChoice, TId> = TChoice & { id: TId };
+export type ChoiceObject = ArrayElement<ArrayElement<typeof GROUPS>['entries']>;
 // Not sure why this intermediate type is needed but otherwise the typings don't work out
-type ChoiceMap = { [K in ChoiceObject['name']]: NamedChoice<ChoiceObject, K> };
+type ChoiceMap = { [K in ChoiceObject['id']]: NamedChoice<ChoiceObject, K> };
 type Option<T> = T extends Choice<infer K> ? K : never;
-export type Choices = { [K in ChoiceObject['name']]: Option<ChoiceMap[K]> };
+export type Choices = { [K in ChoiceObject['id']]: Option<ChoiceMap[K]> };

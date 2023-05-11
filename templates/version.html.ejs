@@ -84,7 +84,7 @@
                 <div class="accordion-header" id="<%= group.id %>-header">
                   <button class="fs-3 accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#<%= group.id %>-collapse"
                           aria-controls="#<%= group.id %>-collapse" aria-labelledby="#<%= group.id %>-header">
-                    <%- group.name %>
+                    <%- group.label %>
                   </button>
                 </div>
 
@@ -95,19 +95,19 @@
                     <!-- Accordion for the group elements -->
                     <div class="accordion accordion-flush" id="<%= group.id %>-accordion">
                     <p><%- group.description %></p>
-                    <% for (const choice of group.choices) { %>
+                    <% for (const choice of group.entries) { %>
 
-                      <div class="accordion-item" id="<%= choice.name %>">
+                      <div class="accordion-item" id="<%= choice.id %>">
                         <!-- Choice header-->
-                        <div class="accordion-header" id="<%= choice.name %>-header">
-                          <button class="py-2 fs-5 accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#<%= choice.name %>-collapse"
-                                  aria-controls="#<%= choice.name %>-collapse" aria-labelledby="#<%= choice.name %>-header">
-                            <%- choice.title %>
+                        <div class="accordion-header" id="<%= choice.id %>-header">
+                          <button class="py-2 fs-5 accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#<%= choice.id %>-collapse"
+                                  aria-controls="#<%= choice.id %>-collapse" aria-labelledby="#<%= choice.id %>-header">
+                            <%- choice.label %>
                           </button>
                         </div>
 
                         <!-- Choice collapsable body -->
-                        <div id="<%= choice.name %>-collapse" class="accordion-collapse collapse">
+                        <div id="<%= choice.id %>-collapse" class="accordion-collapse collapse">
                           <div class="accordion-body choice">
                             <div class="description"><p><%- choice.description %></p></div>
                             <fieldset class="radios">
@@ -115,9 +115,9 @@
 
                                 <!-- Choice -->
                                 <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
-                                <div class="form-check option" id="<%= `${choice.name}:${value}` %>">
+                                <div class="form-check option" id="<%= `${choice.id}:${value}` %>">
                                   <label class="form-check-label">
-                                    <input class="form-check-input" type="radio" name="<%= choice.name %>" value="<%- value %>" <%= choice.default===value ? 'checked' : '' %>>
+                                    <input class="form-check-input" type="radio" name="<%= choice.id %>" value="<%- value %>" <%= choice.default===value ? 'checked' : '' %>>
                                     <%- label %>
                                   </label>
                                 </div>

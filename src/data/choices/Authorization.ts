@@ -4,8 +4,8 @@ import { Choice, FALSE } from '../Choice';
  * Authorization method. None if undefined (indicate this is unsafe).
  */
 export const AUTHORIZATION = {
-  name: 'authorization',
-  title: 'Authorization',
+  id: 'authorization',
+  label: 'Authorization',
   description: `The authorization system to restrict who can access resources.
   </p><p class="text-danger"><i class="bi bi-exclamation-triangle me-1"></i>
     Disabling this allows everyone to access and modify all resources on the server.

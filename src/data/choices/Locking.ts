@@ -4,8 +4,8 @@ import { Choice, FALSE } from '../Choice';
  * Which locking method to use. None if undefined (indicate this is unsafe).
  */
 export const LOCKING = {
-  name: 'locking',
-  title: 'Locking',
+  id: 'locking',
+  label: 'Locking',
   description: `Which system to use to create locks.
   Locks are used to prevent simultaneous write operations on the same resource.
   Disabling this can cause data corruption.
