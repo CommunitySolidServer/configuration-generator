@@ -89,7 +89,7 @@
                 </div>
 
                 <!-- Group collapsable body -->
-                <div id="<%= group.id %>-collapse" class="accordion-collapse collapse" data-bs-parent="#accordionChoices">
+                <div id="<%= group.id %>-collapse" class="accordion-collapse collapse">
                   <div class="accordion-body choice">
 
                     <!-- Accordion for the group elements -->
@@ -107,7 +107,7 @@
                         </div>
 
                         <!-- Choice collapsable body -->
-                        <div id="<%= choice.name %>-collapse" class="accordion-collapse collapse" data-bs-parent="#<%= group.id %>-accordion">
+                        <div id="<%= choice.name %>-collapse" class="accordion-collapse collapse">
                           <div class="accordion-body choice">
                             <div class="description"><p><%- choice.description %></p></div>
                             <fieldset class="radios">
