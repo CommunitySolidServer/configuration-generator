@@ -1,6 +1,7 @@
 import { Choices, GROUPS } from '../data/data';
 import { generateBody } from './body';
 import { generateImports, Import } from './imports';
+import { validateChoices } from './validation';
 
 // TODO: should somehow update this together with the version number used in build
 export const CONTEXT = 'https://linkedsoftwaredependencies.org/bundles/npm/@solid/community-server/^6.0.0/components/context.jsonld';
@@ -29,6 +30,8 @@ function applyDefaults(partialChoices: Partial<Choices>): Choices {
  */
 export function generateConfig(partialChoices: Partial<Choices>): Config {
   const choices = applyDefaults(partialChoices);
+
+  validateChoices(choices);
 
   const imports = generateImports(choices).sort();
   const body = generateBody(choices);

@@ -55,19 +55,6 @@ function* getAuthorizationImports(authorization: Choices['authorization']): Iter
 export function generateImports(choices: Choices): Import[] {
   const imports: Import[] = [ ...DEFAULT_IMPORTS ];
 
-  if (choices.backend === 'sparql' && choices.internal === 'resource-store') {
-    throw new Error('SPARQL backend can not be chosen if the backend is used for internal storage.');
-  }
-  if (choices.backend === 'regex' && choices.internal === 'memory') {
-    throw new Error('Combining the regex backend with in-memory internal storage does not make sense.');
-  }
-  if (choices.registration === FALSE && choices.setup === FALSE && choices.initializeRoot === FALSE) {
-    throw new Error('There would be no way to write data to this server. You need to enable one of registration, setup, or root initialization.');
-  }
-  if (choices.registration === TRUE && choices.initializeRoot === TRUE && choices.subdomain === FALSE) {
-    throw new Error('Initializing the root and enabling registration is only possible when subdomains are used, as nested storages are not allowed in Solid.');
-  }
-
   imports.push(generateImport('app', 'init', choices.initializeRoot === TRUE ? 'initialize-root' : 'default'));
   imports.push(generateImport('app', 'setup', choices.setup === TRUE ? 'required' : 'disabled'));
   imports.push(generateImport('http', 'notifications', choices.notifications));
