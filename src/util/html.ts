@@ -1,5 +1,7 @@
 import { Toast } from 'bootstrap';
 import { copy } from 'clipboard';
+import { Choice } from '../data/Choice';
+import { GROUPS } from '../data/data';
 import { applyExternalConfig, ModifiedConfig } from '../query/config';
 import { filterImports } from '../query/imports';
 import { generateConfig } from './config';
@@ -13,6 +15,14 @@ export function updateConfig(removeList: string[], externalConfig?: Partial<Modi
   const choices = Object.fromEntries(formData) as NodeJS.Dict<string>;
   const text = document.getElementById('text')!;
   const errorAlert = document.getElementById('error-alert')!;
+
+  // Update the choice headers to indicate which option was chosen there
+  for (const choice of GROUPS.map((group) => group.entries).flat()) {
+    const button = document.getElementById(`${choice.id}-header`)!.querySelector('button')!;
+    const option = (choice.options as Choice['options']).find((opt): boolean => opt.value === choices[choice.id]);
+    button.innerHTML = `<strong>${choice.label}</strong>: ${option?.label}`;
+  }
+
   try {
     const config = generateConfig(choices);
 
