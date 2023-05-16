@@ -54,7 +54,13 @@
           This configuration can then be used to start the server using the <code>-c my-config.json</code> CLI
           parameter.
         </p>
-        <p>
+        <p class="intro">
+          Choosing some options will additionally add some data to the <code>@graph</code> part of the configuration.
+          This data can be modified if necessary.
+          For example, when enabling an e-mail server,
+          you will need to modify the added data in the configuration to correctly specify how to connect to that server.
+        </p>
+        <p class="intro">
           This version of the tool makes configurations for servers running CSS v6.x.
         </p>
       </div>
@@ -89,7 +95,7 @@
                 </div>
 
                 <!-- Group collapsable body -->
-                <div id="data-collapse" class="accordion-collapse collapse" data-bs-parent="#accordionChoices">
+                <div id="data-collapse" class="accordion-collapse collapse">
                   <div class="accordion-body choice">
 
                     <!-- Accordion for the group elements -->
@@ -107,7 +113,7 @@
                         </div>
 
                         <!-- Choice collapsable body -->
-                        <div id="internal-collapse" class="accordion-collapse collapse" data-bs-parent="#data-accordion">
+                        <div id="internal-collapse" class="accordion-collapse collapse">
                           <div class="accordion-body choice">
                             <div class="description"><p>How internal data should be stored, such as account data.
   Data stored in memory will be lost on server restart.</p></div>
@@ -152,7 +158,7 @@
                         </div>
 
                         <!-- Choice collapsable body -->
-                        <div id="backend-collapse" class="accordion-collapse collapse" data-bs-parent="#data-accordion">
+                        <div id="backend-collapse" class="accordion-collapse collapse">
                           <div class="accordion-body choice">
                             <div class="description"><p>How the data should be stored on the server.
   In-memory will cause the data to be lost when the server restarts.
@@ -233,7 +239,7 @@
                         </div>
 
                         <!-- Choice collapsable body -->
-                        <div id="locking-collapse" class="accordion-collapse collapse" data-bs-parent="#data-accordion">
+                        <div id="locking-collapse" class="accordion-collapse collapse">
                           <div class="accordion-body choice">
                             <div class="description"><p>Which system to use to create locks.
   Locks are used to prevent simultaneous write operations on the same resource.
@@ -307,7 +313,7 @@
                 </div>
 
                 <!-- Group collapsable body -->
-                <div id="security-collapse" class="accordion-collapse collapse" data-bs-parent="#accordionChoices">
+                <div id="security-collapse" class="accordion-collapse collapse">
                   <div class="accordion-body choice">
 
                     <!-- Accordion for the group elements -->
@@ -325,7 +331,7 @@
                         </div>
 
                         <!-- Choice collapsable body -->
-                        <div id="https-collapse" class="accordion-collapse collapse" data-bs-parent="#security-accordion">
+                        <div id="https-collapse" class="accordion-collapse collapse">
                           <div class="accordion-body choice">
                             <div class="description"><p>Determines if the server should be started for HTTP or HTTPS.
   If HTTPS is chosen, CLI parameters <code>--httpsKey</code> and <code>--httpsCert</code> need to be provided.</p></div>
@@ -370,7 +376,7 @@
                         </div>
 
                         <!-- Choice collapsable body -->
-                        <div id="authorization-collapse" class="accordion-collapse collapse" data-bs-parent="#security-accordion">
+                        <div id="authorization-collapse" class="accordion-collapse collapse">
                           <div class="accordion-body choice">
                             <div class="description"><p>The authorization system to restrict who can access resources.
   </p><p class="text-danger"><i class="bi bi-exclamation-triangle me-1"></i>
@@ -436,7 +442,7 @@
                 </div>
 
                 <!-- Group collapsable body -->
-                <div id="pods-collapse" class="accordion-collapse collapse" data-bs-parent="#accordionChoices">
+                <div id="pods-collapse" class="accordion-collapse collapse">
                   <div class="accordion-body choice">
 
                     <!-- Accordion for the group elements -->
@@ -454,7 +460,7 @@
                         </div>
 
                         <!-- Choice collapsable body -->
-                        <div id="registration-collapse" class="accordion-collapse collapse" data-bs-parent="#pods-accordion">
+                        <div id="registration-collapse" class="accordion-collapse collapse">
                           <div class="accordion-body choice">
                             <div class="description"><p>Allow users to register new accounts and pods on the server.</p></div>
                             <fieldset class="radios">
@@ -498,7 +504,7 @@
                         </div>
 
                         <!-- Choice collapsable body -->
-                        <div id="email-collapse" class="accordion-collapse collapse" data-bs-parent="#pods-accordion">
+                        <div id="email-collapse" class="accordion-collapse collapse">
                           <div class="accordion-body choice">
                             <div class="description"><p>Configure an e-mail server to be used when users forgot their password.
   This will add a new entry to the configuration JSON that needs to be updated with the credentials of your e-mail server.</p></div>
@@ -543,7 +549,7 @@
                         </div>
 
                         <!-- Choice collapsable body -->
-                        <div id="subdomain-collapse" class="accordion-collapse collapse" data-bs-parent="#pods-accordion">
+                        <div id="subdomain-collapse" class="accordion-collapse collapse">
                           <div class="accordion-body choice">
                             <div class="description"><p>How URLs for new pods should be created, appending the name to the base URL as a suffix, or using it as a subdomain.</p></div>
                             <fieldset class="radios">
@@ -592,7 +598,7 @@
                 </div>
 
                 <!-- Group collapsable body -->
-                <div id="misc-collapse" class="accordion-collapse collapse" data-bs-parent="#accordionChoices">
+                <div id="misc-collapse" class="accordion-collapse collapse">
                   <div class="accordion-body choice">
 
                     <!-- Accordion for the group elements -->
@@ -610,7 +616,7 @@
                         </div>
 
                         <!-- Choice collapsable body -->
-                        <div id="notifications-collapse" class="accordion-collapse collapse" data-bs-parent="#misc-accordion">
+                        <div id="notifications-collapse" class="accordion-collapse collapse">
                           <div class="accordion-body choice">
                             <div class="description"><p>Which methods can be used to be notified of changes to resources.
   These are based on the latest Solid Notifications specification.
@@ -701,7 +707,7 @@
                         </div>
 
                         <!-- Choice collapsable body -->
-                        <div id="initializeRoot-collapse" class="accordion-collapse collapse" data-bs-parent="#misc-accordion">
+                        <div id="initializeRoot-collapse" class="accordion-collapse collapse">
                           <div class="accordion-body choice">
                             <div class="description"><p>Makes the root of the server accessible for reading and writing data.
   Enabling this will create the relevant authorization resources in the root that allow this.
@@ -750,7 +756,7 @@
                         </div>
 
                         <!-- Choice collapsable body -->
-                        <div id="setup-collapse" class="accordion-collapse collapse" data-bs-parent="#misc-accordion">
+                        <div id="setup-collapse" class="accordion-collapse collapse">
                           <div class="accordion-body choice">
                             <div class="description"><p>Requires a setup procedure to occur after starting the server. 
   This can be used to create a pod immediately on the server.</p></div>
@@ -800,7 +806,7 @@
                 </div>
 
                 <!-- Group collapsable body -->
-                <div id="advanced-collapse" class="accordion-collapse collapse" data-bs-parent="#accordionChoices">
+                <div id="advanced-collapse" class="accordion-collapse collapse">
                   <div class="accordion-body choice">
 
                     <!-- Accordion for the group elements -->
@@ -821,7 +827,7 @@
                         </div>
 
                         <!-- Choice collapsable body -->
-                        <div id="ownership-collapse" class="accordion-collapse collapse" data-bs-parent="#advanced-accordion">
+                        <div id="ownership-collapse" class="accordion-collapse collapse">
                           <div class="accordion-body choice">
                             <div class="description"><p>Verifies that someone is the owner of an external WebID if they try to register an account with it.
   Disabling this means this server should not be trusted for authentication.</p></div>
@@ -866,7 +872,7 @@
                         </div>
 
                         <!-- Choice collapsable body -->
-                        <div id="restrictAccountApi-collapse" class="accordion-collapse collapse" data-bs-parent="#advanced-accordion">
+                        <div id="restrictAccountApi-collapse" class="accordion-collapse collapse">
                           <div class="accordion-body choice">
                             <div class="description"><p>Use the chosen authorization method for the account-related APIs such as registration.
   This can be used to only allow authorized requests of specific WebIDs to register accounts.
@@ -914,7 +920,7 @@
                         </div>
 
                         <!-- Choice collapsable body -->
-                        <div id="index-collapse" class="accordion-collapse collapse" data-bs-parent="#advanced-accordion">
+                        <div id="index-collapse" class="accordion-collapse collapse">
                           <div class="accordion-body choice">
                             <div class="description"><p>Convert all requests to a static page in case HTML is requested.
   This is needed when you want to add a UI such as <a href="https://github.com/SolidOS/mashlib">Mashlib</a> or
@@ -939,6 +945,278 @@
                                 <div class="form-check option" id="index:false">
                                   <label class="form-check-label">
                                     <input class="form-check-input" type="radio" name="index" value="false" checked>
+                                    Disabled
+                                  </label>
+                                </div>
+
+                                
+                            </fieldset>
+                          </div>
+                        </div>
+                      </div>
+
+                    
+                    </div>
+                  </div>
+                </div>
+              </div>
+            
+
+              <!-- Group header -->
+              <div class="accordion-item" id="parameters">
+                <div class="accordion-header" id="parameters-header">
+                  <button class="fs-3 accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#parameters-collapse"
+                          aria-controls="#parameters-collapse" aria-labelledby="#parameters-header">
+                    Additional customization
+                  </button>
+                </div>
+
+                <!-- Group collapsable body -->
+                <div id="parameters-collapse" class="accordion-collapse collapse">
+                  <div class="accordion-body choice">
+
+                    <!-- Accordion for the group elements -->
+                    <div class="accordion accordion-flush" id="parameters-accordion">
+                    <p>These are additional parameters that can be used to fine-tune the server customization.
+                Enabling any of these will add a new entry in the generated configuration,
+                which you can use to update the necessary values in the <code>overrideParameters</code> block.</p>
+                <p>These options are only relevant for specific use cases.
+                If you are not sure, you can safely leave them all disabled and the default values will be used.</p>
+                <p>The options below are just some of the parameters that can be customized,
+                chosen based on what might be useful for people wanting to configure their server.
+                If there is another value that you want to customize,
+                you can open an issue in the <a href="https://github.com/CommunitySolidServer/configuration-generator/">repository</a>,
+                and we will have a look if it is something that can easily be added.</p>
+                    
+
+                      <div class="accordion-item" id="notificationDuration">
+                        <!-- Choice header-->
+                        <div class="accordion-header" id="notificationDuration-header">
+                          <button class="py-2 fs-5 accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#notificationDuration-collapse"
+                                  aria-controls="#notificationDuration-collapse" aria-labelledby="#notificationDuration-header">
+                            Maximum duration of notification subscriptions
+                          </button>
+                        </div>
+
+                        <!-- Choice collapsable body -->
+                        <div id="notificationDuration-collapse" class="accordion-collapse collapse">
+                          <div class="accordion-body choice">
+                            <div class="description"><p>How long a Notification subscription is allowed to exist before it is automatically removed by the server, in minutes.
+  Keeping track of all notification subscriptions forever can create an extra load on the server,
+  see the usage <a href="https://communitysolidserver.github.io/CommunitySolidServer/6.x/usage/notifications/#important-note-for-server-owners">documentation</a>
+  for more information.</p>
+  <p>This needs to be set for every supported Notification channel type.</p></div>
+                            <fieldset class="radios">
+                              
+
+                                <!-- Choice -->
+                                <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                                <div class="form-check option" id="notificationDuration:true">
+                                  <label class="form-check-label">
+                                    <input class="form-check-input" type="radio" name="notificationDuration" value="true" >
+                                    Enabled
+                                  </label>
+                                </div>
+
+                                
+
+                                <!-- Choice -->
+                                <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                                <div class="form-check option" id="notificationDuration:false">
+                                  <label class="form-check-label">
+                                    <input class="form-check-input" type="radio" name="notificationDuration" value="false" checked>
+                                    Disabled
+                                  </label>
+                                </div>
+
+                                
+                            </fieldset>
+                          </div>
+                        </div>
+                      </div>
+
+                    
+
+                      <div class="accordion-item" id="lockExpiration">
+                        <!-- Choice header-->
+                        <div class="accordion-header" id="lockExpiration-header">
+                          <button class="py-2 fs-5 accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#lockExpiration-collapse"
+                                  aria-controls="#lockExpiration-collapse" aria-labelledby="#lockExpiration-header">
+                            Lock expiration
+                          </button>
+                        </div>
+
+                        <!-- Choice collapsable body -->
+                        <div id="lockExpiration-collapse" class="accordion-collapse collapse">
+                          <div class="accordion-body choice">
+                            <div class="description"><p>The locking expiration timeout determines how long until an inactive request gets closed by the server.
+  Increasing this value can be useful if people try to make large requests on unstable internet connections.</p></div>
+                            <fieldset class="radios">
+                              
+
+                                <!-- Choice -->
+                                <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                                <div class="form-check option" id="lockExpiration:true">
+                                  <label class="form-check-label">
+                                    <input class="form-check-input" type="radio" name="lockExpiration" value="true" >
+                                    Enabled
+                                  </label>
+                                </div>
+
+                                
+
+                                <!-- Choice -->
+                                <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                                <div class="form-check option" id="lockExpiration:false">
+                                  <label class="form-check-label">
+                                    <input class="form-check-input" type="radio" name="lockExpiration" value="false" checked>
+                                    Disabled
+                                  </label>
+                                </div>
+
+                                
+                            </fieldset>
+                          </div>
+                        </div>
+                      </div>
+
+                    
+
+                      <div class="accordion-item" id="containerIndex">
+                        <!-- Choice header-->
+                        <div class="accordion-header" id="containerIndex-header">
+                          <button class="py-2 fs-5 accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#containerIndex-collapse"
+                                  aria-controls="#containerIndex-collapse" aria-labelledby="#containerIndex-header">
+                            Container index resource
+                          </button>
+                        </div>
+
+                        <!-- Choice collapsable body -->
+                        <div id="containerIndex-collapse" class="accordion-collapse collapse">
+                          <div class="accordion-body choice">
+                            <div class="description"><p>Determines which resource to return when a container is being read.
+  By default, if someone browses to a container they will instead see the <code>index.html</code> resource in that container,
+  allowing you to provide users with a nicer result.</p>
+  <p>This can be customized, both in the name of the resource to choose (default: <code>index.html</code>),
+  and in the accept header situations where this should be done (default: <code>text/html</code>).</p>
+  <p>To completely disable this behaviour, configure the media range to be an empty string.</p></div>
+                            <fieldset class="radios">
+                              
+
+                                <!-- Choice -->
+                                <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                                <div class="form-check option" id="containerIndex:true">
+                                  <label class="form-check-label">
+                                    <input class="form-check-input" type="radio" name="containerIndex" value="true" >
+                                    Enabled
+                                  </label>
+                                </div>
+
+                                
+
+                                <!-- Choice -->
+                                <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                                <div class="form-check option" id="containerIndex:false">
+                                  <label class="form-check-label">
+                                    <input class="form-check-input" type="radio" name="containerIndex" value="false" checked>
+                                    Disabled
+                                  </label>
+                                </div>
+
+                                
+                            </fieldset>
+                          </div>
+                        </div>
+                      </div>
+
+                    
+
+                      <div class="accordion-item" id="podTemplate">
+                        <!-- Choice header-->
+                        <div class="accordion-header" id="podTemplate-header">
+                          <button class="py-2 fs-5 accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#podTemplate-collapse"
+                                  aria-controls="#podTemplate-collapse" aria-labelledby="#podTemplate-header">
+                            Pod template folder
+                          </button>
+                        </div>
+
+                        <!-- Choice collapsable body -->
+                        <div id="podTemplate-collapse" class="accordion-collapse collapse">
+                          <div class="accordion-body choice">
+                            <div class="description"><p>The path to the folder that contains the templates that are used to instantiate a new pod.
+  The path is relative to where the Node.js process is executed from,
+  or, if it starts with <code>@css:</code>, relative to the install location of CSS.
+  HandleBars is used to interpret the templates.</p>
+  <p>The WebID is always expected to be in <code>profile/card#me</code>.
+  The folder is expected to have separate folders to differentiate between the chosen authorization systems,
+  see the original <a href="https://github.com/CommunitySolidServer/CommunitySolidServer/tree/main/templates/pod">templates</a> for an example.</p></div>
+                            <fieldset class="radios">
+                              
+
+                                <!-- Choice -->
+                                <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                                <div class="form-check option" id="podTemplate:true">
+                                  <label class="form-check-label">
+                                    <input class="form-check-input" type="radio" name="podTemplate" value="true" >
+                                    Enabled
+                                  </label>
+                                </div>
+
+                                
+
+                                <!-- Choice -->
+                                <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                                <div class="form-check option" id="podTemplate:false">
+                                  <label class="form-check-label">
+                                    <input class="form-check-input" type="radio" name="podTemplate" value="false" checked>
+                                    Disabled
+                                  </label>
+                                </div>
+
+                                
+                            </fieldset>
+                          </div>
+                        </div>
+                      </div>
+
+                    
+
+                      <div class="accordion-item" id="oidcConfiguration">
+                        <!-- Choice header-->
+                        <div class="accordion-header" id="oidcConfiguration-header">
+                          <button class="py-2 fs-5 accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#oidcConfiguration-collapse"
+                                  aria-controls="#oidcConfiguration-collapse" aria-labelledby="#oidcConfiguration-header">
+                            OIDC configuration
+                          </button>
+                        </div>
+
+                        <!-- Choice collapsable body -->
+                        <div id="oidcConfiguration-collapse" class="accordion-collapse collapse">
+                          <div class="accordion-body choice">
+                            <div class="description"><p>Allows you to modify the OIDC settings of the server.
+  This will put the entire OIDC configuration object in the configuration JSON as there is no way to split it up.
+  To modify how long OIDC-related tokens are valid you will want to edit the values in the <code>ttl</code> block, in seconds.
+  <p>To find an explanation of all fields, see the relevant
+  <a href="https://github.com/panva/node-oidc-provider/blob/v7.x/docs/README.md#configuration-options">documentation</a>.</p></p></div>
+                            <fieldset class="radios">
+                              
+
+                                <!-- Choice -->
+                                <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                                <div class="form-check option" id="oidcConfiguration:true">
+                                  <label class="form-check-label">
+                                    <input class="form-check-input" type="radio" name="oidcConfiguration" value="true" >
+                                    Enabled
+                                  </label>
+                                </div>
+
+                                
+
+                                <!-- Choice -->
+                                <!-- `option` class and id are used by `options` query parameter to remove certain entries -->
+                                <div class="form-check option" id="oidcConfiguration:false">
+                                  <label class="form-check-label">
+                                    <input class="form-check-input" type="radio" name="oidcConfiguration" value="false" checked>
                                     Disabled
                                   </label>
                                 </div>
