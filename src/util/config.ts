@@ -4,7 +4,7 @@ import { generateImports, Import } from './imports';
 import { validateChoices } from './validation';
 
 // TODO: should somehow update this together with the version number used in build
-export const CONTEXT = 'https://linkedsoftwaredependencies.org/bundles/npm/@solid/community-server/^6.0.0/components/context.jsonld';
+export const CONTEXT = 'https://linkedsoftwaredependencies.org/bundles/npm/@solid/community-server/^7.0.0/components/context.jsonld';
 
 export interface Config {
   '@context': typeof CONTEXT,

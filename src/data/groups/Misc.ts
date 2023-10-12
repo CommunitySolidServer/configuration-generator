@@ -1,7 +1,7 @@
 import { Choice } from '../Choice';
+import { HTTPS } from '../choices/Https';
 import { INITIALIZE_ROOT } from '../choices/InitializeRoot';
 import { NOTIFICATIONS } from '../choices/Notifications';
-import { SETUP } from '../choices/Setup';
 import { Group } from '../Group';
 
 export const MISC = {
@@ -11,6 +11,6 @@ export const MISC = {
   entries: [
     NOTIFICATIONS,
     INITIALIZE_ROOT,
-    SETUP,
+    HTTPS,
   ],
 } as const satisfies Group<Choice>;

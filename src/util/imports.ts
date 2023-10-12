@@ -20,10 +20,8 @@ export const DEFAULT_IMPORTS: readonly Import[] = [
   generateImport('http', 'handler', 'default'),
   generateImport('http', 'middleware', 'default'),
   generateImport('http', 'static', 'default'),
-  generateImport('identity', 'handler', 'default'),
   generateImport('identity', 'pod', 'static'),
   generateImport('ldp', 'authentication', 'dpop-bearer'),
-  generateImport('ldp', 'handler', 'default'),
   generateImport('ldp', 'metadata-parser', 'default'),
   generateImport('ldp', 'metadata-writer', 'default'),
   generateImport('ldp', 'modes', 'default'),
@@ -55,18 +53,21 @@ function* getAuthorizationImports(authorization: Choices['authorization']): Iter
 export function generateImports(choices: Choices): Import[] {
   const imports: Import[] = [ ...DEFAULT_IMPORTS ];
 
-  imports.push(generateImport('app', 'init', choices.initializeRoot === TRUE ? 'initialize-root' : 'default'));
-  imports.push(generateImport('app', 'setup', choices.setup === TRUE ? 'required' : 'disabled'));
+  imports.push(generateImport('app', 'init', choices.initializeRoot));
   imports.push(generateImport('http', 'notifications', choices.notifications));
   imports.push(generateImport('http', 'server-factory', choices.https === TRUE ? 'https' : 'http'));
   imports.push(generateImport('identity', 'access', choices.restrictAccountApi === TRUE ? 'restricted' : 'public'));
   imports.push(generateImport('identity', 'email', choices.email === TRUE ? 'example' : 'default'));
+  imports.push(generateImport('identity', 'handler', choices.accounts));
+  imports.push(generateImport('identity', 'oidc', choices.oidc === TRUE ? 'default' : 'disabled'));
   imports.push(generateImport('identity', 'ownership', choices.ownership === TRUE ? 'token' : 'unsafe-no-check'));
-  imports.push(generateImport('identity', 'registration', choices.registration === TRUE ? 'enabled' : 'disabled'));
+  imports.push(generateImport('ldp', 'handler', choices.ldp === TRUE ? 'default' : 'disabled'));
   // In v6 there are 2 relevant imports for ACP/WAC
   imports.push(...getAuthorizationImports(choices.authorization));
   imports.push(generateImport('storage', 'backend', choices.backend));
   imports.push(generateImport('storage', 'key-value', choices.internal));
+  const rootStorage = [ 'initialize-root', 'initialize-root-pod' ].includes(choices.initializeRoot) && choices.subdomain === FALSE;
+  imports.push(generateImport('storage', 'location', rootStorage ? 'root' : 'pod'));
   imports.push(generateImport('util', 'identifiers', choices.subdomain === TRUE ? 'subdomain' : 'suffix'));
   imports.push(generateImport('util', 'index', choices.index === TRUE ? 'example' : 'default'));
   imports.push(generateImport('util', 'resource-locker', choices.locking === FALSE ? 'debug-void' : choices.locking));

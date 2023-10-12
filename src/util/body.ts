@@ -4,13 +4,13 @@ import { Choices, Option } from '../data/data';
 
 interface Override {
   '@id'?: string,
-  comment: string;
+  comment: string | string[];
   '@type': 'Override',
   overrideInstance: { '@id': string },
   overrideParameters: Record<string, unknown> & { '@type': string },
 }
 
-function generateOverride(instance: string, type: string, comment: string, params: Record<string, unknown>): Override {
+function generateOverride(instance: string, type: string, comment: string | string[], params: Record<string, unknown>): Override {
   return {
     comment: comment,
     '@type': 'Override',
@@ -86,6 +86,16 @@ export function generateBody(choices: Choices): unknown[] {
     body.push(generateOverride('urn:solid-server:default:SizeReporter', 'FileSizeReporter', commentReporter, paramsReporter));
   }
 
+  if (choices.initializeRoot === 'initialize-root-pod') {
+    const comment = [ 'The login settings of the account of the root pod. ',
+      'It is advised to immediately change this password after starting the server.' ];
+    const params = {
+      email: 'test@example.com',
+      password: 'secret!',
+    }
+    body.push(generateOverride('urn:solid-server:default:RootPodInitializer', 'AccountInitializer', comment, params));
+  }
+
   if (choices.notificationDuration === TRUE && ([ 'all', 'websockets', 'new-old-websockets' ] satisfies Option<typeof NOTIFICATIONS>[] as string[]).includes(choices.notifications)) {
     const comment = 'How long WebSocketChannel2023 subscriptions can exist, in minutes.';
     const params = { maxDuration: 20160 }
@@ -114,9 +124,25 @@ export function generateBody(choices: Choices): unknown[] {
   }
 
   if (choices.podTemplate === TRUE) {
-    const comment = 'The location of the new pod templates folder.';
-    const params = { templateFolder: '@css:templates/pod' }
+    let comment = 'The location of the new pod templates folder.';
+    let params: Record<string, string> = { templateFolder: '@css:templates/pod' }
     body.push(generateOverride('urn:solid-server:default:PodResourcesGenerator', 'StaticFolderGenerator', comment, params));
+
+    comment = 'Where the WebID is located in the generated pod, relative to the root.';
+    params = { relativeWebIdPath: 'profile/card#me' }
+    body.push(generateOverride('urn:solid-server:default:PodCreator', 'BasePodCreator', comment, params));
+  }
+
+  if (choices.mainTemplate === TRUE) {
+    const comment = 'The main HTML template used by all HTML pages.';
+    const params = { template: '@css:templates/main.html.ejs' };
+    body.push(generateOverride('urn:solid-server:default:MainTemplateEngine', 'StaticTemplateEngine', comment, params));
+  }
+
+  if (choices.accountHtmlTemplate === TRUE) {
+    const comment = 'The email/password registration page.';
+    const params = { filePath: '@css:templates/identity/password/register.html.ejs' };
+    body.push(generateOverride('urn:solid-server:default:RegisterPasswordAccountHtml', 'HtmlViewEntry', comment, params));
   }
 
   if (choices.oidcConfiguration === TRUE) {
@@ -125,22 +151,30 @@ export function generateBody(choices: Choices): unknown[] {
       config: {
         claims: {
           openid: [ 'azp' ],
-          webid: [ 'webid' ]
+          webid: [ 'webid' ],
         },
         clockTolerance: 120,
         cookies: {
           long: { signed: true, maxAge: 86400000 },
-          short: { signed: true }
+          short: { signed: true },
+        },
+        enabledJWA: {
+          dPoPSigningAlgValues: [
+            'RS256', 'RS384', 'RS512',
+            'PS256', 'PS384', 'PS512',
+            'ES256', 'ES256K', 'ES384', 'ES512',
+            'EdDSA',
+          ],
         },
         features: {
           claimsParameter: { enabled: true },
           clientCredentials: { enabled: true },
           devInteractions: { enabled: false },
-          dPoP: { enabled: true, ack: 'draft-03' },
+          dPoP: { enabled: true },
           introspection: { enabled: true },
           registration: { enabled: true },
           revocation: { enabled: true },
-          userinfo: { enabled: false }
+          userinfo: { enabled: false },
         },
         scopes: [ 'openid', 'profile', 'offline_access', 'webid' ],
         subjectTypes: [ 'public' ],
@@ -154,8 +188,8 @@ export function generateBody(choices: Choices): unknown[] {
           IdToken: 3600,
           Interaction: 3600,
           RefreshToken: 86400,
-          Session: 1209600
-        }
+          Session: 1209600,
+        },
       }
     }
     body.push(generateOverride('urn:solid-server:default:IdentityProviderFactory', 'IdentityProviderFactory', comment, params));

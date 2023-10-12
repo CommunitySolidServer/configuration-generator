@@ -1,4 +1,4 @@
-import { BooleanOption, Choice, ENABLED_DISABLED, FALSE } from '../Choice';
+import { BooleanOption, Choice, ENABLED_DISABLED, FALSE } from '../../Choice';
 
 /**
  * Add template to update the lock expiration.

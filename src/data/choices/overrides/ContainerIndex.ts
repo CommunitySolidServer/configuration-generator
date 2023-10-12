@@ -1,4 +1,4 @@
-import { BooleanOption, Choice, ENABLED_DISABLED, FALSE } from '../Choice';
+import { BooleanOption, Choice, ENABLED_DISABLED, FALSE } from '../../Choice';
 
 /**
  * The folder from where the pod templates will be loaded.

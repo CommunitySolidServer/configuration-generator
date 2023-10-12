@@ -1,4 +1,4 @@
-import { Choice, FALSE } from '../Choice';
+import { Choice } from '../Choice';
 
 /**
  * Notification method(s). None if undefined.
@@ -18,5 +18,5 @@ export const NOTIFICATIONS = {
     { value: 'new-old-websockets', label: 'Current & Legacy WebSockets' },
     { value: 'disabled', label: 'Disabled' }
   ],
-  default: 'websockets',
+  default: 'all',
 } as const satisfies Choice<'all' | 'websockets' | 'webhooks' | 'legacy-websockets' | 'new-old-websockets' | 'disabled'>;

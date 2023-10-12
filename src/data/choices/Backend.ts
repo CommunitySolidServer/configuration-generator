@@ -17,7 +17,7 @@ export const BACKEND = {
     { value: 'file', label: 'File system' },
     { value: 'sparql', label: 'SPARQL endpoint (requires in-memory internal storage)' },
     { value: 'pod-quota-file', label: 'File system (with a pod quota)' },
-    { value: 'regex', label: 'SPARQL endpoint (using file system for internal data)' }
+    { value: 'regex', label: 'SPARQL endpoint (using the file system for internal data)' }
   ],
   default: 'file',
 } as const satisfies Choice<'memory' | 'file' | 'sparql' | 'pod-quota-file' | 'regex'>;

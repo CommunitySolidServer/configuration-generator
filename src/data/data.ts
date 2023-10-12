@@ -1,16 +1,14 @@
 import { Choice } from './Choice';
 import { Group } from './Group';
+import { ACCOUNT_MANAGEMENT } from './groups/AccountManagement';
 import { ADVANCED } from './groups/Advanced';
 import { DATA } from './groups/Data';
 import { MISC } from './groups/Misc';
 import { PARAMETERS } from './groups/Parameters';
-import { PODS } from './groups/Pods';
-import { SECURITY } from './groups/Security';
 
 export const GROUPS = [
   DATA,
-  SECURITY,
-  PODS,
+  ACCOUNT_MANAGEMENT,
   MISC,
   ADVANCED,
   PARAMETERS,
