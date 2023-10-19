@@ -30,7 +30,7 @@ async function generateHtml(): Promise<void> {
   await rename(webpackDir, versionDir);
 
   // Manually update this, so we can already create new versions before the actual release
-  const index = await renderFile(join(templatesDir, 'index.html.ejs'), { version: 6 });
+  const index = await renderFile(join(templatesDir, 'index.html.ejs'), { version: 7 });
   const page = await renderFile(join(templatesDir, 'version.html.ejs'), { version, groups: GROUPS });
   await writeFile(join(htmlDir, 'index.html'), index, 'utf-8');
   await writeFile(join(versionDir, 'index.html'), page, 'utf-8');
