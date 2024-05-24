@@ -9,9 +9,11 @@ export const NOTIFICATIONS = {
   description: `Which methods can be used to be notified of changes to resources.
   These are based on the latest Solid Notifications specification.
   </p><p>"Legacy WebSockets" is an implementation of the deprecated Solid WebSockets API 0.1
-  and allows users to receive notifications for resources they do not have access to.`,
+  and allows users to receive notifications for resources they do not have access to.
+  </p><p>"All" includes all supported notification channels.
+  This currently includes WebSockets, WebHooks and Streaming HTTP.`,
   options: [
-    { value: 'all', label: 'WebSockets & WebHooks' },
+    { value: 'all', label: 'All' },
     { value: 'websockets', label: 'WebSockets' },
     { value: 'webhooks', label: 'WebHooks' },
     { value: 'streaming-http', label: 'Streaming HTTP' },
