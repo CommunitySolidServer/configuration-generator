@@ -14,9 +14,10 @@ export const NOTIFICATIONS = {
     { value: 'all', label: 'WebSockets & WebHooks' },
     { value: 'websockets', label: 'WebSockets' },
     { value: 'webhooks', label: 'WebHooks' },
+    { value: 'streaming-http', label: 'Streaming HTTP' },
     { value: 'legacy-websockets', label: 'Legacy WebSockets' },
     { value: 'new-old-websockets', label: 'Current & Legacy WebSockets' },
     { value: 'disabled', label: 'Disabled' }
   ],
   default: 'all',
-} as const satisfies Choice<'all' | 'websockets' | 'webhooks' | 'legacy-websockets' | 'new-old-websockets' | 'disabled'>;
+} as const satisfies Choice<'all' | 'websockets' | 'webhooks' | 'streaming-http' | 'legacy-websockets' | 'new-old-websockets' | 'disabled'>;
