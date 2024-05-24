@@ -680,7 +680,9 @@
                             <div class="description"><p>Which methods can be used to be notified of changes to resources.
   These are based on the latest Solid Notifications specification.
   </p><p>"Legacy WebSockets" is an implementation of the deprecated Solid WebSockets API 0.1
-  and allows users to receive notifications for resources they do not have access to.</p></div>
+  and allows users to receive notifications for resources they do not have access to.
+  </p><p>"All" includes all supported notification channels.
+  This currently includes WebSockets, WebHooks and Streaming HTTP.</p></div>
                             <fieldset class="radios">
                               
 
@@ -689,7 +691,7 @@
                                 <div class="form-check option" id="notifications:all">
                                   <label class="form-check-label">
                                     <input class="form-check-input" type="radio" name="notifications" value="all" checked>
-                                    WebSockets & WebHooks
+                                    All
                                   </label>
                                 </div>
 
